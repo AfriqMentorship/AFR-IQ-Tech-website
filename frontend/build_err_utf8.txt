@@ -1,0 +1,122 @@
+﻿
+> frontend@0.0.0 build
+> vite build
+
+[36mvite v7.3.1 [32mbuilding client environment for production...[36m[39m
+transforming...
+[32mΓ£ô[39m 19 modules transformed.
+node.exe : [31mΓ£ù[39m 
+Build failed in 249ms
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" "C:\Us
+ers\kutee\AppData\Roaming\ 
+...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~
+    + CategoryInfo           
+   : NotSpecified: ([31mΓ£  
+  ù[39m Build failed in 2   
+ 49ms:String) [], RemoteE    
+xception
+    + FullyQualifiedErrorId  
+   : NativeCommandError
+ 
+[31merror during build:
+[31m[vite:esbuild] 
+Transform failed with 2 
+errors:
+C:/Users/kutee/Desktop/AFR-IQ
+ Technologies website/AFR-IQ 
+Technologies website/frontend
+/src/components/Academy.jsx:9
+84:14: ERROR: Unexpected 
+closing "div" tag does not 
+match opening "form" tag
+C:/Users/kutee/Desktop/AFR-IQ
+ Technologies website/AFR-IQ 
+Technologies website/frontend
+/src/components/Academy.jsx:9
+86:20: ERROR: Expected ")" 
+but found "className"[31m
+file: [36mC:/Users/kutee/Des
+ktop/AFR-IQ Technologies 
+website/AFR-IQ Technologies w
+ebsite/frontend/src/component
+s/Academy.jsx:984:14[31m
+[33m
+[33mUnexpected closing 
+"div" tag does not match 
+opening "form" tag[33m
+982 |              </div>
+983 |  
+984 |              </div>
+    |                ^
+985 |  
+986 |              <button 
+className="enroll-submit" 
+type="submit" 
+disabled={submitting || 
+!user}>
+
+[33mExpected ")" but found 
+"className"[33m
+984 |              </div>
+985 |  
+986 |              <button 
+className="enroll-submit" 
+type="submit" 
+disabled={submitting || 
+!user}>
+    |                      ^
+987 |                
+{submitting ? 
+'Submitting...' : 'Submit 
+Registration ΓåÆ'}
+988 |              </button>
+[31m
+    at failureErrorWithLog (C
+:\Users\kutee\Desktop\AFR-IQ 
+Technologies website\AFR-IQ 
+Technologies website\frontend
+\node_modules\esbuild\lib\mai
+n.js:1467:15)
+    at C:\Users\kutee\Desktop
+\AFR-IQ Technologies 
+website\AFR-IQ Technologies w
+ebsite\frontend\node_modules\
+esbuild\lib\main.js:736:50
+    at 
+responseCallbacks.<computed> 
+(C:\Users\kutee\Desktop\AFR-I
+Q Technologies 
+website\AFR-IQ Technologies w
+ebsite\frontend\node_modules\
+esbuild\lib\main.js:603:9)
+    at handleIncomingPacket (
+C:\Users\kutee\Desktop\AFR-IQ
+ Technologies website\AFR-IQ 
+Technologies website\frontend
+\node_modules\esbuild\lib\mai
+n.js:658:12)
+    at Socket.readFromStdout 
+(C:\Users\kutee\Desktop\AFR-I
+Q Technologies 
+website\AFR-IQ Technologies w
+ebsite\frontend\node_modules\
+esbuild\lib\main.js:581:7)
+    at Socket.emit 
+(node:events:508:28)
+    at addChunk (node:interna
+l/streams/readable:559:12)
+    at 
+readableAddChunkPushByteMode 
+(node:internal/streams/readab
+le:510:3)
+    at Readable.push (node:in
+ternal/streams/readable:390:5
+)
+    at Pipe.onStreamRead (nod
+e:internal/stream_base_common
+s:189:23)[39m
