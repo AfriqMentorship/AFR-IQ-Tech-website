@@ -142,8 +142,8 @@ const styles = `
   /* Product Grid */
   .products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 32px;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 24px;
   }
 
   .product-card {
@@ -171,18 +171,19 @@ const styles = `
     background: var(--accent-orange);
     color: var(--text-inverse);
     font-family: 'Inter', sans-serif;
-    font-size: 10px;
-    font-weight: 800;
+    font-size: 13px;
+    font-weight: 900;
     padding: 6px 12px;
     border-radius: 6px;
     z-index: 2;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    box-shadow: 0 4px 10px var(--accent-orange-glow);
+    letter-spacing: 0.05em;
+    box-shadow: 0 4px 15px var(--accent-orange-glow);
+    white-space: nowrap;
   }
 
   .product-image-box {
-    height: 260px;
+    height: 200px;
     background: var(--bg-level2);
     display: flex;
     align-items: center;
@@ -192,7 +193,7 @@ const styles = `
   }
 
   .product-placeholder {
-    font-size: 72px;
+    font-size: 48px;
     opacity: 0.4;
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
@@ -211,7 +212,7 @@ const styles = `
   }
 
   .product-info {
-    padding: 28px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -229,27 +230,29 @@ const styles = `
 
   .product-name {
     font-family: 'Poppins', sans-serif;
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 800;
     color: var(--text-primary);
     line-height: 1.2;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     letter-spacing: -0.02em;
   }
 
   .product-price {
     font-family: 'Poppins', sans-serif;
-    font-size: 28px;
+    font-size: 26px;
+    font-weight: 900;
     color: var(--accent-green);
-    margin-bottom: 24px;
+    text-shadow: 0 0 10px rgba(0, 200, 120, 0.2);
+    margin-bottom: 20px;
     letter-spacing: 0.02em;
   }
 
   .product-specs {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 28px;
+    gap: 8px;
+    margin-bottom: 24px;
   }
 
   .spec-tag {
@@ -266,7 +269,7 @@ const styles = `
   .add-to-cart-btn {
     margin-top: auto;
     width: 100%;
-    padding: 14px;
+    padding: 12px;
     background: transparent;
     border: 2px solid var(--accent-orange);
     color: var(--accent-orange);
@@ -386,12 +389,51 @@ const styles = `
     border: 3px solid var(--bg-base);
     box-shadow: 0 4px 10px var(--accent-green-glow);
   }
+
+  .course-search-container {
+    background: var(--bg-level2);
+    border: 1px solid var(--border-medium);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    animation: fadeIn 0.4s ease;
+  }
+  .course-search-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--accent-orange);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .course-search-input {
+    width: 100%;
+    padding: 16px 20px;
+    background: var(--bg-level1);
+    border: 2px solid var(--border-subtle);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+  .course-search-input:focus {
+    border-color: var(--accent-orange);
+    box-shadow: 0 0 15px var(--accent-orange-glow);
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
 `;
 
-const CATEGORIES = ["All", "Laptops", "Monitors", "Accessories", "Networking", "Power", "Recommended PCs"];
+const CATEGORIES = ["All", "Laptops", "Recommended PCs"];
 
 export default function Shop({ navigate }) {
   const [activeCategory, setActiveCategory] = useState("All");
+  const [courseSearch, setCourseSearch] = useState("");
   const [addedItems, setAddedItems] = useState({});
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -404,47 +446,9 @@ export default function Shop({ navigate }) {
     fetchProducts();
   }, []);
 
-  const fetchProducts = async () => {
-    setLoading(true);
-    const { data, error } = await supabase.from('products').select('*');
-    
-    // Map existing products from DB
-    const dbData = (data && !error) ? data.map(p => {
-      const imageMap = {
-        "Logitech MX Master 3S": "/products/logitech_mx_master_3s.jpg",
-        "MacBook Pro 14\" M3": "/products/macbook_pro_14__m3.jpg",
-        "Cisco Meraki Go WiFi 6": "/products/cisco_meraki_go_wifi_6.jpg",
-        "APC Back-UPS Pro 1500VA": "/products/apc_back_ups_pro_1500va.jpg",
-        "ThinkPad X1 Carbon Gen 11": "/products/thinkpad_x1_carbon_gen_11.jpg",
-        "Dell UltraSharp 27\" 4K": "/products/dell_ultrasharp_27__4k.jpg"
-      };
-      // Rename overrides for DB products
-      const nameOverrides = {
-        "Logitech MX Master 3S": "Mouse"
-      };
-      // Price overrides in UGX (bypasses the * 3900 conversion)
-      const priceOverrides = {
-        "Logitech MX Master 3S": 30000
-      };
-      const imageRoute = imageMap[p.name];
-      const finalPrice = priceOverrides[p.name] !== undefined ? priceOverrides[p.name] : p.price * 3900;
-      return {
-        ...p,
-        name: nameOverrides[p.name] || p.name,
-        price: finalPrice,
-        image_url: imageRoute || p.image_url
-      };
-    }) : [];
-
-    // Combine with our extended dataset, converting price to UGX
-    // Avoid duplicates by name
-    const dbNames = new Set(dbData.map(p => p.name));
-    const newLocalProducts = localProducts.filter(lp => !dbNames.has(lp.name));
-    
-    const allProducts = [
-      ...dbData,
-      ...newLocalProducts.map(lp => ({...lp}))
-    ];
+  const fetchProducts = () => {
+    // Only use localProducts (now exclusively Jumia items)
+    const allProducts = localProducts.map(lp => ({...lp}));
     
     setProducts(allProducts);
     setLoading(false);
@@ -453,7 +457,13 @@ export default function Shop({ navigate }) {
   const filteredProducts = activeCategory === "All"
     ? products
     : activeCategory === "Recommended PCs"
-      ? products.filter(p => p.recommended_for && p.recommended_for.length > 0)
+      ? products.filter(p => {
+          if (!p.recommended_for || p.recommended_for.length === 0) return false;
+          if (!courseSearch) return true;
+          return p.recommended_for.some(course => 
+            course.toLowerCase().includes(courseSearch.toLowerCase())
+          );
+        })
       : products.filter(p => p.category === activeCategory);
 
   const handleAddToCart = (product) => {
@@ -514,16 +524,16 @@ export default function Shop({ navigate }) {
               <h3 className="filter-title">Price Range</h3>
               <ul className="filter-list">
                 <li className="filter-item">
-                  <div className="filter-checkbox" /> Under UGX 390,000
+                  <div className="filter-checkbox" /> Under UGX 1,000,000
                 </li>
                 <li className="filter-item">
-                  <div className="filter-checkbox" /> UGX 390,000 - UGX 1,950,000
+                  <div className="filter-checkbox" /> UGX 1,000,000 - 2,000,000
                 </li>
                 <li className="filter-item">
-                  <div className="filter-checkbox" /> UGX 1,950,000 - UGX 5,850,000
+                  <div className="filter-checkbox" /> UGX 2,000,000 - 3,500,000
                 </li>
                 <li className="filter-item">
-                  <div className="filter-checkbox" /> Over UGX 5,850,000
+                  <div className="filter-checkbox" /> Over UGX 3,500,000
                 </li>
               </ul>
               <div style={{ marginTop: '20px', fontSize: '12px', color: 'rgba(var(--text-rgb), 0.4)' }}>
@@ -533,14 +543,32 @@ export default function Shop({ navigate }) {
           </aside>
 
           {/* Product Grid */}
-          <div className="products-grid">
+          <div className="product-side">
+            {activeCategory === "Recommended PCs" && (
+              <div className="course-search-container">
+                <span className="course-search-label">Find the Best PC for Your Course</span>
+                <input 
+                  type="text" 
+                  className="course-search-input" 
+                  placeholder="Enter your course name (e.g. Cyber Security, Graphics Design...)"
+                  value={courseSearch}
+                  onChange={(e) => setCourseSearch(e.target.value)}
+                />
+              </div>
+            )}
+
+            <div className="products-grid">
             {loading ? (
               <div style={{ gridColumn: "1 / -1", textAlign: "center", padding: "60px", color: "var(--text-muted)" }}>
                 Loading hardware catalog...
               </div>
             ) : filteredProducts.map(product => (
               <div className="product-card" key={product.id}>
-                {product.badge && <div className="product-badge">{product.badge}</div>}
+                {product.badge && (
+                  <div className="product-badge">
+                    UGX {Number(product.price).toLocaleString()}
+                  </div>
+                )}
 
                 <div className="product-image-box">
                   {product.image_url ? (
@@ -565,23 +593,12 @@ export default function Shop({ navigate }) {
                   <div className="product-category">{product.category}</div>
                   <div style={{ fontSize: '10px', color: 'var(--text-muted)', marginBottom: '4px', fontFamily: 'monospace' }}>ID: {product.id.split('-')[0].toUpperCase()}</div>
                   <h3 className="product-name">{product.name}</h3>
-                  <div className="product-price">UGX {Number(product.price).toLocaleString()}</div>
 
                   <div className="product-specs">
                     {product.specs && product.specs.map(spec => (
                       <span className="spec-tag" key={spec}>{spec}</span>
                     ))}
                   </div>
-
-                  {product.recommended_for && product.recommended_for.length > 0 && (
-                    <div style={{ marginBottom: '20px', display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                      {product.recommended_for.map(course => (
-                        <span key={course} style={{ fontSize: '10px', background: 'rgba(255, 165, 0, 0.1)', color: 'var(--accent-orange)', padding: '4px 8px', borderRadius: '4px', fontWeight: '800' }}>
-                          Best for {course}
-                        </span>
-                      ))}
-                    </div>
-                  )}
 
                   <div style={{ marginTop: 'auto', marginBottom: '12px', fontSize: '11px', color: product.stock > 0 ? 'var(--accent-green)' : '#ff5050', fontWeight: '800' }}>
                     {product.stock > 0 ? `${product.stock} in stock` : 'Out of Stock'}
@@ -605,6 +622,7 @@ export default function Shop({ navigate }) {
             )}
           </div>
 
+          </div>
         </div>
       </div>
 

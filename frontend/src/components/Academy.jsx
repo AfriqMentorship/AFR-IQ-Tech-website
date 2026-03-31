@@ -265,13 +265,15 @@ const styles = `
 
   .course-thumb-badge {
     position: absolute; top: 12px; left: 12px;
-    padding: 4px 10px; border-radius: 4px;
-    font-family: 'Inter', sans-serif; font-size: 9px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.08em; z-index: 2;
+    padding: 6px 12px; border-radius: 6px;
+    font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 0.05em; z-index: 2;
+    background: var(--accent-orange); color: var(--text-inverse);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   }
-  .badge-bestseller { background: var(--accent-orange); color: var(--text-inverse); }
-  .badge-new { background: var(--accent-green); color: var(--text-inverse); }
-  .badge-hot { background: #ff4d4d; color: #fff; }
+  .badge-bestseller { background: var(--accent-orange); }
+  .badge-new { background: var(--accent-green); }
+  .badge-hot { background: #ff4d4d; }
 
   .course-level-dot {
     position: absolute; bottom: 12px; right: 12px;
@@ -330,19 +332,23 @@ const styles = `
 
   /* Price row */
   .course-price-row {
-    display: flex; align-items: center; justify-content: space-between;
-    padding-top: 4px;
+    display: flex; align-items: center; justify-content: center;
+    padding-top: 10px;
   }
-  .course-price { font-family: 'Poppins', sans-serif; font-size: 24px; color: var(--text-primary); }
   .course-enroll-btn {
-    padding: 10px 20px;
+    width: 100%;
+    padding: 12px 24px;
     background: var(--accent-orange); border: none;
-    color: var(--text-inverse); border-radius: 8px;
-    font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 12px;
-    cursor: pointer; transition: all 0.25s; letter-spacing: 0.05em;
+    color: var(--text-inverse); border-radius: 10px;
+    font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 14px;
+    cursor: pointer; transition: all 0.3s ease; letter-spacing: 0.05em;
     text-transform: uppercase;
   }
-  .course-enroll-btn:hover { filter: brightness(1.1); box-shadow: 0 8px 15px var(--accent-orange-glow); }
+  .course-enroll-btn:hover { 
+    transform: translateY(-2px);
+    filter: brightness(1.1); 
+    box-shadow: 0 8px 20px var(--accent-orange-glow); 
+  }
 
   /* Physical tag */
   .phys-tag {
@@ -409,6 +415,23 @@ const styles = `
     .fb-left { flex-direction: column; }
     .course-card { margin: 0 auto; width: 100%; max-width: 400px; }
     .course-meta { flex-direction: column; gap: 8px; align-items: flex-start; }
+  }
+  @media (max-width: 450px) {
+    .ac-hero { padding: 32px 16px; }
+    .ac-hero-title { font-size: 32px; margin-bottom: 16px; }
+    .ac-hero-desc { font-size: 15px; margin-bottom: 24px; }
+    .ac-hero-stats { gap: 16px; border-top: 1px solid var(--border-subtle); padding-top: 24px; }
+    .ac-stat-n { font-size: 28px; }
+    .ac-tabs-bar { top: 60px; }
+    .ac-tab { padding: 12px 16px; font-size: 12px; }
+    .course-grid { gap: 20px; }
+    .ac-main { padding: 20px 12px; }
+    .ac-search-input { padding: 12px 16px; font-size: 13px; }
+    .ac-search-btn { padding: 0 20px; font-size: 13px; }
+  }
+  @media (max-width: 360px) {
+    .ac-hero-title { font-size: 28px; }
+    .ac-stat-n { font-size: 24px; }
   }
 
 
@@ -531,7 +554,7 @@ const physicalCourses = [
     image: "/courses/computer_fundamentals.jpg",
     category: "Computer Fundamentals", title: "Computer Fundamentals",
     instructor: "AFR-IQ Instructor", rating: 4.8, reviews: 320,
-    duration: "10 Weeks", sessions: "5x/Week", level: "beg", levelLabel: "Beginner",
+    duration: "10 Weeks", sessions: "Mon-Fri", level: "beg", levelLabel: "Beginner",
     price: "UGX 500,000", badge: "bestseller", enrolled: "1,200",
     location: "Makerere Kikoni, Sr. Apollo Kagwa Rd", schedule: "Mon – Fri",
     desc: "Introduction to Computers, Internet & Email Basics, Speed Typing & Microsoft Office Applications. Perfect for absolute beginners.",
@@ -540,7 +563,7 @@ const physicalCourses = [
     image: "/courses/course_2.jpg",
     category: "Accounting Software", title: "Business Computing (Quick Books And Tally)",
     instructor: "AFR-IQ Instructor", rating: 4.6, reviews: 210,
-    duration: "4 Weeks", sessions: "5x/Week", level: "beg", levelLabel: "Beginner",
+    duration: "4 Weeks", sessions: "Mon-Fri", level: "beg", levelLabel: "Beginner",
     price: "UGX 400,000", badge: null, enrolled: "890",
     location: "Makerere Kikoni, Sr. Apollo Kagwa Rd", schedule: "Mon – Fri",
     desc: "Learn the on-demand applications for modern Accounting.",
@@ -549,7 +572,7 @@ const physicalCourses = [
     image: "/courses/graphics_design.jpg",
     category: "Graphics Design", title: "Graphics Design",
     instructor: "AFR-IQ Instructor", rating: 4.9, reviews: 412,
-    duration: "8 Weeks", sessions: "5x/Week", level: "beg", levelLabel: "Beginner",
+    duration: "8 Weeks", sessions: "Mon-Fri", level: "beg", levelLabel: "Beginner",
     price: "UGX 450,000", badge: "bestseller", enrolled: "1,340",
     location: "Makerere Kikoni, Sr. Apollo Kagwa Rd", schedule: "Mon – Fri",
     desc: "Photoshop, Illustrator, Canva, Design Principles, Color theory etc.",
@@ -558,7 +581,7 @@ const physicalCourses = [
     image: "/courses/course_4.jpg",
     category: "Marketing", title: "Digital Marketing",
     instructor: "AFR-IQ Instructor", rating: 4.7, reviews: 289,
-    duration: "6 Weeks", sessions: "5x/Week", level: "beg", levelLabel: "Beginner",
+    duration: "6 Weeks", sessions: "Mon-Fri", level: "beg", levelLabel: "Beginner",
     price: "UGX 500,000", badge: null, enrolled: "780",
     location: "Makerere Kikoni, Sr. Apollo Kagwa Rd", schedule: "Mon – Fri",
     desc: "SEO, social media ads, Google AdSense, YouTube ads and more.",
@@ -567,7 +590,7 @@ const physicalCourses = [
     image: "/courses/computer_repair.jpg",
     category: "Computer Repair and Maintenance", title: "Computer Repair And Maintenance",
     instructor: "AFR-IQ Instructor", rating: 4.8, reviews: 178,
-    duration: "8 Weeks", sessions: "5x/Week", level: "beg", levelLabel: "Beginner",
+    duration: "8 Weeks", sessions: "Mon-Fri", level: "beg", levelLabel: "Beginner",
     price: "UGX 600,000", badge: "hot", enrolled: "540",
     location: "Makerere Kikoni, Sr. Apollo Kagwa Rd", schedule: "Mon – Fri",
     desc: "Build the competence to start a computer repair business. Hands-on with real hardware components.",
@@ -576,7 +599,7 @@ const physicalCourses = [
     image: "/courses/course_6.jpg",
     category: "Programming", title: "Introduction to Programming | Coding",
     instructor: "AFR-IQ Instructor", rating: 4.7, reviews: 340,
-    duration: "4 Weeks", sessions: "5x/Week", level: "beg", levelLabel: "Beginner",
+    duration: "4 Weeks", sessions: "Mon-Fri", level: "beg", levelLabel: "Beginner",
     price: "UGX 450,000", badge: null, enrolled: "920",
     location: "Makerere Kikoni, Sr. Apollo Kagwa Rd", schedule: "Mon – Fri",
     desc: "Get solid programming foundations.",
@@ -585,7 +608,7 @@ const physicalCourses = [
     image: "/courses/course_7.jpg",
     category: "Web Development", title: "Website Development",
     instructor: "AFR-IQ Instructor", rating: 4.8, reviews: 560,
-    duration: "8 Weeks", sessions: "5x/Week", level: "beg", levelLabel: "Beginner",
+    duration: "8 Weeks", sessions: "Mon-Fri", level: "beg", levelLabel: "Beginner",
     price: "UGX 450,000", badge: "bestseller", enrolled: "2,100",
     location: "Makerere Kikoni, Sr. Apollo Kagwa Rd", schedule: "Mon – Fri",
     desc: "HTML, CSS and JavaScript Mastery.",
@@ -594,7 +617,7 @@ const physicalCourses = [
     image: "/courses/course_8.jpg",
     category: "Web Development", title: "Advanced Website Development",
     instructor: "AFR-IQ Instructor", rating: 4.9, reviews: 430,
-    duration: "12 Weeks", sessions: "5x/Week", level: "adv", levelLabel: "Advanced",
+    duration: "12 Weeks", sessions: "Mon-Fri", level: "adv", levelLabel: "Advanced",
     price: "UGX 1,500,000", badge: "hot", enrolled: "680",
     location: "Makerere Kikoni, Sr. Apollo Kagwa Rd", schedule: "Mon – Fri",
     desc: "Django, React, Next Js - Become a Professional Web Dev.",
@@ -603,7 +626,7 @@ const physicalCourses = [
     image: "/courses/course_9.jpg",
     category: "Networking", title: "Networking (CCNA Prep)",
     instructor: "AFR-IQ Instructor", rating: 4.8, reviews: 290,
-    duration: "16 Weeks", sessions: "5x/Week", level: "int", levelLabel: "Intermediate",
+    duration: "16 Weeks", sessions: "Mon-Fri", level: "int", levelLabel: "Intermediate",
     price: "UGX 700,000", badge: null, enrolled: "360",
     location: "Makerere Kikoni, Sr. Apollo Kagwa Rd", schedule: "Mon – Fri",
     desc: "Learn all you need to kick start your Networking career.",
@@ -612,7 +635,7 @@ const physicalCourses = [
     image: "/courses/course_10.jpg",
     category: "Networking", title: "Linux Systems Adminstration",
     instructor: "AFR-IQ Instructor", rating: 4.7, reviews: 215,
-    duration: "8 Weeks", sessions: "5x/Week", level: "int", levelLabel: "Intermediate",
+    duration: "8 Weeks", sessions: "Mon-Fri", level: "int", levelLabel: "Intermediate",
     price: "UGX 450,000", badge: null, enrolled: "750",
     location: "Makerere Kikoni, Sr. Apollo Kagwa Rd", schedule: "Mon – Fri",
     desc: "Master system administration on Linux.",
@@ -621,7 +644,7 @@ const physicalCourses = [
     image: "/courses/cybersecurity.jpg",
     category: "Cybersecurity", title: "Cyber Security (Comptia Security+ Prep)",
     instructor: "AFR-IQ Instructor", rating: 4.9, reviews: 380,
-    duration: "12 Weeks", sessions: "5x/Week", level: "int", levelLabel: "Intermediate",
+    duration: "12 Weeks", sessions: "Mon-Fri", level: "adv", levelLabel: "Advanced",
     price: "UGX 1,200,000", badge: "bestseller", enrolled: "490",
     location: "Makerere Kikoni, Sr. Apollo Kagwa Rd", schedule: "Mon – Fri",
     desc: "Master the art and science of defending against cyber threats.",
@@ -630,7 +653,7 @@ const physicalCourses = [
     image: "/courses/ethical_hacking.jpg",
     category: "Cybersecurity", title: "Ethical Hacking (CEH Prep)",
     instructor: "AFR-IQ Instructor", rating: 4.9, reviews: 510,
-    duration: "16 Weeks", sessions: "5x/Week", level: "adv", levelLabel: "Advanced",
+    duration: "16 Weeks", sessions: "Mon-Fri", level: "adv", levelLabel: "Advanced",
     price: "UGX 2,500,000", badge: "hot", enrolled: "320",
     location: "Makarere Kikoni, Sr. Apollo Kagwa Rd", schedule: "Mon – Fri",
     desc: "Be The Hacker You Fear — Learn all the Tools needed for Modern Hacking.",
@@ -639,7 +662,7 @@ const physicalCourses = [
     image: "/courses/cloud_computing.jpg",
     category: "Cloud Computing", title: "Cloud Computing (Comptia Cloud+ Prep)",
     instructor: "AFR-IQ Instructor", rating: 4.8, reviews: 210,
-    duration: "8 Weeks", sessions: "5x/Week", level: "int", levelLabel: "Intermediate",
+    duration: "8 Weeks", sessions: "Mon-Fri", level: "int", levelLabel: "Intermediate",
     price: "UGX 650,000", badge: "new", enrolled: "410",
     location: "Makerere Kikoni, Sr. Apollo Kagwa Rd", schedule: "Mon – Fri",
     desc: "Deploy and manage scalable cloud applications.",
@@ -648,7 +671,7 @@ const physicalCourses = [
     image: "/courses/course_14.jpg",
     category: "Mobile Development", title: "Mobile App Development",
     instructor: "AFR-IQ Instructor", rating: 4.8, reviews: 290,
-    duration: "12 Weeks", sessions: "5x/Week", level: "int", levelLabel: "Intermediate",
+    duration: "12 Weeks", sessions: "Mon-Fri", level: "adv", levelLabel: "Advanced",
     price: "UGX 1,200,000", badge: "new", enrolled: "360",
     location: "Makerere Kikoni, Sr. Apollo Kagwa Rd", schedule: "Mon – Fri",
     desc: "Learn how to build Mobile Apps for both Android & iOS.",
@@ -657,7 +680,7 @@ const physicalCourses = [
     image: "/courses/course_15.jpg",
     category: "Data", title: "Data Analysis",
     instructor: "AFR-IQ Instructor", rating: 4.8, reviews: 290,
-    duration: "8 Weeks", sessions: "5x/Week", level: "int", levelLabel: "Intermediate",
+    duration: "8 Weeks", sessions: "Mon-Fri", level: "int", levelLabel: "Intermediate",
     price: "UGX 450,000", badge: "new", enrolled: "360",
     location: "Makerere Kikoni, Sr. Apollo Kagwa Rd", schedule: "Mon – Fri",
     desc: "Learn how to analyze and visualize complex datasets in business.",
@@ -666,7 +689,7 @@ const physicalCourses = [
     image: "/courses/video_editing.jpg",
     category: "Video Editing and Photography", title: "Video Editing and Photography",
     instructor: "AFR-IQ Instructor", rating: 4.9, reviews: 195,
-    duration: "8 Weeks", sessions: "5x/Week", level: "beg", levelLabel: "Beginner",
+    duration: "8 Weeks", sessions: "Mon-Fri", level: "beg", levelLabel: "Beginner",
     price: "UGX 600,000", badge: "new", enrolled: "410",
     location: "Makerere Kikoni, Sr. Apollo Kagwa Rd", schedule: "Mon – Fri",
     desc: "Learn all you need to start a successful Video Production and Photography business.",
@@ -707,11 +730,9 @@ function CourseCard({ course, type, onEnroll, isApproved, onWatch }) {
         ) : (
           <span style={{ fontSize: 52 }}>{course.icon || '📚'}</span>
         )}
-        {course.badge && (
-          <div className={`course-thumb-badge badge-${course.badge}`}>
-            {course.badge === "bestseller" ? "Bestseller" : course.badge === "new" ? "New" : "🔥 Hot"}
-          </div>
-        )}
+        <div className={`course-thumb-badge ${course.badge ? `badge-${course.badge}` : ''}`}>
+          {course.price}
+        </div>
         <div className={`course-level-dot ${levelClass}`}>{course.levelLabel}</div>
       </div>
 
@@ -720,11 +741,7 @@ function CourseCard({ course, type, onEnroll, isApproved, onWatch }) {
         <div className="course-title">{course.title}</div>
         <div className="course-instructor">by {course.instructor}</div>
 
-        <div className="course-rating-row">
-          <span className="rating-score">{course.rating}</span>
-          <StarRating rating={course.rating} />
-          <span className="rating-count">({course.reviews.toLocaleString()})</span>
-        </div>
+
 
         {type === "physical" ? (
           <>
@@ -743,14 +760,13 @@ function CourseCard({ course, type, onEnroll, isApproved, onWatch }) {
         )}
 
         <div className="course-price-row">
-          <div className="course-price">{course.price}</div>
           {type === "selfpaced" && isApproved ? (
             <button className="course-enroll-btn" style={{background: '#00c878', border: 'none', color: '#fff'}} onClick={onWatch}>
               Watch Video 🎬
             </button>
           ) : (
             <button className="course-enroll-btn" onClick={onEnroll}>
-              {type === "physical" ? "Register →" : "Enroll →"}
+              Apply
             </button>
           )}
         </div>
@@ -767,13 +783,13 @@ function EnrollModal({ course, mode, onClose, user }) {
   const getRecommendedPC = (courseTitle) => {
     if (!courseTitle) return null;
     const title = courseTitle.toLowerCase();
-    if (title.includes('design') || title.includes('graphics') || title.includes('video')) {
-      return { name: 'MacBook Pro 14" M3', icon: '🍎', desc: 'Recommended for heavy graphics & design software' };
+    if (title.includes('design') || title.includes('graphics') || title.includes('video') || title.includes('photography')) {
+      return { name: 'HP Core i7 Touchscreen', icon: '🎨', desc: 'Powerful i7 & 16GB RAM for smooth design, video editing and photography.' };
     }
-    if (title.includes('programming') || title.includes('coding') || title.includes('development') || title.includes('website')) {
-      return { name: 'ThinkPad X1 Carbon', icon: '💻', desc: 'Ideal local processing power for coding & dev environments' };
+    if (title.includes('programming') || title.includes('coding') || title.includes('development') || title.includes('website') || title.includes('cyber') || title.includes('hacking')) {
+      return { name: 'ThinkPad X1 Carbon i7', icon: '🛡️', desc: 'Secure, ultra-light and fast i7/16GB. Best for Software Engineering, Cybersecurity and Web Dev.' };
     }
-    return { name: 'Dell Ultra or ThinkPad', icon: '💻', desc: 'Perfect for general computing, office suites & productivity' };
+    return { name: 'HP EliteBook i5 (8GB)', icon: '💼', desc: 'High-performance i5 Business edition. Ideal for Fundamentals and Business Computing.' };
   };
   const recPC = getRecommendedPC(course.title);
   const [submitting, setSubmitting] = useState(false);
@@ -1333,20 +1349,7 @@ export default function Academy({ navigate }) {
 
           {/* SIDEBAR */}
           <aside className="ac-sidebar">
-            <div className="sidebar-section">
-              <div className="sidebar-section-title">Category</div>
-              {categories.map(cat => (
-                <div className="filter-option" key={cat} onClick={() => setActiveCategory(cat)}>
-                  <div className={`filter-check ${activeCategory === cat ? "checked" : ""}`}>
-                    {activeCategory === cat && "✓"}
-                  </div>
-                  <span className="filter-label">{cat}</span>
-                  <span className="filter-count">
-                    {cat === "All" ? courses.length : courses.filter(c => c.category === cat).length}
-                  </span>
-                </div>
-              ))}
-            </div>
+
 
             <div className="sidebar-section">
               <div className="sidebar-section-title">Level</div>
@@ -1357,17 +1360,7 @@ export default function Academy({ navigate }) {
               ))}
             </div>
 
-            {activeTab === "physical" && (
-              <div className="sidebar-section">
-                <div className="sidebar-section-title">Schedule</div>
-                {["Weekdays", "Weekends", "Saturdays Only"].map(s => (
-                  <div className="filter-option" key={s}>
-                    <div className="filter-check" />
-                    <span className="filter-label">{s}</span>
-                  </div>
-                ))}
-              </div>
-            )}
+
 
             {(activeCategory !== "All" || activeLevel !== "All Levels") && (
               <button className="clear-btn" onClick={clearFilters}>Clear all filters</button>

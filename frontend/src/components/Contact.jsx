@@ -397,7 +397,7 @@ export default function Contact() {
                     <label className="form-label">Your Name *</label>
                     <input
                       className="form-input"
-                      placeholder="John Doe"
+                      placeholder="Full Name"
                       required
                       value={form.name}
                       onChange={e => set('name', e.target.value)}
@@ -408,7 +408,7 @@ export default function Contact() {
                     <input
                       className="form-input"
                       type="email"
-                      placeholder="john@example.com"
+                      placeholder="email@example.com"
                       required
                       value={form.email}
                       onChange={e => set('email', e.target.value)}

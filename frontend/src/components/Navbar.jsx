@@ -109,6 +109,7 @@ const navStyles = `
   .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
   .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .mobile-only-icon { display: none; }
 
   /* ── DRAWER OVERLAY ── */
   .drawer-overlay {
@@ -231,15 +232,29 @@ const navStyles = `
 
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
-    .navbar { padding: 0 20px; height: 65px; backdrop-filter: blur(10px); }
+    .navbar { padding: 0 16px; height: 65px; backdrop-filter: blur(10px); }
     .nav-links { display: none; }
-    .nav-actions { display: none; }
+    .nav-actions { gap: 8px; }
+    .nav-btn-ghost { padding: 6px 12px; font-size: 12px; }
+    .nav-btn-cta { padding: 7px 16px; font-size: 12px; }
   }
   @media (max-width: 500px) {
-    .navbar { padding: 0 16px; height: 60px; }
-    .nav-brand-text { font-size: 18px; }
-    .nav-logo-box { width: 36px; height: 36px; }
-    .nav-hamburger { width: 36px; height: 36px; }
+    .navbar { padding: 0 12px; height: 60px; }
+    .nav-brand-text { font-size: 16px; letter-spacing: 0.04em; }
+    .nav-brand-sub { font-size: 6px; }
+    .nav-logo-box { width: 32px; height: 32px; gap: 6px; }
+    .nav-hamburger { width: 34px; height: 34px; padding: 7px; gap: 4px; }
+    .nav-brand { gap: 6px; }
+    
+    /* Keep essential icons on tiny phones but hide text labels */
+    .nav-actions { gap: 6px; }
+    .nav-btn-ghost, .nav-btn-cta { width: 34px; height: 34px; padding: 0 !important; display: flex; align-items: center; justify-content: center; border-radius: 6px; }
+    .btn-text-label { display: none; }
+    .mobile-only-icon { display: block !important; font-size: 14px; }
+  }
+  @media (max-width:360px) {
+    .nav-brand-text { display: none; } /* Show only logo on extremely small screens */
+    .nav-actions { gap: 4px; }
   }
 `;
 
@@ -421,28 +436,34 @@ export default function Navbar({ currentPage, navigate }) {
               {theme === 'dark' ? '☀️' : '🌙'}
             </button>
             {user ? (
-              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                 <div style={{
-                  width: "36px", height: "36px", borderRadius: "50%",
+                  width: "32px", height: "32px", borderRadius: "50%",
                   background: "#FF813E", color: "#ffffff",
                   display: "flex", alignItems: "center", justifyContent: "center",
-                  fontWeight: "bold", fontFamily: "'Poppins', sans-serif"
+                  fontWeight: "bold", fontFamily: "'Poppins', sans-serif", fontSize: '13px'
                 }}>
                   {user.user_metadata?.full_name?.charAt(0) || "U"}
                 </div>
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                  <span style={{ fontSize: "12px", fontWeight: "600", color: "var(--text)", fontFamily: "'Poppins', sans-serif" }}>
+                <div className="btn-text-label" style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+                  <span style={{ fontSize: "11px", fontWeight: "600", color: "var(--text)", fontFamily: "'Poppins', sans-serif", lineHeight: 1 }}>
                     {user.user_metadata?.full_name?.split(" ")[0] || "User"}
                   </span>
-                  <button onClick={logout} style={{ fontSize: "10px", color: "rgba(var(--text-rgb), 0.5)", background: "none", border: "none", cursor: "pointer", padding: 0, fontFamily: "'Inter', sans-serif" }}>
+                  <button onClick={logout} style={{ fontSize: "9px", color: "rgba(var(--text-rgb), 0.5)", background: "none", border: "none", cursor: "pointer", padding: 0, fontFamily: "'Inter', sans-serif" }}>
                     Sign Out
                   </button>
                 </div>
               </div>
             ) : (
               <>
-                <button className="nav-btn-ghost" onClick={() => navigate("Login")}>Log In</button>
-                <button className="nav-btn-cta" onClick={() => navigate("Signup")}>Sign Up</button>
+                <button className="nav-btn-ghost" onClick={() => navigate("Login")}>
+                  <span className="btn-text-label">Log In</span>
+                  <span className="mobile-only-icon">🔑</span>
+                </button>
+                <button className="nav-btn-cta" onClick={() => navigate("Signup")}>
+                  <span className="btn-text-label">Sign Up</span>
+                  <span className="mobile-only-icon">✨</span>
+                </button>
               </>
             )}
           </div>

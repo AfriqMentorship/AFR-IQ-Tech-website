@@ -3,6 +3,10 @@ import { useEffect, useRef, useState } from "react";
 const styles = `
   .home { background: var(--bg-base); color: var(--text-primary); font-family: 'Poppins', sans-serif; transition: all 0.3s ease; }
 
+  @media (max-width: 700px) {
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+  }
+
   /* ─── HERO ─── */
   .hero {
     position: relative;
@@ -470,6 +474,19 @@ const styles = `
     .stats-card:last-child { border-radius: 0 0 16px 0; }
     .trust-bar { gap: 28px; }
   }
+  @media (max-width: 420px) {
+    .hero-title { font-size: 34px !important; }
+    .hero-subtitle { font-size: 14px; margin: 20px 0 32px; }
+    .hero-tag { font-size: 10px; margin-bottom: 20px; }
+    .hero-btn-primary, .hero-btn-outline { padding: 14px 28px; font-size: 12px; }
+    .stats-heading { font-size: 28px; }
+    .stats-card-icon { width: 56px; height: 56px; font-size: 28px; }
+    .stats-count { font-size: 32px; }
+  }
+  @media (max-width: 360px) {
+    .hero-title { font-size: 28px !important; }
+    .stats-grid { grid-template-columns: 1fr; }
+  }
 `;
 
 const bars = [35, 55, 40, 70, 50, 80, 45, 90, 60, 75, 55, 85, 40, 65, 50, 78, 62, 88];
@@ -491,74 +508,80 @@ const STATS = [
 
 const TESTIMONIALS = [
   {
-    id: 1,
-    text: "AFR-IQ transformed our entire IT infrastructure. Their team is incredibly responsive and knowledgeable. We went from constant downtime to 99.9% uptime in just 3 months. Absolutely phenomenal service!",
-    name: "David Nakimuli",
-    role: "CEO, Pearl Fintech Ltd · Kampala",
+    id: 0,
+    text: "The Computer Fundamentals course at AFR-IQ Academy gave me the confidence and skills to navigate the digital world. The instructors made complex concepts so easy to understand!",
+    name: "Doreen Nimusiima",
+    role: "Computer Fundamentals Graduate · Kampala",
     avatar: "DN",
-    avatarColor: "",
-    tag: "IT Solutions",
-    tagColor: "",
-    stars: 5,
-    featured: true,
-  },
-  {
-    id: 2,
-    text: "The Academy program gave me the skills to land my dream job in cybersecurity. The instructors are world-class and the curriculum is practical. I got hired within 2 weeks of graduating!",
-    name: "Sarah Achieng",
-    role: "Cybersecurity Analyst · Nairobi",
-    avatar: "SA",
-    avatarColor: "green",
+    avatarColor: "teal",
+    img: "/doreen.png",
     tag: "Academy",
     tagColor: "green",
     stars: 5,
     featured: false,
   },
   {
-    id: 3,
-    text: "Ordered a MacBook Pro from the Tech Shop — delivered same day, well-packaged and genuine. The prices are unbeatable compared to other stores in Kampala. Will definitely order again!",
-    name: "Ronald Ssemakula",
-    role: "Software Developer · Kampala",
-    avatar: "RS",
+    id: 1,
+    text: "The programming courses at AFR-IQ Academy are intensive and industry-focused. I gained the skills to build full-scale applications and start my career as a software engineer!",
+    name: "Hamidu Kyevuna",
+    role: "Full-Stack Developer Graduate · Kampala",
+    avatar: "HK",
     avatarColor: "blue",
-    tag: "Tech Shop",
-    tagColor: "blue",
+    img: "/hamidu.jpg.jpeg",
+    tag: "Academy",
+    tagColor: "green",
+    stars: 5,
+    featured: false,
+  },
+  {
+    id: 2,
+    text: "Our brand visibility and customer acquisition grew by 300% after implementing the Digital Marketing strategies I learned at AFR-IQ. The ROI has been incredible!",
+    name: "David Nakimuli",
+    role: "Digital Marketing Specialist · Kampala",
+    avatar: "DN",
+    avatarColor: "gold",
+    img: "/david.png",
+    tag: "Digital Marketing",
+    tagColor: "orange",
+    stars: 5,
+    featured: true,
+  },
+  {
+    id: 3,
+    text: "The Mobile App Development course was a game-changer. I am now building production-ready iOS and Android apps for clients across East Africa!",
+    name: "Sarah Achieng",
+    role: "Mobile App Developer · Nairobi",
+    avatar: "SA",
+    avatarColor: "green",
+    img: "/sarah.png",
+    tag: "Mobile Apps",
+    tagColor: "green",
     stars: 5,
     featured: false,
   },
   {
     id: 4,
-    text: "The IMS platform completely changed how we manage our internship program. We went from spreadsheets to a fully automated system. Our HR team saves over 20 hours a week now!",
-    name: "Grace Atim",
-    role: "HR Director, Nile Data Systems · Jinja",
-    avatar: "GA",
-    avatarColor: "purple",
-    tag: "IMS Platform",
-    tagColor: "",
+    text: "The Computer Networking training at AFR-IQ is world-class. I can now design, configure and secure complex enterprise networks with ease.",
+    name: "Ronald Ssemakula",
+    role: "Network Engineer · Kampala",
+    avatar: "RS",
+    avatarColor: "blue",
+    img: "/ronald.png",
+    tag: "Networking",
+    tagColor: "blue",
     stars: 5,
     featured: false,
   },
   {
     id: 5,
-    text: "Their cybersecurity audit found vulnerabilities we didn't even know existed. The team secured our banking app and educated our developers. Best investment we made in 2024.",
-    name: "Moses Tumusiime",
-    role: "CTO, SafePay Uganda · Kampala",
-    avatar: "MT",
-    avatarColor: "teal",
-    tag: "Cybersecurity",
-    tagColor: "green",
-    stars: 5,
-    featured: false,
-  },
-  {
-    id: 6,
-    text: "I enrolled in the Web Development course with zero coding knowledge. 8 weeks later, I built my first client website and earned my first freelance income. AFR-IQ Academy is a life-changer!",
-    name: "Fatuma Hassan",
-    role: "Freelance Developer · Mombasa",
-    avatar: "FH",
-    avatarColor: "red",
-    tag: "Academy",
-    tagColor: "green",
+    text: "The AFR-IQ Internship program provided the hands-on real-world experience I needed to bridge the gap between classroom theory and industry practice!",
+    name: "Grace Atim",
+    role: "IT Intern Alumna · Jinja",
+    avatar: "GA",
+    avatarColor: "purple",
+    img: "/grace.png",
+    tag: "Internship",
+    tagColor: "purple",
     stars: 5,
     featured: false,
   },
@@ -630,7 +653,11 @@ function TestimonialCard({ t, index }) {
       </div>
       <p className="t-text">"{t.text}"</p>
       <div className="t-author">
-        <div className={`t-avatar ${t.avatarColor}`}>{t.avatar}</div>
+        {t.img ? (
+          <img src={t.img} alt={t.name} style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--accent-orange)' }} />
+        ) : (
+          <div className={`t-avatar ${t.avatarColor}`}>{t.avatar}</div>
+        )}
         <div>
           <div className="t-name">{t.name}</div>
           <div className="t-role">{t.role}</div>

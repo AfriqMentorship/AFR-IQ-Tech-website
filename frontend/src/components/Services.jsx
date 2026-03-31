@@ -127,15 +127,23 @@ const styles = `
   .srv-list li::before { content: '→'; color: var(--accent-orange); font-weight: 900; }
 
   @media (max-width: 1200px) {
-    .services-grid { grid-template-columns: 1fr; padding: 60px 24px; }
-    .page-hero { padding: 80px 24px 60px; }
-    .page-title { font-size: 52px; }
+    .services-grid { grid-template-columns: 1fr; padding: 40px 24px; }
+    .page-hero { padding: 60px 24px 40px; }
+    .page-title { font-size: clamp(38px, 8vw, 52px); }
   }
   @media (max-width: 500px) {
-    .page-hero { padding: 40px 16px; }
-    .page-title { font-size: 40px; }
-    .services-grid { padding: 40px 16px; gap: 24px; }
+    .page-hero { padding: 32px 16px; }
+    .page-eyebrow { margin-bottom: 12px; }
+    .page-title { font-size: 32px; margin-bottom: 16px; }
+    .page-desc { font-size: 15px; }
+    .services-grid { padding: 32px 16px; gap: 20px; }
     .srv-card { padding: 24px; }
+    .srv-name { font-size: 22px; }
+    .srv-icon { width: 56px; height: 56px; font-size: 28px; margin-bottom: 16px; }
+  }
+  @media (max-width: 380px) {
+    .page-title { font-size: 28px; }
+    .srv-card { padding: 20px; }
   }
 `;
 

@@ -12,7 +12,7 @@ const styles = `
 
   .page-hero {
     position: relative;
-    padding: 100px 48px 80px;
+    padding: 80px 48px 60px;
     border-bottom: 1px solid var(--border-medium);
     overflow: hidden;
     background: var(--bg-base);
@@ -43,7 +43,7 @@ const styles = `
     display: flex; align-items: center; gap: 12px;
     font-weight: 700;
   }
-  .page-eyebrow::before { content: ''; display: block; width: 32px; height: 1.5px; background: var(--accent-green); opacity: 0.6; }
+  .page-eyebrow::before { content: ''; display: block; width: 32px; height: 1.5px; background: currentColor; opacity: 0.6; }
   .page-title {
     font-family: 'Poppins', sans-serif;
     font-size: clamp(40px, 9vw, 96px);
@@ -59,14 +59,14 @@ const styles = `
   .about-content {
     display: flex;
     flex-direction: column;
-    gap: 120px;
-    padding: 80px 48px 120px;
+    gap: 80px;
+    padding: 60px 48px 80px;
   }
 
   .about-section {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 80px;
+    gap: 48px;
     align-items: center;
   }
 
@@ -75,7 +75,7 @@ const styles = `
     font-weight: 800;
     font-size: 48px;
     color: var(--text-primary);
-    margin-bottom: 32px;
+    margin-bottom: 24px;
     letter-spacing: -0.02em;
     line-height: 1.1;
   }
@@ -85,7 +85,7 @@ const styles = `
     font-size: 17px;
     color: var(--text-secondary);
     line-height: 1.8;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
   }
 
   .about-image-container {
@@ -118,8 +118,8 @@ const styles = `
   .values-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 32px;
-    margin-top: 56px;
+    gap: 24px;
+    margin-top: 40px;
   }
 
   .value-card {
@@ -148,12 +148,12 @@ const styles = `
     width: 64px; height: 64px;
     background: var(--bg-level2);
     border-radius: 16px;
-    color: var(--accent-green);
+    color: var(--accent-orange);
     border: 1px solid var(--border-medium);
     transition: all 0.3s ease;
   }
   .value-card:hover .value-icon {
-    background: var(--accent-green);
+    background: var(--accent-orange);
     color: var(--text-inverse);
     transform: scale(1.1) rotate(5deg);
   }
@@ -175,9 +175,9 @@ const styles = `
 
   .stats-container {
     display: flex;
-    gap: 48px;
-    margin-top: 48px;
-    padding-top: 48px;
+    gap: 32px;
+    margin-top: 32px;
+    padding-top: 32px;
     border-top: 1px solid var(--border-medium);
   }
 
@@ -216,8 +216,8 @@ const styles = `
   .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 32px;
-    margin-top: 64px;
+    gap: 24px;
+    margin-top: 40px;
   }
 
   .gallery-item {
@@ -334,21 +334,28 @@ const styles = `
     .lightbox-prev { left: 16px; }
     .lightbox-next { right: 16px; }
     .lightbox-close { top: -56px; right: 16px; }
-    .about-content { padding: 60px 24px; gap: 80px; }
-    .about-section { grid-template-columns: 1fr; gap: 48px; }
+    .about-content { padding: 40px 24px; gap: 60px; }
+    .about-section { grid-template-columns: 1fr; gap: 32px; }
     .about-section.reverse { direction: ltr; }
     .about-text-content { order: 1; }
     .about-image-container { order: 2; height: 320px; }
-    .page-hero { padding: 80px 24px 60px; }
+    .page-hero { padding: 60px 24px 40px; }
     .values-grid { grid-template-columns: 1fr; }
     .about-text-content h2 { font-size: 38px; }
     .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
   }
   @media (max-width: 600px) {
-    .page-hero { padding: 40px 16px; }
-    .about-content { padding: 40px 16px; gap: 60px; }
+    .page-hero { padding: 40px 16px 32px; }
+    .about-content { padding: 32px 16px; gap: 40px; }
     .gallery-grid { grid-template-columns: 1fr; }
-    .stats-container { flex-direction: column; gap: 24px; padding-top: 32px; }
+    .stats-container { flex-direction: column; gap: 20px; padding-top: 24px; }
+  }
+  @media (max-width: 400px) {
+    .page-title { font-size: 32px; }
+    .about-text-content h2 { font-size: 28px; }
+    .page-hero { padding: 32px 16px 24px; }
+    .stats-container { gap: 16px; }
+    .stat-number { font-size: 32px; }
   }
 `;
 
@@ -397,13 +404,13 @@ export default function AboutUs() {
 
           {/* Section 1: Mission */}
           <div className="about-section">
-            <div className="about-text-content">
-              <div className="page-eyebrow" style={{ color: 'var(--accent-orange)' }}>Our Purpose</div>
-              <h2>Our <span className="hl">Mission</span></h2>
+            <div className="about-text-content" style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}>
+              <div className="page-eyebrow" style={{ color: 'var(--accent-green)', justifyContent: 'center' }}>Our Purpose</div>
+              <h2>Our <span className="hl" style={{ color: 'var(--accent-orange)' }}>Mission</span></h2>
               <p>
                 To empower African talent through inventive-driven technology training and the delivery of cutting-edge IT services that solve real-world problems, inspire innovation, and strengthen the continent's digital resilience against emerging technological threats.
               </p>
-              <div className="stats-container">
+              <div className="stats-container" style={{ justifyContent: 'center' }}>
                 <div className="stat-item">
                   <span className="stat-number">10+</span>
                   <span className="stat-label">Years Experience</span>
@@ -418,25 +425,17 @@ export default function AboutUs() {
                 </div>
               </div>
             </div>
-            <div className="about-image-container">
-              <img src="/mission.jpg" alt="Our Mission" style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0, zIndex: 0 }} />
-              <div className="about-image-overlay" style={{ zIndex: 1 }} />
-            </div>
           </div>
 
           {/* Section 2: Vision */}
-          <div className="about-section reverse">
-            <div className="about-image-container">
-              <img src="/vision.jpg" alt="Our Vision" style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0, zIndex: 0 }} />
-              <div className="about-image-overlay" style={{ zIndex: 1 }} />
-            </div>
-            <div className="about-text-content">
-              <div className="page-eyebrow" style={{ color: '#00c878' }}>Where We're Going</div>
-              <h2>Our <span className="hl" style={{ color: '#00c878' }}>Vision</span></h2>
+          <div className="about-section">
+            <div className="about-text-content" style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}>
+              <div className="page-eyebrow" style={{ color: 'var(--accent-green)', justifyContent: 'center' }}>Where We're Going</div>
+              <h2>Our <span className="hl" style={{ color: 'var(--accent-orange)' }}>Vision</span></h2>
               <p>
                 Helping Africa attain technology independence by instilling creative thinking, fostering innovation, and delivering comprehensive IT services, thereby making a lasting impact on the continent's technological landscape.
               </p>
-              <p style={{ fontStyle: 'italic', opacity: 0.7, borderLeft: '3px solid #00c878', paddingLeft: '20px', marginTop: '24px' }}>
+              <p style={{ fontStyle: 'italic', opacity: 0.7, borderLeft: '3px solid var(--accent-green)', paddingLeft: '20px', marginTop: '24px', display: 'inline-block', textAlign: 'left' }}>
                 "Driving Africa to Technology Independence"
               </p>
             </div>
@@ -445,11 +444,11 @@ export default function AboutUs() {
           {/* Section 3: Core Values */}
           <div>
             <div className="about-text-content" style={{ textAlign: 'center', marginBottom: '20px' }}>
-              <div className="page-eyebrow" style={{ color: '#00c878', justifyContent: 'center' }}>What Guides Us</div>
-              <h2>Our Core <span className="hl" style={{ color: '#00c878' }}>Values</span></h2>
+              <div className="page-eyebrow" style={{ color: 'var(--accent-green)', justifyContent: 'center' }}>What Guides Us</div>
+              <h2>Our Core <span className="hl" style={{ color: 'var(--accent-orange)' }}>Values</span></h2>
               <p style={{ maxWidth: '600px', margin: '0 auto' }}>Ten key values that define our culture and operations.</p>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '24px', marginTop: '48px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '20px', marginTop: '32px' }}>
               {[
                 { icon: '💡', title: 'Creativity', desc: 'Encouraging original thinking and innovative problem-solving.' },
                 { icon: '🇺🇬', title: 'Patriotism', desc: "Committed to positively contributing to Africa's tech growth." },
@@ -474,8 +473,8 @@ export default function AboutUs() {
           {/* Section 4: Objectives */}
           <div>
             <div className="about-text-content" style={{ textAlign: 'center', marginBottom: '40px' }}>
-              <div className="page-eyebrow" style={{ color: 'var(--accent-orange)', justifyContent: 'center' }}>What We Aim For</div>
-              <h2>Our <span className="hl">Objectives</span></h2>
+              <div className="page-eyebrow" style={{ color: 'var(--accent-green)', justifyContent: 'center' }}>What We Aim For</div>
+              <h2>Our <span className="hl" style={{ color: 'var(--accent-orange)' }}>Objectives</span></h2>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px' }}>
               <div className="value-card">
@@ -508,7 +507,7 @@ export default function AboutUs() {
                     'Bridge academia and industry via internship and apprenticeship programs with real industry exposure.',
                   ].map((item, i) => (
                     <li key={i} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                      <span style={{ color: '#00c878', fontWeight: 800, flexShrink: 0 }}>{i + 1}.</span>
+                      <span style={{ color: 'var(--accent-orange)', fontWeight: 800, flexShrink: 0 }}>{i + 1}.</span>
                       {item}
                     </li>
                   ))}
@@ -552,23 +551,23 @@ export default function AboutUs() {
                   <div key={i} style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.6, padding: '10px 14px', background: 'var(--bg-level2)', borderRadius: '10px', border: '1px solid var(--border-subtle)' }}>{t}</div>
                 ))}
               </div>
-              <div style={{ marginTop: '28px', padding: '20px', background: 'rgba(0,200,120,0.07)', borderRadius: '14px', border: '1px solid rgba(0,200,120,0.2)' }}>
-                <div style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 800, color: '#00c878', marginBottom: '6px', fontSize: '13px', letterSpacing: '0.1em', textTransform: 'uppercase' }}>📍 Head Office</div>
+              <div style={{ marginTop: '28px', padding: '20px', background: 'rgba(255,129,62,0.07)', borderRadius: '14px', border: '1px solid rgba(255,129,62,0.2)' }}>
+                <div style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 800, color: 'var(--accent-orange)', marginBottom: '6px', fontSize: '13px', letterSpacing: '0.1em', textTransform: 'uppercase' }}>📍 Head Office</div>
                 <div style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.7 }}>Makerere Kikoni – Kasule Mall, Level 2<br/>Sr. Apollo Kagwa Road, Kampala, Uganda</div>
               </div>
             </div>
           </div>
 
           {/* Section 3: The Team */}
-          <div style={{ marginTop: '60px' }}>
+          <div style={{ marginTop: '40px' }}>
             <div className="about-text-content" style={{ textAlign: 'center', marginBottom: '40px' }}>
-              <h2>Meet Our Team</h2>
+              <h2>Meet Our <span className="hl">Team</span></h2>
               <p style={{ maxWidth: '600px', margin: '0 auto' }}>
                 Software Engineers and Instructors driving our vision.
               </p>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '32px', marginTop: '56px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px', marginTop: '40px' }}>
               {[
                 {
                   name: "Obuyinza Bwamukama (Sifu)",
@@ -697,9 +696,9 @@ export default function AboutUs() {
           </div>
 
           {/* Section 4: Gallery */}
-          <div style={{ marginTop: '80px' }}>
+          <div style={{ marginTop: '60px' }}>
             <div className="about-text-content" style={{ textAlign: 'center', marginBottom: '40px' }}>
-              <h2>Our <span className="hl" style={{ color: '#00c878' }}>Gallery</span></h2>
+              <h2>Our <span className="hl" style={{ color: 'var(--accent-orange)' }}>Gallery</span></h2>
               <p style={{ maxWidth: '600px', margin: '0 auto' }}>
                 A glimpse into our world, events, and the people behind AFR-IQ Technologies.
               </p>
@@ -719,9 +718,9 @@ export default function AboutUs() {
                 <div
                   className="gallery-item"
                   onClick={() => setShowAll(true)}
-                  style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'rgba(0, 200, 120, 0.05)', border: '2px dashed rgba(0, 200, 120, 0.4)' }}
+                  style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'rgba(255, 129, 62, 0.05)', border: '2px dashed rgba(255, 129, 62, 0.4)' }}
                 >
-                  <div style={{ fontSize: '48px', color: '#00c878', marginBottom: '10px' }}>+{galleryImages.length - 7}</div>
+                  <div style={{ fontSize: '48px', color: 'var(--accent-orange)', marginBottom: '10px' }}>+{galleryImages.length - 7}</div>
                   <div className="gallery-caption" style={{ transform: 'none' }}>View All Photos</div>
                 </div>
               )}
