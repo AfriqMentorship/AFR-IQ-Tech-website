@@ -366,7 +366,7 @@ export default function Signup({ navigate }) {
                 <label className="auth-label">Full Name *</label>
                 <div className="auth-input-wrap">
                   <span className="auth-input-icon">👤</span>
-                  <input className="auth-input" placeholder="John Doe" value={form.fullName} onChange={e => set("fullName", e.target.value)} />
+                  <input className="auth-input" placeholder="Your Full Name" value={form.fullName} onChange={e => set("fullName", e.target.value)} />
                 </div>
               </div>
               <div className="auth-field">

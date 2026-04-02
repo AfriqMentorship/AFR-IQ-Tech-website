@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "./AuthContext";
-import { supabase } from "../supabaseClient";
+import { supabase, COURSE_UNITS } from "../supabaseClient";
 import { sendNotificationEmail } from "../utils/sendEmail";
 
 const styles = `
@@ -251,7 +251,8 @@ const TABS = [
   { id: 'ims', label: 'Internship (IMS)', icon: '📝' },
   { id: 'academy', label: 'Academy Programs', icon: '🎓' },
   { id: 'shop', label: 'Shop Orders', icon: '📦' },
-  { id: 'messages', label: 'Contact Messages', icon: '💬' }
+  { id: 'messages', label: 'Contact Messages', icon: '💬' },
+  { id: 'talented', label: 'Talented Pool', icon: '🌟' }
 ];
 
 export default function AdminDashboard() {
@@ -265,6 +266,7 @@ export default function AdminDashboard() {
   const [onlineVideos, setOnlineVideos] = useState([]);
   const [products, setProducts] = useState([]);
   const [messages, setMessages] = useState([]);
+  const [talentedPool, setTalentedPool] = useState([]);
   const [dismissedIds, setDismissedIds] = useState(() => {
     try {
       return JSON.parse(localStorage.getItem('admin_dismissed_ids') || '[]');
@@ -283,6 +285,21 @@ export default function AdminDashboard() {
   const [notif, setNotif] = useState(null); // { msg, type }
   const [confirmObj, setConfirmObj] = useState(null);
   const [txnInput, setTxnInput] = useState({ id: null, val: '' });
+
+  const [selectedCourse, setSelectedCourse] = useState("");
+  const [checkedUnits, setCheckedUnits] = useState([]);
+  const [strengthUnits, setStrengthUnits] = useState([]);
+
+  const toggleUnit = (unit) => {
+    setCheckedUnits(prev => prev.includes(unit) ? prev.filter(u => u !== unit) : [...prev, unit]);
+    if (checkedUnits.includes(unit) && strengthUnits.includes(unit)) {
+       setStrengthUnits(prev => prev.filter(u => u !== unit));
+    }
+  };
+
+  const toggleStrength = (unit) => {
+    setStrengthUnits(prev => prev.includes(unit) ? prev.filter(u => u !== unit) : [...prev, unit]);
+  };
 
   const showNotif = (msg, type = 'success') => {
     setNotif({ msg, type });
@@ -350,7 +367,7 @@ export default function AdminDashboard() {
 
   const fetchData = async () => {
     setLoading(true);
-    const [usersRes, imsRes, companiesRes, academyRes, onlineRes, shopRes, msgRes, productsRes] = await Promise.all([
+    const [usersRes, imsRes, companiesRes, academyRes, onlineRes, shopRes, msgRes, productsRes, talentedRes] = await Promise.all([
       supabase.from('users').select('*').order('created_at', { ascending: false }),
       supabase.from('internships').select('*, users!internships_student_id_fkey(full_name, email, phone), companies(name)').order('created_at', { ascending: false }),
       supabase.from('companies').select('*').order('created_at', { ascending: false }),
@@ -358,7 +375,8 @@ export default function AdminDashboard() {
       supabase.from('academy_videos').select('*').order('created_at', { ascending: false }),
       supabase.from('orders').select('*, users(full_name, email, phone), order_items(quantity, products(name))').neq('status', 'Deleted').order('created_at', { ascending: false }),
       supabase.from('contact_messages').select('*').neq('status', 'Deleted').order('created_at', { ascending: false }),
-      supabase.from('products').select('*').order('created_at', { ascending: false })
+      supabase.from('products').select('*').order('created_at', { ascending: false }),
+      supabase.from('talented').select('*').neq('status', 'Deleted').order('created_at', { ascending: false })
     ]);
 
     if (usersRes.data) setUsers(usersRes.data);
@@ -369,6 +387,7 @@ export default function AdminDashboard() {
     if (shopRes.data) setShopOrders(shopRes.data.filter(o => !dismissedIds.includes(o.id)));
     if (msgRes.data) setMessages(msgRes.data.filter(m => !dismissedIds.includes(m.id)));
     if (productsRes.data) setProducts(productsRes.data);
+    if (talentedRes.data) setTalentedPool(talentedRes.data);
     setLoading(false);
   };
 
@@ -1137,6 +1156,231 @@ export default function AdminDashboard() {
                 </div>
               </>
             )}
+          </>
+        );
+
+      case 'talented':
+        return (
+          <>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+              <h3 style={{ fontFamily: "'Poppins', sans-serif", fontSize: "28px", color: "var(--text)" }}>Talented Pool Management</h3>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+              {/* ADD TALENT FORM */}
+              <div style={{ background: 'var(--bg-level1)', border: '1px solid var(--border-subtle)', borderRadius: '24px', padding: '32px' }}>
+                <h4 style={{ fontFamily: "'Poppins', sans-serif", fontSize: '20px', marginBottom: '20px', color: 'var(--text-primary)' }}>Add New Talent</h4>
+                <form onSubmit={async (e) => {
+                  e.preventDefault();
+                  try {
+                    const fd = new FormData(e.target);
+                    const cvFile = fd.get('cv_file');
+                    const picFile = fd.get('pic_file');
+                    let cv_url = null;
+                    let image_url = null;
+
+                    showNotif('Adding talent, please wait...', 'pending');
+
+                    // Upload CV
+                    if (cvFile && cvFile.size > 0) {
+                      const fileName = `${Date.now()}_cv_${cvFile.name.replace(/\s+/g, '_')}`;
+                      const { error: uploadError } = await supabase.storage
+                        .from('talented_cvs')
+                        .upload(fileName, cvFile);
+                      
+                      if (uploadError) throw new Error('CV Upload Error: ' + uploadError.message);
+                      const { data: { publicUrl } } = supabase.storage.from('talented_cvs').getPublicUrl(fileName);
+                      cv_url = publicUrl;
+                    }
+
+                    // Upload Picture
+                    if (picFile && picFile.size > 0) {
+                      const fileName = `${Date.now()}_pic_${picFile.name.replace(/\s+/g, '_')}`;
+                      const { error: uploadError } = await supabase.storage
+                        .from('talented_cvs')
+                        .upload(fileName, picFile);
+                      
+                      if (uploadError) throw new Error('Picture Upload Error: ' + uploadError.message);
+                      const { data: { publicUrl } } = supabase.storage.from('talented_cvs').getPublicUrl(fileName);
+                      image_url = publicUrl;
+                    }
+
+                    const payload = {
+                      name: fd.get('name'),
+                      category: fd.get('category'),
+                      course: fd.get('course'),
+                      cv_url: cv_url,
+                      image_url: image_url,
+                      skills: checkedUnits.join(', '),
+                      strengths: strengthUnits.join(', ')
+                    };
+
+                    const { error } = await supabase.from('talented').insert([payload]);
+                    if (error) throw error;
+
+                    showNotif('Talent added successfully!', 'success');
+                    e.target.reset();
+                    fetchData();
+                  } catch (err) {
+                    console.error("Submission error:", err);
+                    showNotif('Error: ' + (err.message || 'Check database table and storage bucket existence.'), 'error');
+                  }
+                }} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                  <div className="form-group"><label className="form-label">Full Name</label><input className="form-input" name="name" required placeholder="Full Name" style={{ background: 'var(--bg-level2)', border: '1px solid var(--border-subtle)', padding: '12px', borderRadius: '8px', color: 'var(--text-primary)' }} /></div>
+                  <div className="form-group">
+                    <label className="form-label">Category</label>
+                    <select className="form-input" name="category" required style={{ background: 'var(--bg-level2)', border: '1px solid var(--border-subtle)', padding: '12px', borderRadius: '8px', color: 'var(--text-primary)', width: '100%' }}>
+                      <option value="Afric Graduate">AFR-IQ Graduate</option>
+                      <option value="Intern Graduate">Internship Graduate</option>
+                    </select>
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">Course Completed</label>
+                    <select 
+                      className="form-input" 
+                      name="course" 
+                      required 
+                      value={selectedCourse}
+                      onChange={(e) => {
+                        setSelectedCourse(e.target.value);
+                        setCheckedUnits([]);
+                        setStrengthUnits([]);
+                      }}
+                      style={{ background: 'var(--bg-level2)', border: '1px solid var(--border-subtle)', padding: '12px', borderRadius: '8px', color: 'var(--text-primary)', width: '100%' }}
+                    >
+                      <option value="">Select a Course...</option>
+                      {Object.keys(COURSE_UNITS).map((c, i) => (
+                        <option key={i} value={c}>{c}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="form-group"><label className="form-label">Student Picture</label><input type="file" className="form-input" name="pic_file" accept="image/*" style={{ background: 'var(--bg-level2)', border: '1px solid var(--border-subtle)', padding: '8px', borderRadius: '8px', color: 'var(--text-primary)' }} /></div>
+                  <div className="form-group" style={{ gridColumn: '1 / -1' }}><label className="form-label">CV (PDF)</label><input type="file" className="form-input" name="cv_file" accept=".pdf" style={{ background: 'var(--bg-level2)', border: '1px solid var(--border-subtle)', padding: '8px', borderRadius: '8px', color: 'var(--text-primary)', width: '100%' }} /></div>
+                  
+                  <div className="form-group" style={{ gridColumn: '1 / -1' }}>
+                    <label className="form-label" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span>Course Units & Areas of Strength</span>
+                      <div style={{ display: 'flex', gap: '8px' }}>
+                        <input 
+                          type="text" 
+                          id="custom-unit-input"
+                          placeholder="Add custom unit..." 
+                          style={{ 
+                            background: 'var(--bg-level3)', border: '1px solid var(--border-subtle)', 
+                            padding: '4px 12px', borderRadius: '20px', fontSize: '11px', color: 'var(--text-primary)',
+                            width: '140px'
+                          }} 
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              e.preventDefault();
+                              const val = e.target.value.trim();
+                              if (val) {
+                                setCheckedUnits(prev => prev.includes(val) ? prev : [...prev, val]);
+                                e.target.value = '';
+                              }
+                            }
+                          }}
+                        />
+                        {selectedCourse && <span style={{ fontSize: '10px', color: 'var(--accent-green)', fontWeight: 700 }}>★ Mark as Strength</span>}
+                      </div>
+                    </label>
+                    {((selectedCourse && COURSE_UNITS[selectedCourse]) || checkedUnits.length > 0) ? (
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '10px', background: 'var(--bg-level2)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-subtle)' }}>
+                        {[...new Set([...(COURSE_UNITS[selectedCourse] || []), ...checkedUnits])].map((unit, idx) => {
+                          const isChecked = checkedUnits.includes(unit);
+                          const isStrength = strengthUnits.includes(unit);
+                          return (
+                            <div key={idx} style={{ 
+                                display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', 
+                                background: isChecked ? 'rgba(var(--text-primary-rgb), 0.03)' : 'transparent', 
+                                borderRadius: '10px', border: '1px solid',
+                                borderColor: isStrength ? 'var(--accent-green)' : (isChecked ? 'var(--border-strong)' : 'var(--border-subtle)'),
+                                transition: 'all 0.2s ease',
+                                cursor: 'pointer'
+                            }} onClick={() => toggleUnit(unit)}>
+                               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flex: 1 }}>
+                                 <div style={{ 
+                                   width: '18px', height: '18px', borderRadius: '4px', border: '2px solid var(--border-strong)',
+                                   background: isChecked ? 'var(--accent-orange)' : 'none',
+                                   display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', color: '#fff'
+                                 }}>
+                                   {isChecked && '✓'}
+                                 </div>
+                                 <span style={{ fontSize: '13px', color: isChecked ? 'var(--text-primary)' : 'var(--text-muted)', fontWeight: isChecked ? 600 : 400 }}>{unit}</span>
+                               </div>
+                               {isChecked && (
+                                 <button 
+                                   type="button" 
+                                   onClick={(e) => { e.stopPropagation(); toggleStrength(unit); }} 
+                                   style={{ 
+                                     background: isStrength ? 'var(--accent-green)' : 'none', 
+                                     border: 'none', cursor: 'pointer', fontSize: '14px', 
+                                     width: '24px', height: '24px', borderRadius: '50%',
+                                     display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                     color: isStrength ? '#fff' : 'var(--text-muted)',
+                                     filter: isStrength ? 'none' : 'grayscale(1)',
+                                     opacity: isStrength ? 1 : 0.4,
+                                     transition: 'all 0.2s'
+                                   }}
+                                 >
+                                   ★
+                                 </button>
+                               )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    ) : (
+                      <div style={{ padding: '40px', textAlign: 'center', color: 'var(--text-muted)', background: 'var(--bg-level2)', borderRadius: '16px', border: '2px dashed var(--border-subtle)' }}>
+                        <div style={{ fontSize: '24px', marginBottom: '8px' }}>📚</div>
+                        <div style={{ fontSize: '14px', fontWeight: 600 }}>Please select a course above to manage candidate units</div>
+                      </div>
+                    )}
+                  </div>
+                  <button type="submit" className="btn-submit" style={{ gridColumn: '1 / -1', background: 'var(--accent-orange)', color: '#fff', border: 'none', padding: '14px', borderRadius: '12px', fontWeight: 'bold', cursor: 'pointer' }}>Add to Pool</button>
+                </form>
+              </div>
+
+              {/* TALENT LIST */}
+              <div className="admin-table-wrapper">
+                <table className="admin-table">
+                  <thead>
+                    <tr><th>Photo</th><th>Name</th><th>Category</th><th>Course</th><th>CV</th><th>Actions</th></tr>
+                  </thead>
+                  <tbody>
+                    {talentedPool.map(t => (
+                      <tr key={t.id}>
+                        <td>
+                          <div style={{ width: '40px', height: '40px', borderRadius: '8px', overflow: 'hidden', background: 'var(--bg-level2)' }}>
+                            {t.image_url ? <img src={t.image_url} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : '👤'}
+                          </div>
+                        </td>
+                        <td style={{ fontWeight: 700 }}>{t.name}</td>
+                        <td><span className={`badge ${t.category === 'Afric Graduate' ? 'active' : 'completed'}`}>{t.category}</span></td>
+                        <td>{t.course}</td>
+                        <td>
+                          {t.cv_url ? <a href={t.cv_url} target="_blank" style={{ color: 'var(--accent-orange)', fontWeight: 'bold' }}>📄 View CV</a> : 'No CV'}
+                        </td>
+                        <td>
+                          <button className="action-btn" style={{ color: '#ff5050' }} onClick={() => {
+                            setConfirmObj({
+                              msg: 'Are you sure you want to remove this person from the talented pool?',
+                              onConfirm: async () => {
+                                setConfirmObj(null);
+                                await supabase.from('talented').delete().eq('id', t.id);
+                                fetchData();
+                                showNotif('Removed from talented pool.');
+                              }
+                            });
+                          }}>Delete</button>
+                        </td>
+                      </tr>
+                    ))}
+                    {talentedPool.length === 0 && <tr><td colSpan="5" style={{ textAlign: 'center', color: 'rgba(255,255,255,0.4)', padding: '40px' }}>No talent added yet.</td></tr>}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </>
         );
 

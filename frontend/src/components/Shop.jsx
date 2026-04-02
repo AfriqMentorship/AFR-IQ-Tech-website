@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { supabase } from "../supabaseClient";
+import { supabase, COURSE_UNITS } from "../supabaseClient";
 import { useAuth } from "./AuthContext";
 import { useCart } from "./CartContext";
 import { localProducts } from "../data/localProducts";
@@ -309,14 +309,20 @@ const styles = `
   }
 
   @media (max-width: 1100px) {
-    .shop-container { display: flex; flex-direction: column; }
-    .shop-sidebar { position: static; display: flex; flex-wrap: wrap; gap: 40px; }
+    .shop-container { display: flex; flex-direction: column; gap: 32px; }
+    .shop-sidebar { position: static; display: flex; flex-wrap: wrap; gap: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--border-subtle); }
+    .filter-group { margin-bottom: 0; flex: 1; min-width: 200px; }
   }
 
-  @media (max-width: 768px) {
-    .shop-container { padding: 40px 24px; }
-    .page-hero { padding: 80px 24px 60px; }
+  @media (max-width: 900px) {
+    .products-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 600px) {
+    .shop-container { padding: 40px 20px; }
+    .page-hero { padding: 80px 20px 60px; }
     .products-grid { grid-template-columns: 1fr; }
+    .shop-sidebar { flex-direction: column; }
   }
 
   .shop-error-alert {
@@ -412,7 +418,8 @@ const styles = `
   .course-search-input {
     width: 100%;
     padding: 16px 20px;
-    background: var(--bg-level1);
+    background: var(--bg-level1) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23ff9500' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") no-repeat right 20px center;
+    background-size: 20px;
     border: 2px solid var(--border-subtle);
     border-radius: 12px;
     color: var(--text-primary);
@@ -420,10 +427,17 @@ const styles = `
     font-size: 16px;
     outline: none;
     transition: all 0.3s ease;
+    cursor: pointer;
+    appearance: none;
   }
   .course-search-input:focus {
     border-color: var(--accent-orange);
     box-shadow: 0 0 15px var(--accent-orange-glow);
+  }
+  .course-search-input option {
+    background: var(--bg-level1);
+    color: var(--text-primary);
+    padding: 10px;
   }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -547,13 +561,16 @@ export default function Shop({ navigate }) {
             {activeCategory === "Recommended PCs" && (
               <div className="course-search-container">
                 <span className="course-search-label">Find the Best PC for Your Course</span>
-                <input 
-                  type="text" 
+                <select 
                   className="course-search-input" 
-                  placeholder="Enter your course name (e.g. Cyber Security, Graphics Design...)"
                   value={courseSearch}
                   onChange={(e) => setCourseSearch(e.target.value)}
-                />
+                >
+                  <option value="">-- Click to Select Your Course --</option>
+                  {Object.keys(COURSE_UNITS).map(course => (
+                    <option key={course} value={course}>{course}</option>
+                  ))}
+                </select>
               </div>
             )}
 

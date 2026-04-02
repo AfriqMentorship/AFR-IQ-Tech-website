@@ -96,7 +96,7 @@ const navStyles = `
 
   /* ── HAMBURGER ── */
   .nav-hamburger {
-    display: flex; flex-direction: column; justify-content: center; gap: 5px;
+    display: none; flex-direction: column; justify-content: center; gap: 5px;
     width: 40px; height: 40px; padding: 8px;
     background: none; border: 1px solid var(--border); border-radius: 6px;
     cursor: pointer; transition: border-color 0.2s; flex-shrink: 0;
@@ -237,24 +237,26 @@ const navStyles = `
     .nav-actions { gap: 8px; }
     .nav-btn-ghost { padding: 6px 12px; font-size: 12px; }
     .nav-btn-cta { padding: 7px 16px; font-size: 12px; }
+    .nav-hamburger { display: flex; }
   }
   @media (max-width: 500px) {
     .navbar { padding: 0 12px; height: 60px; }
-    .nav-brand-text { font-size: 16px; letter-spacing: 0.04em; }
+    .nav-brand-text { font-size: 16px; letter-spacing: 0.02em; }
     .nav-brand-sub { font-size: 6px; }
-    .nav-logo-box { width: 32px; height: 32px; gap: 6px; }
+    .nav-logo-box { width: 30px; height: 30px; }
     .nav-hamburger { width: 34px; height: 34px; padding: 7px; gap: 4px; }
-    .nav-brand { gap: 6px; }
+    .nav-brand { gap: 4px; }
     
     /* Keep essential icons on tiny phones but hide text labels */
     .nav-actions { gap: 6px; }
-    .nav-btn-ghost, .nav-btn-cta { width: 34px; height: 34px; padding: 0 !important; display: flex; align-items: center; justify-content: center; border-radius: 6px; }
+    .nav-btn-ghost, .nav-btn-cta { width: 32px; height: 32px; padding: 0 !important; display: flex; align-items: center; justify-content: center; border-radius: 6px; }
     .btn-text-label { display: none; }
     .mobile-only-icon { display: block !important; font-size: 14px; }
   }
-  @media (max-width:360px) {
-    .nav-brand-text { display: none; } /* Show only logo on extremely small screens */
+  @media (max-width:380px) {
+    .nav-brand-text, .nav-brand-sub { display: none; } /* Show only logo on extremely small screens */
     .nav-actions { gap: 4px; }
+    .nav-hamburger { width: 32px; height: 32px; }
   }
 `;
 
@@ -267,6 +269,7 @@ const navLinks = [
   { label: "Shop", key: "Shop", icon: "📦", sub: "Smart Tech Sales" },
   { label: "About Us", key: "AboutUs", icon: "🏢", sub: "Our Story & Team" },
   { label: "Blog", key: "Blog", icon: "📝", sub: "News & Updates" },
+  { label: "Talented", key: "Talented", icon: "🌟", sub: "Graduates & Interns" },
   { label: "Contact", key: "Contact", icon: "💬", sub: "Get in Touch" },
   { label: "Admin", key: "Admin", icon: "🛡️", sub: "Control Panel" },
 ];

@@ -15,6 +15,7 @@ import IMS from "./components/IMS";
 import IMSApply from "./components/IMSApply";
 import IMSDashboard from "./components/IMSDashboard";
 import AdminDashboard from "./components/AdminDashboard";
+import Talented from "./components/Talented";
 import { useAuth } from "./components/AuthContext";
 import ResetPassword from "./components/ResetPassword";
 
@@ -65,6 +66,7 @@ export default function App() {
       case "AboutUs": return <AboutUs navigate={navigate} />;
       case "Contact": return <Contact navigate={navigate} />;
       case "Blog": return <Blog navigate={navigate} />;
+      case "Talented": return <Talented navigate={navigate} />;
       case "Shop": return <Shop navigate={navigate} />;
       case "Checkout": return <Checkout navigate={navigate} />;
       case "IMS": return <IMS navigate={navigate} />;
