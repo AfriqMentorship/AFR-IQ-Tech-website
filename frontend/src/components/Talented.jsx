@@ -68,7 +68,7 @@ const talentedStyles = `
     font-size: clamp(48px, 6vw, 72px);
     font-weight: 800;
     margin-bottom: 24px;
-    color: #fff;
+    color: var(--text-primary);
     line-height: 1;
     letter-spacing: -0.02em;
   }
@@ -167,10 +167,10 @@ const talentedStyles = `
   }
 
   .graduate-card {
-    background: rgba(20, 20, 20, 0.4);
+    background: var(--bg-glass);
     backdrop-filter: blur(40px);
     -webkit-backdrop-filter: blur(40px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-subtle);
     border-radius: 24px;
     padding: 20px;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -259,7 +259,7 @@ const talentedStyles = `
     font-family: 'Poppins', sans-serif;
     font-size: 17px;
     font-weight: 800;
-    color: #fff;
+    color: var(--text-primary);
     margin: 0;
     line-height: 1.2;
   }
@@ -293,8 +293,8 @@ const talentedStyles = `
   }
 
   .skills-toggle {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--bg-level2);
+    border: 1px solid var(--border-subtle);
     color: var(--text-secondary);
     padding: 6px 12px;
     border-radius: 10px;
@@ -313,8 +313,8 @@ const talentedStyles = `
   }
 
   .skills-toggle:hover {
-    background: rgba(255, 255, 255, 0.08);
-    color: #fff;
+    background: var(--bg-level1);
+    color: var(--text-primary);
   }
 
   .skills-dropdown {
@@ -338,20 +338,20 @@ const talentedStyles = `
   }
 
   .skill-item {
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--bg-level2);
     color: var(--text-muted);
     padding: 4px 10px;
     border-radius: 16px;
     font-size: 10px;
     font-weight: 600;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-subtle);
   }
 
   .grad-actions {
     display: flex;
     gap: 8px;
     padding-top: 16px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid var(--border-subtle);
   }
 
   .cv-btn, .connect-btn {
@@ -371,8 +371,8 @@ const talentedStyles = `
     letter-spacing: 0.02em;
   }
 
-  .cv-btn { border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; background: rgba(255, 255, 255, 0.05); }
-  .cv-btn:hover { background: #fff; color: #000; }
+  .cv-btn { border: 1px solid var(--border-subtle); color: var(--text-primary); background: var(--bg-level2); }
+  .cv-btn:hover { background: var(--text-primary); color: var(--bg-base); }
 
   .connect-btn { background: #00dc8c; color: #000; }
   .connect-btn:hover { background: #00f0a0; transform: translateY(-2px); }
