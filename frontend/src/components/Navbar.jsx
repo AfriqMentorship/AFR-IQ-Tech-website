@@ -269,7 +269,7 @@ const navLinks = [
   { label: "Shop", key: "Shop", icon: "📦", sub: "Smart Tech Sales" },
   { label: "About Us", key: "AboutUs", icon: "🏢", sub: "Our Story & Team" },
   { label: "Blog", key: "Blog", icon: "📝", sub: "News & Updates" },
-  { label: "Talented", key: "Talented", icon: "🌟", sub: "Graduates & Interns" },
+  { label: "Talent", key: "Talented", icon: "🌟", sub: "Graduates & Interns" },
   { label: "Contact", key: "Contact", icon: "💬", sub: "Get in Touch" },
   { label: "Admin", key: "Admin", icon: "🛡️", sub: "Control Panel" },
 ];

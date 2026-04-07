@@ -252,7 +252,7 @@ const TABS = [
   { id: 'academy', label: 'Academy Programs', icon: '🎓' },
   { id: 'shop', label: 'Shop Orders', icon: '📦' },
   { id: 'messages', label: 'Contact Messages', icon: '💬' },
-  { id: 'talented', label: 'Talented Pool', icon: '🌟' }
+  { id: 'talented', label: 'Talent Pool', icon: '🌟' }
 ];
 
 export default function AdminDashboard() {
@@ -1163,7 +1163,7 @@ export default function AdminDashboard() {
         return (
           <>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-              <h3 style={{ fontFamily: "'Poppins', sans-serif", fontSize: "28px", color: "var(--text)" }}>Talented Pool Management</h3>
+              <h3 style={{ fontFamily: "'Poppins', sans-serif", fontSize: "28px", color: "var(--text)" }}>Talent Pool Management</h3>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
