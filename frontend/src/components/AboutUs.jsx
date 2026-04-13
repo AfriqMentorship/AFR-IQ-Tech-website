@@ -574,7 +574,7 @@ export default function AboutUs() {
                   role: "C.E.O & Instructor",
                   img: "/team/byamukama.jpg",
                   desc: "Visionary leader and tech expert. Dedicated to driving Afriq's mission of driving Africa to technology independence through Research & Innovation, Quality I.T solutions and Industry Relevant Tech Training.",
-                  skills: ["Leadership", "Strategy", "Tech Education", "Software Development", "Cyber Security", "Mobile App Development", "Ethical Hacking", "Networking"],
+                  skills: ["Leadership", "Strategy", "Cyber Sec & Networking", "Website Dev & Mobile App Dev"],
                   social: { linkedin: "https://linkedin.com", twitter: "https://x.com" }
                 },
                 {

@@ -493,7 +493,7 @@ const bars = [35, 55, 40, 70, 50, 80, 45, 90, 60, 75, 55, 85, 40, 65, 50, 78, 62
 
 const services = [
   { icon: "🖥️", name: "IT Solutions", desc: "Infrastructure & Support" },
-  { icon: "🎓", name: "AFR Academy", desc: "Professional Training" },
+  { icon: "🎓", name: "Academy", desc: "Professional Training" },
   { icon: "📦", name: "Tech Shop", desc: "Smart Device Sales" },
   { icon: "📊", name: "IMS Platform", desc: "Internship Management" },
   { icon: "🔒", name: "Cybersecurity", desc: "Threat Protection" },
@@ -598,7 +598,6 @@ function useCountUp(target, duration = 2000, shouldStart = false) {
     const step = (now) => {
       const elapsed = now - start;
       const progress = Math.min(elapsed / duration, 1);
-      // Ease out cubic
       const eased = 1 - Math.pow(1 - progress, 3);
       setCount(Math.floor(eased * target));
       if (progress < 1) {
@@ -711,12 +710,10 @@ export default function Home({ navigate }) {
             </p>
             <div className="hero-ctas">
               <button className="hero-btn-primary" onClick={() => navigate("Services")}>Explore Services</button>
-              <button className="hero-btn-outline" onClick={() => navigate("Contact")}>Book a Demo</button>
-            </div>
-            <div className="hero-stats">
-              <div><div className="stat-value">500+</div><div className="stat-label">Clients Served</div></div>
-              <div><div className="stat-value">98%</div><div className="stat-label">Uptime SLA</div></div>
-              <div><div className="stat-value">12+</div><div className="stat-label">Years in Tech</div></div>
+              <button className="hero-btn-outline" onClick={() => navigate("Contact")}>Contact Us</button>
+              <button className="hero-btn-outline" onClick={() => navigate("Videos")} style={{ display: 'flex', gap: '8px', alignItems: 'center', borderColor: 'var(--accent-orange)' }}>
+                <span style={{ color: 'var(--accent-orange)' }}>▶</span> Video
+              </button>
             </div>
           </div>
 
@@ -797,27 +794,14 @@ export default function Home({ navigate }) {
         {/* Services strip */}
         <div className="services-strip">
           {services.map(s => (
-            <div className="service-item" key={s.name} onClick={() => navigate(s.name === "AFR Academy" ? "Academy" : s.name === "IMS Platform" ? "IMS" : s.name === "Tech Shop" ? "Shop" : "Services")}>
+            <div className="service-item" key={s.name} onClick={() => navigate(s.name === "Academy" ? "Academy" : s.name === "IMS Platform" ? "IMS" : s.name === "Tech Shop" ? "Shop" : "Services")}>
               <div className="svc-icon">{s.icon}</div>
               <div><div className="svc-name">{s.name}</div><div className="svc-desc">{s.desc}</div></div>
             </div>
           ))}
         </div>
 
-        {/* ─── ANIMATED STATS SECTION ─── */}
-        <section className="stats-section" ref={statsRef}>
-          <div className="stats-inner">
-            <div className="stats-label">Our Impact In Numbers</div>
-            <h2 className="stats-heading">
-              Trusted by Hundreds,<br /><span>Proven by Results</span>
-            </h2>
-            <div className="stats-grid">
-              {STATS.map((s, i) => (
-                <StatCard key={s.title} {...s} index={i} shouldCount={shouldCount} />
-              ))}
-            </div>
-          </div>
-        </section>
+
 
         {/* ─── TESTIMONIALS SECTION ─── */}
         <section className="testimonials-section">

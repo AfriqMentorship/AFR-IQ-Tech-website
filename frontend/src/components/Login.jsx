@@ -250,6 +250,7 @@ export default function Login({ navigate }) {
   const { login, loginWithGoogle, resetPassword } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [supvForm, setSupvForm] = useState({ name: "", email: "", university: "", password: "", regNo: "" });
   const [showPass, setShowPass] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -304,20 +305,73 @@ export default function Login({ navigate }) {
     }
   };
 
-  const handleSupervisorAccess = async (regNo) => {
-    if (!regNo) return;
+  const handleSupervisorAccess = async () => {
+    const { name, university, email, password, regNo } = supvForm;
+    setError("");
+    setSuccess("");
+    if (!name || !email || !university || !password || !regNo) {
+      setError("Please fill in all fields to create your supervisor access account.");
+      return;
+    }
+    
     setLoading(true);
-    const { data } = await supabase
+
+    // 1. Try to create the supervisor account
+    const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { data: { full_name: name, role: 'supervisor', university } }
+    });
+
+    // If account exists, we'll try to sign in instead
+    const alreadyExists = signUpError?.message?.toLowerCase().includes('already registered') || signUpError?.status === 422;
+
+    if (signUpError && !alreadyExists) {
+      setError("Account creation failed: " + signUpError.message);
+      setLoading(false);
+      return;
+    }
+
+    // 2. Sign in to ensure we have a session
+    const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    });
+
+    if (signInError) {
+      setError("Access denied: " + signInError.message);
+      setLoading(false);
+      return;
+    }
+
+    const currentUserId = signInData.user.id;
+
+    // 3. Ensure supervisor record exists in public.users
+    try {
+        await supabase.from('users').upsert([{
+            id: currentUserId,
+            email,
+            full_name: name,
+            role: 'supervisor',
+            status: 'Active'
+        }]);
+    } catch (_) {}
+
+    // 4. Locate Student by Registration Number
+    const { data: studentInt, error: studentError } = await supabase
       .from('internships')
-      .select('student_id')
+      .select('student_id, full_name, first_name, last_name')
       .eq('registration_number', regNo)
       .maybeSingle();
     
     setLoading(false);
-    if (data) {
-      navigate(`IMS?student_id=${data.student_id}`);
+    if (studentInt) {
+      const studentName = studentInt.full_name || `${studentInt.first_name} ${studentInt.last_name}`;
+      setSuccess(`Linked to student: ${studentName}. Redirecting to dashboard...`);
+      setTimeout(() => navigate(`IMS?student_id=${studentInt.student_id}`), 1500);
     } else {
-      setError("Registration number not found in our IMS records.");
+      setSuccess("Account verified! However, no student was found with that Registration Number.");
+      setError("Please ensure the student has already submitted their IMS application with the correct Reg No.");
     }
   };
 
@@ -431,9 +485,45 @@ export default function Login({ navigate }) {
               </div>
             )}
 
-            {/* SUPERVISOR MODE: Reg Number Field */}
+            {/* SUPERVISOR MODE: Create Account & View */}
             {authMode === "supervisor" && !isForgot && (
               <div style={{ animation: "fadeIn 0.4s ease" }}>
+                <p style={{ fontSize: "12px", color: "var(--text-muted)", marginBottom: "16px", lineHeight: "1.5" }}>
+                  Supervisors must create an account first to access a student's internship progress.
+                </p>
+
+                <div className="auth-field" style={{ marginBottom: "16px" }}>
+                  <label className="auth-label">Full Name</label>
+                  <div className="auth-input-wrap">
+                    <span className="auth-input-icon">👤</span>
+                    <input className="auth-input" placeholder="Full Name" value={supvForm.name} onChange={e=>setSupvForm({...supvForm, name: e.target.value})} />
+                  </div>
+                </div>
+
+                <div className="auth-field" style={{ marginBottom: "16px" }}>
+                  <label className="auth-label">University / Company Name</label>
+                  <div className="auth-input-wrap">
+                    <span className="auth-input-icon">🏫</span>
+                    <input className="auth-input" placeholder="e.g. Makerere University" value={supvForm.university} onChange={e=>setSupvForm({...supvForm, university: e.target.value})} />
+                  </div>
+                </div>
+
+                <div className="auth-field" style={{ marginBottom: "16px" }}>
+                  <label className="auth-label">Email Address</label>
+                  <div className="auth-input-wrap">
+                    <span className="auth-input-icon">✉</span>
+                    <input className="auth-input" type="email" placeholder="supervisor@example.com" value={supvForm.email} onChange={e=>setSupvForm({...supvForm, email: e.target.value})} />
+                  </div>
+                </div>
+
+                <div className="auth-field" style={{ marginBottom: "16px" }}>
+                  <label className="auth-label">Create Password</label>
+                  <div className="auth-input-wrap">
+                    <span className="auth-input-icon">🔒</span>
+                    <input className="auth-input" type="password" placeholder="Min. 8 characters" value={supvForm.password} onChange={e=>setSupvForm({...supvForm, password: e.target.value})} />
+                  </div>
+                </div>
+
                 <div className="auth-field">
                   <label className="auth-label">Student Registration Number</label>
                   <div className="auth-input-wrap">
@@ -441,24 +531,21 @@ export default function Login({ navigate }) {
                     <input
                       className="auth-input"
                       placeholder="e.g. 21/U/1234/EVE"
-                      onKeyDown={e => e.key === "Enter" && handleSupervisorAccess(e.target.value)}
+                      value={supvForm.regNo}
+                      onChange={e=>setSupvForm({...supvForm, regNo: e.target.value})}
+                      onKeyDown={e => e.key === "Enter" && handleSupervisorAccess()}
                     />
                   </div>
                 </div>
-                <p style={{ fontSize: "12px", color: "var(--text-muted)", marginTop: "12px", lineHeight: "1.5" }}>
-                  Authorized lecturers can enter a student's Registration Number to view their internship progress in read-only mode.
-                </p>
+
                 <button 
                   className="auth-submit" 
                   style={{ marginTop: "24px", background: "var(--accent-green)" }} 
-                  onClick={() => {
-                    const input = document.querySelector('input[placeholder="e.g. 21/U/1234/EVE"]');
-                    handleSupervisorAccess(input?.value);
-                  }}
+                  onClick={handleSupervisorAccess}
                   disabled={loading}
                 >
                   {loading && <span className="auth-spinner" />}
-                  {loading ? "Verifying..." : "Access Dashboard"}
+                  {loading ? "Processing..." : "Create Account & Access"}
                 </button>
               </div>
             )}

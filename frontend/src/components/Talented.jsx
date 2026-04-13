@@ -283,7 +283,7 @@ const talentedStyles = `
 
   .strengths-text {
     font-size: 13px;
-    color: #00dc8c;
+    color: var(--text-secondary);
     line-height: 1.5;
     font-weight: 700;
     display: flex;
@@ -563,7 +563,7 @@ export default function Talented() {
             className={`tab-btn ${activeTab === 'Afric Graduate' ? 'active' : ''}`}
             onClick={() => setActiveTab('Afric Graduate')}
           >
-            AFR-IQ Graduates
+            Academy Graduates
           </button>
           <button 
             className={`tab-btn ${activeTab === 'Intern Graduate' ? 'active' : ''}`}
@@ -604,7 +604,7 @@ export default function Talented() {
                     <div>
                       <div className="grad-section-label">Core Strengths</div>
                       <div className="strengths-text">
-                        <StarIcon size={14} color="#00dc8c" />
+                        <StarIcon size={14} />
                         {grad.strengths.split(',').filter(s => s.trim()).join(', ')}
                       </div>
                     </div>

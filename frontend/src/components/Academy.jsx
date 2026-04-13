@@ -889,7 +889,7 @@ function EnrollModal({ course, mode, onClose, user }) {
                 
                 <div className="enroll-field">
                   <label className="enroll-label">Full Name *</label>
-                  <input className="enroll-input" type="text" placeholder="e.g. Obuyinza Byamukama" value={fullName} onChange={e => setFullName(e.target.value)} required={!user} />
+                  <input className="enroll-input" type="text" placeholder="Full Name" value={fullName} onChange={e => setFullName(e.target.value)} required={!user} />
                 </div>
                 
                 <div className="enroll-field">
@@ -1081,7 +1081,7 @@ function IntakeModal({ defaultMode, onClose }) {
                 
                 <div className="enroll-field">
                   <label className="enroll-label">Full Name *</label>
-                  <input className="enroll-input" name="full_name" type="text" placeholder="e.g. Obuyinza Byamukama" value={form.full_name} onChange={handleChange} required={!user} />
+                  <input className="enroll-input" name="full_name" type="text" placeholder="Full Name" value={form.full_name} onChange={handleChange} required={!user} />
                 </div>
                 
                 <div className="enroll-field">
@@ -1315,8 +1315,8 @@ export default function Academy({ navigate }) {
           <div className="ac-grid-bg" />
           <div className="ac-hero-inner">
             <div className="ac-hero-content">
-              <div className="ac-eyebrow">AFR-IQ Academy</div>
-              <h1 className="ac-hero-title">Learn. Think. <span className="hl">Innovate.</span></h1>
+              <div className="ac-eyebrow">Academy</div>
+              <h1 className="ac-hero-title" style={{ marginLeft: '-40px' }}>Learn. <span className="hl">Think.</span> <span style={{ color: '#fff' }}>Innovate.</span></h1>
               <p className="ac-hero-desc">
                 Professional IT training for East Africa's digital workforce. Choose between instructor-led physical classes in Kampala or flexible self-paced online courses.
               </p>
@@ -1326,7 +1326,6 @@ export default function Academy({ navigate }) {
                 <div><div className="ac-stat-n">94%</div><div className="ac-stat-l">Employment Rate</div></div>
               </div>
             </div>
-            
           </div>
         </div>
 

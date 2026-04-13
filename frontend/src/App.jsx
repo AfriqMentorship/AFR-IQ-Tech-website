@@ -18,6 +18,7 @@ import AdminDashboard from "./components/AdminDashboard";
 import Talented from "./components/Talented";
 import { useAuth } from "./components/AuthContext";
 import ResetPassword from "./components/ResetPassword";
+import Videos from "./components/Videos";
 
 // Shared Navbar
 import Navbar from "./components/Navbar";
@@ -72,6 +73,7 @@ export default function App() {
       case "IMS": return <IMS navigate={navigate} />;
       case "IMSApply": return <IMSApply navigate={navigate} />;
       case "Dashboard": return <IMSDashboard navigate={navigate} />;
+      case "Videos": return <Videos navigate={navigate} />;
       case "Admin":
         if (user?.profile?.role === 'admin' || user?.email === 'iamsifu.dev@gmail.com') {
           return <AdminDashboard navigate={navigate} />;

@@ -293,7 +293,7 @@ export default function CartDrawer({ navigate }) {
                                         <label style={{ fontSize: '11px', fontWeight: '800', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Full Name *</label>
                                         <input 
                                             style={{ padding: '14px', borderRadius: '10px', background: 'var(--bg-level2)', border: '1px solid var(--border-subtle)', color: 'var(--text-primary)', fontFamily: "'Poppins', sans-serif" }} 
-                                            placeholder="e.g. John Doe"
+                                            placeholder="Full Name *"
                                             required 
                                             value={customerDetails.name}
                                             onChange={e => setCustomerDetails(p => ({ ...p, name: e.target.value }))}

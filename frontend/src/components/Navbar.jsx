@@ -268,10 +268,10 @@ const navLinks = [
   { label: "IMS", key: "IMS", icon: "📊", sub: "Internship Management" },
   { label: "Shop", key: "Shop", icon: "📦", sub: "Smart Tech Sales" },
   { label: "About Us", key: "AboutUs", icon: "🏢", sub: "Our Story & Team" },
-  { label: "Blog", key: "Blog", icon: "📝", sub: "News & Updates" },
   { label: "Talent", key: "Talented", icon: "🌟", sub: "Graduates & Interns" },
   { label: "Contact", key: "Contact", icon: "💬", sub: "Get in Touch" },
   { label: "Admin", key: "Admin", icon: "🛡️", sub: "Control Panel" },
+  { label: "Blog", key: "Blog", icon: "📝", sub: "News & Updates" },
 ];
 
 export default function Navbar({ currentPage, navigate }) {

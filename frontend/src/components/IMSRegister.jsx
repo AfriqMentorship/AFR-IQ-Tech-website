@@ -127,20 +127,32 @@ export default function IMSRegister({ user, onComplete }) {
 
             <form onSubmit={handleSubmit}>
 
-                <div className="auth-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                     <div className="form-group">
-                        <label className="form-label">First Name *</label>
-                        <input type="text" name="first_name" className="form-input" value={formData.first_name} onChange={handleChange} required />
-                    </div>
-                    <div className="form-group">
-                        <label className="form-label">Last Name *</label>
-                        <input type="text" name="last_name" className="form-input" value={formData.last_name} onChange={handleChange} required />
+                        <label className="form-label">Full Name *</label>
+                        <input 
+                            type="text" 
+                            name="full_name" 
+                            className="form-input" 
+                            placeholder="Full Name"
+                            value={formData.full_name || `${formData.first_name || ""} ${formData.last_name || ""}`.trim()} 
+                            onChange={(e) => {
+                                const val = e.target.value;
+                                const parts = val.trim().split(" ");
+                                setFormData({
+                                    ...formData,
+                                    full_name: val,
+                                    first_name: parts[0] || "",
+                                    last_name: parts.slice(1).join(" ") || ""
+                                });
+                            }} 
+                            required 
+                        />
                     </div>
                 </div>
 
                 <div className="form-group">
                     <label className="form-label">Email Address *</label>
-                    <input type="email" name="email" className="form-input" value={formData.email} onChange={handleChange} required />
+                    <input type="email" name="email" className="form-input" value={formData.email} onChange={handleChange} placeholder="you@example.com" required />
                 </div>
 
                 <div className="auth-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>

@@ -381,7 +381,7 @@ const INITIAL_POSTS = [
       "Furthermore, reliability and uptime have improved dramatically. With data centers increasingly being established locally in Africa, latency issues are becoming a thing of the past. Companies can now ensure that their applications and software solutions remain online and accessible to their users 24/7.",
       "At AFR-IQ Technologies, we are helping our partners navigate this transition. Whether it's setting up an AWS architecture, deploying scalable applications, or managing cloud security—migrating to the cloud is no longer just an option for African businesses; it is a necessity for survival in the digital age."
     ],
-    author: "Jane Doe",
+    author: "Muwanguzi Joshua",
     readTime: "5 MIN READ"
   },
   {
@@ -398,7 +398,7 @@ const INITIAL_POSTS = [
       "Third, employee training cannot be overlooked. Phishing remains one of the most common attack vectors. Educating staff on how to recognize suspicious emails, links, and requests is often the best defense.",
       "Finally, SMEs must prioritize data backups and multi-factor authentication (MFA). A robust backup strategy (following the 3-2-1 rule) ensures data can be recovered in the event of ransomware, while MFA adds a crucial extra layer of security to user logins. Protect your business before a breach happens."
     ],
-    author: "John Smith",
+    author: "Kuteesa Moses",
     readTime: "7 MIN READ"
   },
   {
@@ -414,7 +414,7 @@ const INITIAL_POSTS = [
       "For tech companies, hiring full-stack developers is highly efficient. It allows for leaner, more agile teams that can adapt quickly to changing project requirements. Instead of needing separate specialists for every component, a full-stack engineer can pivot between tasks seamlessly.",
       "At the AFR-IQ Technologies Academy, our Advanced Website Development program is specifically designed to create these highly skilled individuals. By covering essential technologies like React, Next.js, and Node, we ensure our graduates are equipped with the modern tools necessary to excel as professional Full-Stack Developers and meet the growing industry demand."
     ],
-    author: "Alice O.",
+    author: "Okello Solomon",
     readTime: "4 MIN READ"
   },
   {

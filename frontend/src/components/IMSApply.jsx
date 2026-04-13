@@ -90,8 +90,7 @@ export default function IMSApply({ navigate }) {
     const [errorMsg, setErrorMsg] = useState("");
 
     const [form, setForm] = useState({
-        first_name: "",
-        last_name: "",
+        full_name: "",
         password: "",
         email: "",
         university: "",
@@ -109,7 +108,7 @@ export default function IMSApply({ navigate }) {
 
     const handleNext = () => {
         setErrorMsg("");
-        if (!form.first_name || !form.last_name || !form.email || !form.password) {
+        if (!form.full_name || !form.email || !form.password) {
             return setErrorMsg("Please fill in all fields.");
         }
         if (form.password.length < 8) {
@@ -126,7 +125,7 @@ export default function IMSApply({ navigate }) {
 
         setLoading(true);
 
-        const fullName = `${form.first_name} ${form.last_name}`.trim();
+        const fullName = form.full_name.trim();
 
         // 1. Try to create a Supabase Auth user (signup)
         let userId = null;
@@ -220,6 +219,10 @@ export default function IMSApply({ navigate }) {
             }
         }
 
+        const names = form.full_name.trim().split(' ');
+        const first_name = names[0] || "";
+        const last_name = names.slice(1).join(' ') || "";
+
         // 3. Insert Internship Application record
         const insertPayload = {
             student_id: userId,
@@ -227,8 +230,8 @@ export default function IMSApply({ navigate }) {
             application_url: introUrl,
             university: form.university,
             location: form.location,
-            first_name: form.first_name,
-            last_name: form.last_name,
+            first_name: first_name,
+            last_name: last_name,
             email: form.email,
             registration_number: form.registration_number,
             status: 'Pending'
@@ -255,8 +258,8 @@ export default function IMSApply({ navigate }) {
                 application_url: introUrl,
                 university: form.university,
                 location: form.location,
-                first_name: form.first_name,
-                last_name: form.last_name,
+                first_name: first_name,
+                last_name: last_name,
                 email: form.email,
                 registration_number: form.registration_number,
                 status: 'Pending'
@@ -310,15 +313,9 @@ export default function IMSApply({ navigate }) {
 
                     {step === 1 && (
                         <>
-                            <div className="form-row">
-                                <div className="form-group" style={{ marginBottom: 0 }}>
-                                    <label className="form-label">First Name *</label>
-                                    <input type="text" name="first_name" className="form-input" value={form.first_name} onChange={handleChange} placeholder="e.g. John" />
-                                </div>
-                                <div className="form-group" style={{ marginBottom: 0 }}>
-                                    <label className="form-label">Last Name *</label>
-                                    <input type="text" name="last_name" className="form-input" value={form.last_name} onChange={handleChange} placeholder="e.g. Doe" />
-                                </div>
+                            <div className="form-group">
+                                <label className="form-label">Full Name *</label>
+                                <input type="text" name="full_name" className="form-input" value={form.full_name} onChange={handleChange} placeholder="Full Name" />
                             </div>
 
                             <div className="form-group">

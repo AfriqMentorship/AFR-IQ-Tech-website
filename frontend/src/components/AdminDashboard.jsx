@@ -252,7 +252,8 @@ const TABS = [
   { id: 'academy', label: 'Academy Programs', icon: '🎓' },
   { id: 'shop', label: 'Shop Orders', icon: '📦' },
   { id: 'messages', label: 'Contact Messages', icon: '💬' },
-  { id: 'talented', label: 'Talent Pool', icon: '🌟' }
+  { id: 'talented', label: 'Talent Pool', icon: '🌟' },
+  { id: 'videos', label: 'Site Videos', icon: '🎥' }
 ];
 
 export default function AdminDashboard() {
@@ -267,6 +268,7 @@ export default function AdminDashboard() {
   const [products, setProducts] = useState([]);
   const [messages, setMessages] = useState([]);
   const [talentedPool, setTalentedPool] = useState([]);
+  const [siteVideos, setSiteVideos] = useState([]);
   const [dismissedIds, setDismissedIds] = useState(() => {
     try {
       return JSON.parse(localStorage.getItem('admin_dismissed_ids') || '[]');
@@ -367,7 +369,7 @@ export default function AdminDashboard() {
 
   const fetchData = async () => {
     setLoading(true);
-    const [usersRes, imsRes, companiesRes, academyRes, onlineRes, shopRes, msgRes, productsRes, talentedRes] = await Promise.all([
+    const [usersRes, imsRes, companiesRes, academyRes, onlineRes, shopRes, msgRes, productsRes, talentedRes, siteVideosRes] = await Promise.all([
       supabase.from('users').select('*').order('created_at', { ascending: false }),
       supabase.from('internships').select('*, users!internships_student_id_fkey(full_name, email, phone), companies(name)').order('created_at', { ascending: false }),
       supabase.from('companies').select('*').order('created_at', { ascending: false }),
@@ -376,7 +378,8 @@ export default function AdminDashboard() {
       supabase.from('orders').select('*, users(full_name, email, phone), order_items(quantity, products(name))').neq('status', 'Deleted').order('created_at', { ascending: false }),
       supabase.from('contact_messages').select('*').neq('status', 'Deleted').order('created_at', { ascending: false }),
       supabase.from('products').select('*').order('created_at', { ascending: false }),
-      supabase.from('talented').select('*').neq('status', 'Deleted').order('created_at', { ascending: false })
+      supabase.from('talented').select('*').neq('status', 'Deleted').order('created_at', { ascending: false }),
+      supabase.from('site_videos').select('*').order('created_at', { ascending: false })
     ]);
 
     if (usersRes.data) setUsers(usersRes.data);
@@ -388,6 +391,7 @@ export default function AdminDashboard() {
     if (msgRes.data) setMessages(msgRes.data.filter(m => !dismissedIds.includes(m.id)));
     if (productsRes.data) setProducts(productsRes.data);
     if (talentedRes.data) setTalentedPool(talentedRes.data);
+    if (siteVideosRes.data) setSiteVideos(siteVideosRes.data);
     setLoading(false);
   };
 
@@ -1230,7 +1234,7 @@ export default function AdminDashboard() {
                   <div className="form-group">
                     <label className="form-label">Category</label>
                     <select className="form-input" name="category" required style={{ background: 'var(--bg-level2)', border: '1px solid var(--border-subtle)', padding: '12px', borderRadius: '8px', color: 'var(--text-primary)', width: '100%' }}>
-                      <option value="Afric Graduate">AFR-IQ Graduate</option>
+                      <option value="Afric Graduate">Academy Graduate</option>
                       <option value="Intern Graduate">Internship Graduate</option>
                     </select>
                   </div>
@@ -1377,6 +1381,74 @@ export default function AdminDashboard() {
                       </tr>
                     ))}
                     {talentedPool.length === 0 && <tr><td colSpan="5" style={{ textAlign: 'center', color: 'rgba(255,255,255,0.4)', padding: '40px' }}>No talent added yet.</td></tr>}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </>
+        );
+
+      case 'videos':
+        return (
+          <>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+              <h3 style={{ fontFamily: "'Poppins', sans-serif", fontSize: "28px", color: "var(--text)" }}>Site Videos Management</h3>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+              <div style={{ background: 'var(--bg-level1)', border: '1px solid var(--border-subtle)', borderRadius: '24px', padding: '32px' }}>
+                <h4 style={{ fontFamily: "'Poppins', sans-serif", fontSize: '20px', marginBottom: '20px', color: 'var(--text-primary)' }}>Add New Video</h4>
+                <form onSubmit={async (e) => {
+                  e.preventDefault();
+                  const fd = new FormData(e.target);
+                  const payload = {
+                    title: fd.get('title'),
+                    description: fd.get('description'),
+                    video_url: fd.get('video_url'),
+                  };
+                  const { error } = await supabase.from('site_videos').insert([payload]);
+                  if (!error) {
+                    showNotif('Video added successfully!', 'success');
+                    e.target.reset();
+                    fetchData();
+                  } else {
+                    showNotif('Error: ' + error.message, 'error');
+                  }
+                }} style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '16px' }}>
+                  <div className="form-group"><label className="form-label">Video Title</label><input className="form-input" name="title" required placeholder="e.g. Campus Tour 2026" /></div>
+                  <div className="form-group"><label className="form-label">Video URL (YouTube/Vimeo)</label><input className="form-input" name="video_url" required placeholder="https://youtube.com/..." /></div>
+                  <div className="form-group"><label className="form-label">Description</label><textarea className="form-textarea" name="description" placeholder="Short description about the video" /></div>
+                  <button type="submit" className="btn-submit" style={{ background: 'var(--accent-orange)', color: '#fff', border: 'none', padding: '14px', borderRadius: '12px', fontWeight: 'bold', cursor: 'pointer' }}>Add Video to Site</button>
+                </form>
+              </div>
+
+              <div className="admin-table-wrapper">
+                <table className="admin-table">
+                  <thead>
+                    <tr><th>Title</th><th>Description</th><th>URL</th><th>Actions</th></tr>
+                  </thead>
+                  <tbody>
+                    {siteVideos.map(v => (
+                      <tr key={v.id}>
+                        <td style={{ fontWeight: 700 }}>{v.title}</td>
+                        <td>{v.description || 'N/A'}</td>
+                        <td><a href={v.video_url} target="_blank" style={{ color: 'var(--accent-orange)' }}>{v.video_url}</a></td>
+                        <td>
+                          <button className="action-btn" style={{ color: '#ff5050' }} onClick={() => {
+                            setConfirmObj({
+                              msg: 'Are you sure you want to delete this video?',
+                              onConfirm: async () => {
+                                setConfirmObj(null);
+                                await supabase.from('site_videos').delete().eq('id', v.id);
+                                fetchData();
+                                showNotif('Video removed from site.');
+                              }
+                            });
+                          }}>Delete</button>
+                        </td>
+                      </tr>
+                    ))}
+                    {siteVideos.length === 0 && <tr><td colSpan="4" style={{ textAlign: 'center', color: 'rgba(255,255,255,0.4)', padding: '40px' }}>No site videos added yet.</td></tr>}
                   </tbody>
                 </table>
               </div>
