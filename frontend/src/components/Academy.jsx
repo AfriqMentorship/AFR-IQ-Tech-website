@@ -76,7 +76,11 @@ const styles = `
     transition: color 0.3s ease;
   }
   [data-theme="light"] .ac-hero-title { color: #000000; text-shadow: none; }
-  [data-theme="light"] .ac-hero-title .hl-alt { color: #000000; }
+  [data-theme="light"] .ac-hero-title .hl-alt { 
+    color: #ffffff; 
+    -webkit-text-stroke: 1.5px #000000; 
+    text-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  }
   .ac-hero-title .hl { color: var(--orange); text-shadow: 0 0 30px var(--accent-orange-glow); }
   .ac-hero-title .hl-alt { color: #ffffff; }
 
