@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { supabase } from "../supabaseClient";
 import { useAuth } from "./AuthContext";
@@ -737,9 +737,9 @@ function CourseCard({ course, type, onEnroll, isApproved, onWatch }) {
       </div>
 
       <div className="course-body">
-        <div className="course-category">{course.category}</div>
+        <div className="course-category">{course.category || "General"}</div>
         <div className="course-title">{course.title}</div>
-        <div className="course-instructor">by {course.instructor}</div>
+        <div className="course-instructor">by {course.instructor || "AFR-IQ Instructor"}</div>
 
 
 
@@ -761,11 +761,26 @@ function CourseCard({ course, type, onEnroll, isApproved, onWatch }) {
 
         <div className="course-price-row">
           {type === "selfpaced" && isApproved ? (
-            <button className="course-enroll-btn" style={{background: '#00c878', border: 'none', color: '#fff'}} onClick={onWatch}>
+            <button 
+              className="course-enroll-btn" 
+              style={{background: '#00c878', border: 'none', color: '#fff'}} 
+              onClick={(e) => { e.stopPropagation(); onWatch(); }}
+            >
               Watch Video 🎬
             </button>
+          ) : isApproved ? (
+            <button 
+              className="course-enroll-btn" 
+              style={{background: 'var(--bg-level2)', border: '1px solid var(--border-medium)', color: 'var(--accent-green)'}} 
+              onClick={(e) => { e.stopPropagation(); onEnroll(); }}
+            >
+              Applied ✓
+            </button>
           ) : (
-            <button className="course-enroll-btn" onClick={onEnroll}>
+            <button 
+              className="course-enroll-btn" 
+              onClick={(e) => { e.stopPropagation(); onEnroll(); }}
+            >
               Apply
             </button>
           )}
@@ -844,7 +859,7 @@ function EnrollModal({ course, mode, onClose, user }) {
     let { error } = await supabase.from('academy_enrollments').insert([enrollmentData]);
 
     // Fallback if full_name/email/phone columns don't exist yet
-    if (error && (error.message?.includes('column') || error.code === 'PGRST204')) {
+    if (error && (error.code === '42703' || error.message?.toLowerCase().includes('column') || error.code === 'PGRST204')) {
         console.warn("Table missing extra columns, using basic payload");
         const { error: fallbackErr } = await supabase.from('academy_enrollments').insert([{
             user_id: currentUserId,
@@ -1005,7 +1020,10 @@ function IntakeModal({ defaultMode, onClose }) {
 
   useEffect(() => {
     supabase.from('courses').select('*').then(({ data }) => {
-      if (data) setCourses(data);
+      // Merge with hardcoded ones as fallback
+      const dbCourses = data || [];
+      const merged = dbCourses.length ? dbCourses : physicalCourses;
+      setCourses(merged);
     });
   }, []);
 
@@ -1055,7 +1073,7 @@ function IntakeModal({ defaultMode, onClose }) {
     let { error } = await supabase.from('academy_enrollments').insert([enrollmentData]);
 
     // Fallback
-    if (error && (error.message?.includes('column') || error.code === 'PGRST204')) {
+    if (error && (error.code === '42703' || error.message?.toLowerCase().includes('column') || error.code === 'PGRST204')) {
         const { error: fallbackErr } = await supabase.from('academy_enrollments').insert([{
             user_id: currentUserId,
             program_name: `${form.course_title} (${studyMode})`,
@@ -1307,21 +1325,30 @@ export default function Academy() {
   const courses = activeTab === "physical" ? (dbPhysicalCourses.length ? dbPhysicalCourses : physicalCourses) : (dbSelfPacedCourses.length ? dbSelfPacedCourses : selfPacedCourses);
   
   // Dynamic categories based on current tab's courses
-  // const currentTabCategories = ["All", ...new Set(courses.map(c => c.category))];
-  // const categories = activeTab === "physical" ? (currentTabCategories) : currentTabCategories;
+  const categories = ["All", ...new Set(courses.filter(c => c.category).map(c => c.category))];
 
   const filtered = courses.filter(c => {
     const matchCat = activeCategory === "All" || c.category === activeCategory;
     const matchLevel = activeLevel === "All Levels" || c.levelLabel === activeLevel;
-    const matchSearch = search === "" || c.title.toLowerCase().includes(search.toLowerCase()) || c.category.toLowerCase().includes(search.toLowerCase());
+    const matchSearch = search === "" || 
+      (c.title && c.title.toLowerCase().includes(search.toLowerCase())) || 
+      (c.category && c.category.toLowerCase().includes(search.toLowerCase()));
     return matchCat && matchLevel && matchSearch;
   });
 
   const sorted = [...filtered].sort((a, b) => {
-    if (sort === "popular") return b.reviews - a.reviews;
-    if (sort === "rating") return b.rating - a.rating;
-    if (sort === "price-low") return parseInt(a.price.replace(/\D/g, "")) - parseInt(b.price.replace(/\D/g, ""));
-    if (sort === "price-high") return parseInt(b.price.replace(/\D/g, "")) - parseInt(a.price.replace(/\D/g, ""));
+    if (sort === "popular") return (b.reviews || 0) - (a.reviews || 0);
+    if (sort === "rating") return (b.rating || 0) - (a.rating || 0);
+    
+    const getPriceValue = (p) => {
+      if (!p) return 0;
+      if (typeof p === 'number') return p;
+      const num = parseInt(p.toString().replace(/\D/g, ""));
+      return isNaN(num) ? 0 : num;
+    };
+
+    if (sort === "price-low") return getPriceValue(a.price) - getPriceValue(b.price);
+    if (sort === "price-high") return getPriceValue(b.price) - getPriceValue(a.price);
     return 0;
   });
 
@@ -1393,7 +1420,19 @@ export default function Academy() {
 
           {/* SIDEBAR */}
           <aside className="ac-sidebar">
-
+            <div className="sidebar-section">
+              <div className="sidebar-section-title">Category</div>
+              {categories.map(cat => (
+                <button 
+                  key={cat} 
+                  className={`level-btn ${activeCategory === cat ? "active" : ""}`} 
+                  style={{ textTransform: 'capitalize' }}
+                  onClick={() => setActiveCategory(cat)}
+                >
+                  {cat === "All" ? "All Categories" : cat}
+                </button>
+              ))}
+            </div>
 
             <div className="sidebar-section">
               <div className="sidebar-section-title">Level</div>
@@ -1404,9 +1443,7 @@ export default function Academy() {
               ))}
             </div>
 
-
-
-            {(activeCategory !== "All" || activeLevel !== "All Levels") && (
+            {(activeCategory !== "All" || activeLevel !== "All Levels" || search !== "") && (
               <button className="clear-btn" onClick={clearFilters}>Clear all filters</button>
             )}
           </aside>
