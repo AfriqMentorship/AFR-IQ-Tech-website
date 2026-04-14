@@ -44,10 +44,12 @@ const styles = `
   .page-eyebrow::before { content: ''; display: block; width: 32px; height: 1.5px; background: var(--accent-green); opacity: 0.6; }
   .page-title {
     font-family: 'Poppins', sans-serif;
-    font-size: clamp(56px, 8vw, 92px);
-    line-height: 0.9;
+    font-size: clamp(48px, 6vw, 72px);
+    font-weight: 800;
+    line-height: 1;
     color: var(--text-primary);
     margin-bottom: 24px;
+    letter-spacing: -0.02em;
   }
   .page-title .hl { color: var(--accent-orange); text-shadow: 0 0 30px var(--accent-orange-glow); }
   .page-desc { font-size: 18px; color: var(--text-secondary); max-width: 620px; line-height: 1.6; }
@@ -320,6 +322,7 @@ const styles = `
   @media (max-width: 600px) {
     .shop-container { padding: 40px 20px; }
     .page-hero { padding: 80px 20px 60px; }
+    .page-title { font-size: clamp(32px, 8vw, 48px); }
     .products-grid { grid-template-columns: 1fr; }
     .shop-sidebar { flex-direction: column; }
   }
