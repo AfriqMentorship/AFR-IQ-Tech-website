@@ -1,0 +1,11 @@
+# Ignore Node modules
+node_modules/
+
+# Ignore build output
+dist/
+build/
+
+# Ignore other common dependencies
+.babelrc
+package-lock.json
+package.json
