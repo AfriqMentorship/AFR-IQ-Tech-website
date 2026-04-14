@@ -417,9 +417,9 @@ const styles = `
     .course-meta { flex-direction: column; gap: 8px; align-items: flex-start; }
   }
   @media (max-width: 450px) {
-    .ac-hero { padding: 32px 16px; }
-    .ac-hero-title { font-size: 32px; margin-bottom: 16px; }
-    .ac-hero-desc { font-size: 15px; margin-bottom: 24px; }
+    .ac-hero { padding: 40px 20px; }
+    .ac-hero-title { font-size: 38px; margin-bottom: 16px; line-height: 1.1; }
+    .ac-hero-desc { font-size: 15px; margin-bottom: 24px; padding-right: 10px; }
     .ac-hero-stats { gap: 16px; border-top: 1px solid var(--border-subtle); padding-top: 24px; }
     .ac-stat-n { font-size: 28px; }
     .ac-tabs-bar { top: 60px; }
@@ -429,9 +429,10 @@ const styles = `
     .ac-search-input { padding: 12px 16px; font-size: 13px; }
     .ac-search-btn { padding: 0 20px; font-size: 13px; }
   }
-  @media (max-width: 360px) {
-    .ac-hero-title { font-size: 28px; }
+  @media (max-width: 380px) {
+    .ac-hero-title { font-size: 32px; }
     .ac-stat-n { font-size: 24px; }
+    .ac-hero { padding: 32px 16px; }
   }
 
 
