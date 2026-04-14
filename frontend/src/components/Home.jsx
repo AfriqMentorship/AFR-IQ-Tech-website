@@ -396,10 +396,9 @@ const styles = `
     color: var(--text-primary);
   }
   .t-role {
-    font-family: 'Inter', sans-serif; font-size: 11px; color: var(--text-muted);
+    font-family: 'Inter', sans-serif; font-size: 10px; color: var(--text-muted);
     font-weight: 500; margin-top: 2px;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    max-width: 180px;
+    white-space: nowrap; 
   }
   .t-tag {
     position: absolute;
