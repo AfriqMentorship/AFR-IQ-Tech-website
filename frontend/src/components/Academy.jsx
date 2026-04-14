@@ -832,14 +832,34 @@ function EnrollModal({ course, mode, onClose, user }) {
       currentUserId = session.user.id;
     }
 
-    const { error } = await supabase.from('academy_enrollments').insert([{
+    const enrollmentData = {
       user_id: currentUserId,
       program_name: `${course.title} (${studyMode})`,
+      full_name: user?.profile?.full_name || fullName,
+      email: user?.email || email,
+      phone: user?.profile?.phone || phone,
       status: 'Pending'
-    }]);
+    };
+
+    let { error } = await supabase.from('academy_enrollments').insert([enrollmentData]);
+
+    // Fallback if full_name/email/phone columns don't exist yet
+    if (error && error.message?.includes('column')) {
+        console.warn("Table missing extra columns, using basic payload");
+        const { error: fallbackErr } = await supabase.from('academy_enrollments').insert([{
+            user_id: currentUserId,
+            program_name: `${course.title} (${studyMode})`,
+            status: 'Pending'
+        }]);
+        error = fallbackErr;
+    }
 
     setSubmitting(false);
-    if (error) { console.error("EnrollError:", error); setSubmitError(error.message || 'Something went wrong.'); return; }
+    if (error) { 
+        console.error("EnrollError:", error); 
+        setSubmitError(error.message || 'Something went wrong.'); 
+        return; 
+    }
     setDone(true);
 
     // Notify Admin via Email
@@ -1023,14 +1043,33 @@ function IntakeModal({ defaultMode, onClose }) {
       currentUserId = session.user.id;
     }
 
-    const { error } = await supabase.from('academy_enrollments').insert([{
+    const enrollmentData = {
       user_id: currentUserId,
       program_name: `${form.course_title} (${studyMode})`,
+      full_name: user?.profile?.full_name || form.full_name,
+      email: user?.email || form.email,
+      phone: user?.profile?.phone || form.phone,
       status: 'Pending'
-    }]);
+    };
+
+    let { error } = await supabase.from('academy_enrollments').insert([enrollmentData]);
+
+    // Fallback
+    if (error && error.message?.includes('column')) {
+        const { error: fallbackErr } = await supabase.from('academy_enrollments').insert([{
+            user_id: currentUserId,
+            program_name: `${form.course_title} (${studyMode})`,
+            status: 'Pending'
+        }]);
+        error = fallbackErr;
+    }
     
     setSubmitting(false);
-    if (error) { console.error("IntakeError:", error); setSubmitError("Database Error: " + error.message); return; }
+    if (error) { 
+        console.error("IntakeError:", error); 
+        setSubmitError("Database Error: " + error.message); 
+        return; 
+    }
     setDone(true);
 
     // Notify Admin via Email
@@ -1237,13 +1276,17 @@ export default function Academy({ navigate }) {
   }, []);
 
   useEffect(() => {
-    if (user?.email) {
+    if (user?.id) {
       supabase.from('academy_enrollments')
-        .select('*')
-        .eq('email', user.email)
+        .select('program_name')
+        .eq('user_id', user.id)
         .in('status', ['Approved', 'Completed', 'Ongoing'])
-        .then(({ data, error }) => {
-          if (data) setApprovedCourses(data.map(d => d.course_title));
+        .then(({ data }) => {
+          if (data) {
+            // Store just the course titles (stripping the " (Mode)" part if needed for comparison)
+            const approved = data.map(d => d.program_name.split(' (')[0]);
+            setApprovedCourses(approved);
+          }
         });
     } else {
       setApprovedCourses([]);
