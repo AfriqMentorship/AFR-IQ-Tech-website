@@ -39,8 +39,8 @@ const styles = `
   .ac-hero::before {
     content: '';
     position: absolute; inset: 0;
-    background: radial-gradient(ellipse 70% 80% at 5% 50%, var(--accent-orange-glow) 0%, transparent 65%),
-                radial-gradient(ellipse 40% 60% at 90% 20%, var(--accent-green-glow) 0%, transparent 60%);
+    background: radial-gradient(ellipse 70% 80% at 5% 50%, var(--accent-orange-glow) 0%, rgba(var(--bg-base-rgb), 0) 65%),
+                radial-gradient(ellipse 40% 60% at 90% 20%, var(--accent-green-glow) 0%, rgba(var(--bg-base-rgb), 0) 60%);
     pointer-events: none;
   }
   .ac-grid-bg {
@@ -70,8 +70,12 @@ const styles = `
     font-family: 'Poppins', sans-serif;
     font-size: clamp(48px, 6.5vw, 84px);
     line-height: 0.9; color: var(--text); margin-bottom: 20px;
+    padding-left: 44px;
   }
   .ac-hero-title .hl { color: var(--orange); text-shadow: 0 0 30px var(--accent-orange-glow); }
+  .ac-hero-title .hl-alt { color: var(--text-primary); transition: color 0.3s ease; }
+  [data-theme="light"] .ac-hero-title .hl-alt { color: var(--accent-green); }
+
   .ac-hero-desc { font-size: 17px; color: var(--muted); line-height: 1.6; margin-bottom: 36px; max-width: 700px; }
 
   .ac-hero-stats {
@@ -419,7 +423,7 @@ const styles = `
 
   @media (max-width: 450px) {
     .ac-hero { padding: 40px 20px; }
-    .ac-hero-title { font-size: 38px; margin-bottom: 16px; line-height: 1.1; }
+    .ac-hero-title { font-size: 38px; margin-bottom: 16px; line-height: 1.1; padding-left: 0; }
     .ac-hero-desc { font-size: 15px; margin-bottom: 24px; padding-right: 10px; }
     .ac-hero-stats { gap: 16px; border-top: 1px solid var(--border-subtle); padding-top: 24px; }
     .ac-stat-n { font-size: 28px; }
@@ -433,7 +437,7 @@ const styles = `
 
   @media (max-width: 380px) {
     .ac-hero { padding: 32px 16px; }
-    .ac-hero-title { font-size: 32px; }
+    .ac-hero-title { font-size: 32px; padding-left: 0; }
     .ac-stat-n { font-size: 24px; }
   }
 
@@ -1393,7 +1397,7 @@ export default function Academy() {
           <div className="ac-hero-inner">
             <div className="ac-hero-content">
               <div className="ac-eyebrow">Academy</div>
-              <h1 className="ac-hero-title" style={{ paddingLeft: '44px' }}>Learn. <span className="hl">Think.</span> <span style={{ color: '#fff' }}>Innovate.</span></h1>
+              <h1 className="ac-hero-title">Learn. <span className="hl">Think.</span> <span className="hl-alt">Innovate.</span></h1>
               <p className="ac-hero-desc">
                 Professional IT training for East Africa's digital workforce. Choose between instructor-led physical classes in Kampala or flexible self-paced online courses.
               </p>
