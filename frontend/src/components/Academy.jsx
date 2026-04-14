@@ -1400,7 +1400,7 @@ export default function Academy() {
             <div className="ac-hero-content">
               <div className="ac-eyebrow">Academy</div>
               <h1 className="ac-hero-title">Learn. <span className="hl">Think.</span> <span className="hl-alt">Innovate.</span></h1>
-              <script dangerouslySetInnerHTML={{ __html: `console.log("🚀 AFRIQ_UPDATE_SUCCESS_V2");` }} />
+              <script dangerouslySetInnerHTML={{ __html: `console.log("🚀 AFRIQ_UPDATE_SUCCESS_V4");` }} />
 
               <p className="ac-hero-desc">
                 Professional IT training for East Africa's digital workforce. Choose between instructor-led physical classes in Kampala or flexible self-paced online courses.
