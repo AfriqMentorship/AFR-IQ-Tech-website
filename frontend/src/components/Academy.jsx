@@ -1359,7 +1359,7 @@ export default function Academy({ navigate }) {
           <div className="ac-hero-inner">
             <div className="ac-hero-content">
               <div className="ac-eyebrow">Academy</div>
-              <h1 className="ac-hero-title">Learn. <span className="hl">Think.</span> <span style={{ color: '#fff' }}>Innovate.</span></h1>
+              <h1 className="ac-hero-title" style={{ marginLeft: '20px' }}>Learn. <span className="hl">Think.</span> <span style={{ color: '#fff' }}>Innovate.</span></h1>
               <p className="ac-hero-desc">
                 Professional IT training for East Africa's digital workforce. Choose between instructor-led physical classes in Kampala or flexible self-paced online courses.
               </p>
