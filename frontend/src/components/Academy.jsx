@@ -68,11 +68,11 @@ const styles = `
   .ac-eyebrow::before { content: ''; display: block; width: 32px; height: 1.5px; background: var(--green); opacity: 0.6; }
   .ac-hero-title {
     font-family: 'Poppins', sans-serif;
-    font-size: clamp(40px, 6.5vw, 84px);
+    font-size: clamp(38px, 6.5vw, 84px);
     line-height: 1.1; color: #ffffff; margin-bottom: 20px;
-    padding-left: 24px;
+    padding-left: 10px;
     overflow: visible;
-    text-shadow: 0 4px 30px rgba(0,0,0,0.35); /* Shadow for visibility on light mode */
+    text-shadow: 0 4px 30px rgba(0,0,0,0.35); 
   }
   .ac-hero-title .hl { color: var(--orange); text-shadow: 0 0 30px var(--accent-orange-glow); }
   .ac-hero-title .hl-alt { color: #ffffff; }
