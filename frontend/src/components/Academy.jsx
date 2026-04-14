@@ -73,7 +73,10 @@ const styles = `
     padding-left: 10px;
     overflow: visible;
     text-shadow: 0 4px 30px rgba(0,0,0,0.35); 
+    transition: color 0.3s ease;
   }
+  [data-theme="light"] .ac-hero-title { color: #000000; text-shadow: none; }
+  [data-theme="light"] .ac-hero-title .hl-alt { color: #000000; }
   .ac-hero-title .hl { color: var(--orange); text-shadow: 0 0 30px var(--accent-orange-glow); }
   .ac-hero-title .hl-alt { color: #ffffff; }
 
