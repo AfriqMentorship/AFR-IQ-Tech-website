@@ -499,12 +499,7 @@ const services = [
   { icon: "🔒", name: "Cybersecurity", desc: "Threat Protection" },
 ];
 
-const STATS = [
-  { icon: "🏢", count: 500, suffix: "+", title: "Clients Served", desc: "Businesses across East Africa trust us" },
-  { icon: "🎓", count: 1200, suffix: "+", title: "Students Trained", desc: "Through AFR Academy programs" },
-  { icon: "📦", count: 98, suffix: "%", title: "Uptime SLA", desc: "Guaranteed network reliability" },
-  { icon: "🏆", count: 12, suffix: "+", title: "Years in Tech", desc: "Driving African tech independence" },
-];
+
 
 const TESTIMONIALS = [
   {
@@ -587,43 +582,7 @@ const TESTIMONIALS = [
   },
 ];
 
-// Animated counter hook
-function useCountUp(target, duration = 2000, shouldStart = false) {
-  const [count, setCount] = useState(0);
-  const rafRef = useRef(null);
 
-  useEffect(() => {
-    if (!shouldStart) return;
-    const start = performance.now();
-    const step = (now) => {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.floor(eased * target));
-      if (progress < 1) {
-        rafRef.current = requestAnimationFrame(step);
-      } else {
-        setCount(target);
-      }
-    };
-    rafRef.current = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(rafRef.current);
-  }, [shouldStart, target, duration]);
-
-  return count;
-}
-
-function StatCard({ icon, count, suffix, title, desc, index, shouldCount }) {
-  const animated = useCountUp(count, 1800 + index * 200, shouldCount);
-  return (
-    <div className="stats-card" style={{ transitionDelay: `${index * 0.1}s` }}>
-      <div className="stats-card-icon">{icon}</div>
-      <div className="stats-count">{animated}{suffix}</div>
-      <div className="stats-card-title">{title}</div>
-      <div className="stats-card-desc">{desc}</div>
-    </div>
-  );
-}
 
 function TestimonialCard({ t, index }) {
   const ref = useRef(null);
@@ -668,8 +627,7 @@ function TestimonialCard({ t, index }) {
 }
 
 export default function Home({ navigate }) {
-  const statsRef = useRef(null);
-  const [shouldCount, setShouldCount] = useState(false);
+
   const [tPage, setTPage] = useState(0);
 
   // Determine testimonials per page based on viewport
@@ -677,14 +635,7 @@ export default function Home({ navigate }) {
   const totalPages = Math.ceil(TESTIMONIALS.length / perPage);
   const visibleTestimonials = TESTIMONIALS.slice(tPage * perPage, tPage * perPage + perPage);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setShouldCount(true); observer.disconnect(); } },
-      { threshold: 0.3 }
-    );
-    if (statsRef.current) observer.observe(statsRef.current);
-    return () => observer.disconnect();
-  }, []);
+
 
   return (
     <>

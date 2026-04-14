@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useEffect, useCallback } from "react";
 import { useAuth } from "./AuthContext";
 import { supabase } from "../supabaseClient";
 
@@ -205,7 +205,7 @@ export default function IMS({ navigate }) {
   const { user } = useAuth();
 
   const fetchCourses = useCallback(async () => {
-    const { data } = await supabase.from('courses').select('*').limit(3);
+    await supabase.from('courses').select('*').limit(3);
     // if (data) setDbCourses(data); // dbCourses is unused in return
   }, []);
 

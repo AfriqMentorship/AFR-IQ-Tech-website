@@ -114,7 +114,7 @@ const drawerStyles = `
 export default function CartDrawer({ navigate }) {
     const { cart, updateCartQty, removeFromCart, clearCart, cartTotal, cartOpen, setCartOpen } = useCart();
     const { user } = useAuth();
-    const [success, setSuccess] = React.useState(false);
+
     
     // Order info collection state
     const [orderFormOpen, setOrderFormOpen] = React.useState(false);
@@ -227,8 +227,7 @@ export default function CartDrawer({ navigate }) {
             window.open(`https://wa.me/${adminPhone}?text=${message}`, '_blank');
             clearCart();
             setOrderFormOpen(false);
-            setSuccess(true);
-            setTimeout(() => setSuccess(false), 5000);
+            setTimeout(() => {}, 5000);
             
         } catch (err) {
             console.error('Checkout error:', err);

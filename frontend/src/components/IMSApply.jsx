@@ -150,7 +150,7 @@ export default function IMSApply({ navigate }) {
                     role: 'student',
                     status: 'Active'
                 }]);
-            } catch (_) {
+            } catch {
                 // Ignore — the users row will be created when they log in
             }
         } else if (signupError) {

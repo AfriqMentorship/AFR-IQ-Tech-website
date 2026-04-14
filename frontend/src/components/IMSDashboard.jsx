@@ -285,7 +285,7 @@ function StudentDashboard({ user }) {
                     const file = processedLogs[i].image;
                     const fileExt = file.name.split('.').pop();
                     const fileName = `${user.id}-day-${i}-${Date.now()}.${fileExt}`;
-                    const { data: uploadData, error: uploadError } = await supabase.storage
+                    const { error: uploadError } = await supabase.storage
                         .from('applications')
                         .upload(`daily/${fileName}`, file);
 
@@ -304,7 +304,11 @@ function StudentDashboard({ user }) {
             student_id: user.id,
             week_number: week,
             report_text: JSON.stringify({
-                daily_logs: processedLogs.map(({ image, ...rest }) => rest),
+                daily_logs: processedLogs.map(l => {
+                    const row = { ...l };
+                    delete row.image;
+                    return row;
+                }),
                 recommendation: weeklyRecommendation
             }),
             status: 'Submitted'
@@ -370,7 +374,7 @@ function StudentDashboard({ user }) {
     const parseReport = (text) => {
         try {
             return JSON.parse(text);
-        } catch (e) {
+        } catch {
             return { daily_logs: [{ activity: text }], recommendation: "" };
         }
     };
@@ -567,7 +571,7 @@ function SupervisorDashboard({ user }) {
     const parseReport = (text) => {
         try {
             return JSON.parse(text);
-        } catch (e) {
+        } catch {
             return { daily_logs: [{ activity: text }], recommendation: "" };
         }
     };

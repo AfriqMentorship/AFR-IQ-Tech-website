@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useState, useEffect } from "react";
 import { supabase } from "../supabaseClient";
 
@@ -14,7 +15,7 @@ export function AuthProvider({ children }) {
         return;
       }
       // Fetch role and extra data from our users table
-      const { data, error } = await supabase
+      const { data } = await supabase
         .from('users')
         .select('*')
         .eq('id', sessionUser.id)
@@ -96,7 +97,7 @@ export function AuthProvider({ children }) {
   };
 
   const login = async ({ email, password }) => {
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signInWithPassword({
       email,
       password
     });

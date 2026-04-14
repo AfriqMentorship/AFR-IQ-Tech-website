@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { supabase } from "../supabaseClient";
 
+const packagesList = [
+    "Package 01 (Graphics Design, Repair, Programming)",
+    "Package 02 (Networking, Web Dev, Mobile App Dev)",
+    "Package 03 (Cloud Computing, Cybersecurity, Ethical Hacking)"
+];
+
 export default function IMSRegister({ user, onComplete }) {
-    const packagesList = [
-        "Package 01 (Graphics Design, Repair, Programming)",
-        "Package 02 (Networking, Web Dev, Mobile App Dev)",
-        "Package 03 (Cloud Computing, Cybersecurity, Ethical Hacking)"
-    ];
 
     const [formData, setFormData] = useState({
         first_name: user?.user_metadata?.full_name?.split(' ')[0] || "",
@@ -25,7 +26,7 @@ export default function IMSRegister({ user, onComplete }) {
     useEffect(() => {
         // We now use the standard internship packages list
         setFormData(prev => ({ ...prev, package_name: packagesList[0] }));
-    }, [packagesList]);
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
