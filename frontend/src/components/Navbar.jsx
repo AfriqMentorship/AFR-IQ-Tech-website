@@ -129,8 +129,9 @@ const navStyles = `
     transform: translateX(100%);
     transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
     box-shadow: -20px 0 60px rgba(0,0,0,0.6);
+    visibility: hidden;
   }
-  .drawer.open { transform: translateX(0); }
+  .drawer.open { transform: translateX(0); visibility: visible; }
 
   /* Drawer header */
   .drawer-header {
@@ -287,23 +288,6 @@ export default function Navbar({ currentPage, navigate }) {
     () => localStorage.getItem("theme") || "dark"
   );
 
-  useEffect(() => {
-    if (user) {
-      fetchOrders();
-
-      const subscription = supabase
-        .channel('public:orders')
-        .on('postgres_changes', { event: '*', schema: 'public', table: 'orders', filter: `user_id=eq.${user.id}` }, () => {
-          fetchOrders();
-        })
-        .subscribe();
-
-      return () => {
-        supabase.removeChannel(subscription);
-      };
-    }
-  }, [user, fetchOrders]);
-
   const fetchOrders = useCallback(async () => {
     if (!user) return;
     const { data } = await supabase
@@ -325,6 +309,24 @@ export default function Navbar({ currentPage, navigate }) {
       setUnreadCount(unread);
     }
   }, [user]);
+
+  useEffect(() => {
+    if (user) {
+      fetchOrders();
+
+      const subscription = supabase
+        .channel('public:orders')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'orders', filter: `user_id=eq.${user.id}` }, () => {
+          fetchOrders();
+        })
+        .subscribe();
+
+      return () => {
+        supabase.removeChannel(subscription);
+      };
+    }
+  }, [user, fetchOrders]);
+
 
   const openNotifications = () => {
     setNotifOpen(true);

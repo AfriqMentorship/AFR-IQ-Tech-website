@@ -68,13 +68,15 @@ const styles = `
   .ac-eyebrow::before { content: ''; display: block; width: 32px; height: 1.5px; background: var(--green); opacity: 0.6; }
   .ac-hero-title {
     font-family: 'Poppins', sans-serif;
-    font-size: clamp(48px, 6.5vw, 84px);
-    line-height: 0.9; color: var(--text); margin-bottom: 20px;
+    font-size: clamp(40px, 6.5vw, 84px);
+    line-height: 1.1; color: var(--text); margin-bottom: 20px;
     padding-left: 44px;
+    overflow: visible;
   }
   .ac-hero-title .hl { color: var(--orange); text-shadow: 0 0 30px var(--accent-orange-glow); }
   .ac-hero-title .hl-alt { color: var(--text-primary); transition: color 0.3s ease; }
   [data-theme="light"] .ac-hero-title .hl-alt { color: var(--accent-green); }
+
 
   .ac-hero-desc { font-size: 17px; color: var(--muted); line-height: 1.6; margin-bottom: 36px; max-width: 700px; }
 
@@ -423,7 +425,7 @@ const styles = `
 
   @media (max-width: 450px) {
     .ac-hero { padding: 40px 20px; }
-    .ac-hero-title { font-size: 38px; margin-bottom: 16px; line-height: 1.1; padding-left: 0; }
+    .ac-hero-title { font-size: 38px; margin-bottom: 16px; line-height: 1.2; padding-left: 5px; }
     .ac-hero-desc { font-size: 15px; margin-bottom: 24px; padding-right: 10px; }
     .ac-hero-stats { gap: 16px; border-top: 1px solid var(--border-subtle); padding-top: 24px; }
     .ac-stat-n { font-size: 28px; }
@@ -437,7 +439,7 @@ const styles = `
 
   @media (max-width: 380px) {
     .ac-hero { padding: 32px 16px; }
-    .ac-hero-title { font-size: 32px; padding-left: 0; }
+    .ac-hero-title { font-size: 32px; padding-left: 5px; }
     .ac-stat-n { font-size: 24px; }
   }
 
@@ -1398,6 +1400,8 @@ export default function Academy() {
             <div className="ac-hero-content">
               <div className="ac-eyebrow">Academy</div>
               <h1 className="ac-hero-title">Learn. <span className="hl">Think.</span> <span className="hl-alt">Innovate.</span></h1>
+              <script dangerouslySetInnerHTML={{ __html: `console.log("🚀 AFRIQ_UPDATE_SUCCESS_V2");` }} />
+
               <p className="ac-hero-desc">
                 Professional IT training for East Africa's digital workforce. Choose between instructor-led physical classes in Kampala or flexible self-paced online courses.
               </p>

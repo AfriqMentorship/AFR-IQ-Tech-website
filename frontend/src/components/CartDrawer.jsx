@@ -17,8 +17,9 @@ const drawerStyles = `
     transition: right 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     display: flex; flex-direction: column;
     box-shadow: -20px 0 50px rgba(0,0,0,0.1);
+    visibility: hidden;
   }
-  .cart-drawer.open { right: 0; }
+  .cart-drawer.open { right: 0; visibility: visible; }
 
   .cart-header {
     padding: 32px; border-bottom: 1px solid var(--border-subtle);
