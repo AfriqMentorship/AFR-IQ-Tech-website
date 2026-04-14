@@ -220,9 +220,7 @@ function StudentDashboard({ user }) {
     const [weeklyRecommendation, setWeeklyRecommendation] = useState("");
     const [week, setWeek] = useState(1);
 
-    useEffect(() => { fetchStudentData(); }, []);
-
-    const fetchStudentData = async () => {
+    const fetchStudentData = React.useCallback(async () => {
         setLoading(true);
         // Fetch user's internship
         const { data: intData } = await supabase
@@ -244,7 +242,12 @@ function StudentDashboard({ user }) {
             if (repData) setReports(repData);
         }
         setLoading(false);
-    };
+    }, [user.id]);
+
+    useEffect(() => { 
+        const t = setTimeout(() => fetchStudentData(), 0); 
+        return () => clearTimeout(t);
+    }, [fetchStudentData]);
 
     const handleAddDay = () => {
         setDailyLogs([...dailyLogs, {
@@ -512,9 +515,7 @@ function SupervisorDashboard({ user }) {
     const [reports, setReports] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => { fetchSupervisorData(); }, []);
-
-    const fetchSupervisorData = async () => {
+    const fetchSupervisorData = React.useCallback(async () => {
         setLoading(true);
         // Fetch assigned interns
         const { data: indata } = await supabase
@@ -536,7 +537,12 @@ function SupervisorDashboard({ user }) {
             }
         }
         setLoading(false);
-    };
+    }, [user.id]);
+
+    useEffect(() => { 
+       const t = setTimeout(() => fetchSupervisorData(), 0); 
+       return () => clearTimeout(t);
+    }, [fetchSupervisorData]);
 
     const updateInternStatus = async (id, stat) => {
         await supabase.from('internships').update({ status: stat }).eq('id', id);

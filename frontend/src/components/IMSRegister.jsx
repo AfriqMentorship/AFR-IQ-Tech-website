@@ -25,7 +25,7 @@ export default function IMSRegister({ user, onComplete }) {
     useEffect(() => {
         // We now use the standard internship packages list
         setFormData(prev => ({ ...prev, package_name: packagesList[0] }));
-    }, []);
+    }, [packagesList]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;

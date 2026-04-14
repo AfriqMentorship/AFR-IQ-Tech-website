@@ -317,7 +317,7 @@ export default function Login({ navigate }) {
     setLoading(true);
 
     // 1. Try to create the supervisor account
-    const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+    const { error: signUpError } = await supabase.auth.signUp({
       email,
       password,
       options: { data: { full_name: name, role: 'supervisor', university } }
@@ -355,10 +355,12 @@ export default function Login({ navigate }) {
             role: 'supervisor',
             status: 'Active'
         }]);
-    } catch (_) {}
+    } catch { 
+        // Secondary record check skipped
+    }
 
     // 4. Locate Student by Registration Number
-    const { data: studentInt, error: studentError } = await supabase
+    const { data: studentInt } = await supabase
       .from('internships')
       .select('student_id, full_name, first_name, last_name')
       .eq('registration_number', regNo)

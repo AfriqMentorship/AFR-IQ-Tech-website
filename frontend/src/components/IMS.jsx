@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "./AuthContext";
 import { supabase } from "../supabaseClient";
 
@@ -201,19 +201,18 @@ const features = [
   { icon: "🎓", title: "Performance Evaluation", desc: "Admins and mentors can assess student performance, leave remarks, and grade daily activities." },
   { icon: "🏅", title: "Certificate Generation", desc: "Automatically generate completion certificates upon successful completion of the internship program." }
 ];
-
 export default function IMS({ navigate }) {
   const { user } = useAuth();
-  const [dbCourses, setDbCourses] = useState([]);
 
-  useEffect(() => {
-    fetchCourses();
+  const fetchCourses = useCallback(async () => {
+    const { data } = await supabase.from('courses').select('*').limit(3);
+    // if (data) setDbCourses(data); // dbCourses is unused in return
   }, []);
 
-  const fetchCourses = async () => {
-    const { data } = await supabase.from('courses').select('*').limit(3);
-    if (data) setDbCourses(data);
-  };
+  useEffect(() => {
+    const t = setTimeout(() => fetchCourses(), 0);
+    return () => clearTimeout(t);
+  }, [fetchCourses]);
 
   return (
     <>

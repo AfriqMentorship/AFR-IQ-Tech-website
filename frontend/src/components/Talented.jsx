@@ -497,11 +497,7 @@ export default function Talented() {
   const [loading, setLoading] = useState(true);
   const [expandedSkills, setExpandedSkills] = useState({});
 
-  useEffect(() => {
-    fetchGraduates();
-  }, []);
-
-  const fetchGraduates = async () => {
+  async function fetchGraduates() {
     setLoading(true);
     const { data, error } = await supabase
       .from('talented')
@@ -513,7 +509,13 @@ export default function Talented() {
       setGraduates(data);
     }
     setLoading(false);
-  };
+  }
+
+  useEffect(() => {
+    // Avoid synchronous setState in effect
+    const t = setTimeout(() => fetchGraduates(), 0);
+    return () => clearTimeout(t);
+  }, []);
 
   const toggleSkills = (id) => {
     setExpandedSkills(prev => ({ ...prev, [id]: !prev[id] }));

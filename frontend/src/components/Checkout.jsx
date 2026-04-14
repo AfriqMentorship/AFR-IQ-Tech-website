@@ -419,12 +419,6 @@ export default function Checkout({ navigate }) {
         await supabase.from('users').update({ phone: address.phone }).eq('id', user.id);
       }
 
-      // Build delivery address string
-      let fullAddress = [address.name, address.street, address.city].filter(Boolean).join(', ');
-      if (transactionId) {
-        fullAddress += ` | Mobile Money Txn ID: ${transactionId} (${paymentMethod})`;
-      }
-
       // Insert order with Smart-Bypass for RLS
       let orderData = null;
       let tempOrderId = "A-QR-" + Math.random().toString(36).substr(2, 6).toUpperCase();
@@ -447,8 +441,8 @@ export default function Checkout({ navigate }) {
         } else {
           orderData = inserted;
         }
-      } catch (e) {
-        console.error("Critical insert error, using Smart-Bypass:", e);
+      } catch {
+        console.error("Critical insert error, using Smart-Bypass");
       }
 
       const finalOrderId = orderData ? orderData.id.split('-')[0].toUpperCase() : tempOrderId;
@@ -466,7 +460,6 @@ export default function Checkout({ navigate }) {
         await supabase.from('order_items').insert(orderItems).catch(() => {});
       }
 
-
       // Decrement stock (best-effort, don't throw)
       for (const item of cart) {
         await supabase.rpc('decrement_product_stock', { p_id: item.id, amount: item.qty }).catch(() => {});
@@ -481,9 +474,8 @@ export default function Checkout({ navigate }) {
         m.sendAdminOrderNotification({
           orderId: finalOrderId,
           customerName: address.name,
-          customerEmail: address.email,
           customerPhone: address.phone,
-          address: `${address.street}, ${address.city}, ${address.country}`,
+          address: `${address.street}, ${address.city}`,
           total: finalTotal,
           items: cart
         });

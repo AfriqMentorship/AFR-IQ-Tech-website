@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { supabase, COURSE_UNITS } from "../supabaseClient";
-import { useAuth } from "./AuthContext";
+import { COURSE_UNITS } from "../supabaseClient";
 import { useCart } from "./CartContext";
 import { localProducts } from "../data/localProducts";
 
@@ -445,7 +444,7 @@ const styles = `
 
 const CATEGORIES = ["All", "Laptops", "Recommended PCs"];
 
-export default function Shop({ navigate }) {
+export default function Shop() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [courseSearch, setCourseSearch] = useState("");
   const [addedItems, setAddedItems] = useState({});
@@ -454,19 +453,19 @@ export default function Shop({ navigate }) {
   const [shopError, setShopError] = useState("");
 
   const { addToCart, setCartOpen, cartItemCount } = useCart();
-  const { user } = useAuth();
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  const fetchProducts = () => {
+  function fetchProducts() {
     // Only use localProducts (now exclusively Jumia items)
     const allProducts = localProducts.map(lp => ({...lp}));
-    
     setProducts(allProducts);
     setLoading(false);
-  };
+  }
+
+  useEffect(() => {
+    // Avoid synchronous setState in effect
+    const t = setTimeout(() => fetchProducts(), 0);
+    return () => clearTimeout(t);
+  }, []);
 
   const filteredProducts = activeCategory === "All"
     ? products
@@ -486,7 +485,6 @@ export default function Shop({ navigate }) {
     setTimeout(() => {
       setAddedItems(prev => ({ ...prev, [product.id]: false }));
     }, 2000);
-    // Open the cart drawer so the user can see their item
     setTimeout(() => setCartOpen(true), 300);
   };
 
@@ -495,7 +493,6 @@ export default function Shop({ navigate }) {
       <style>{styles}</style>
       <div className="page">
 
-        {/* Hero Section */}
         <div className="page-hero">
           <div className="page-grid-bg" />
           <div className="page-eyebrow">Tech Hub Store</div>
@@ -514,7 +511,6 @@ export default function Shop({ navigate }) {
             </div>
           )}
 
-          {/* Sidebar */}
           <aside className="shop-sidebar">
             <div className="filter-group">
               <h3 className="filter-title">Categories</h3>

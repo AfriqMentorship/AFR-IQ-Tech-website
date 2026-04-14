@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import logo from "../assets/logo-removebg-preview.png";
 import { useAuth } from "./AuthContext";
 import { useCart } from "./CartContext";
@@ -302,9 +302,10 @@ export default function Navbar({ currentPage, navigate }) {
         supabase.removeChannel(subscription);
       };
     }
-  }, [user]);
+  }, [user, fetchOrders]);
 
-  const fetchOrders = async () => {
+  const fetchOrders = useCallback(async () => {
+    if (!user) return;
     const { data } = await supabase
       .from('orders')
       .select('*, order_items(quantity, products(name, icon))')
@@ -323,7 +324,7 @@ export default function Navbar({ currentPage, navigate }) {
       });
       setUnreadCount(unread);
     }
-  };
+  }, [user]);
 
   const openNotifications = () => {
     setNotifOpen(true);
@@ -335,14 +336,16 @@ export default function Navbar({ currentPage, navigate }) {
     setUnreadCount(0);
   };
 
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-  }, [theme]);
+
 
   const toggleTheme = () => {
     setTheme(prev => prev === "dark" ? "light" : "dark");
   };
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   // Navigate and close drawer
   const go = (key) => {

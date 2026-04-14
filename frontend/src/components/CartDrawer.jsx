@@ -112,8 +112,9 @@ const drawerStyles = `
 `;
 
 export default function CartDrawer({ navigate }) {
-    const { cart, updateCartQty, removeFromCart, cartTotal, cartOpen, setCartOpen } = useCart();
+    const { cart, updateCartQty, removeFromCart, clearCart, cartTotal, cartOpen, setCartOpen } = useCart();
     const { user } = useAuth();
+    const [success, setSuccess] = React.useState(false);
     
     // Order info collection state
     const [orderFormOpen, setOrderFormOpen] = React.useState(false);

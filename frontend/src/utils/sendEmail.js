@@ -23,7 +23,7 @@ export const sendNotificationEmail = async (to_email, to_name, program_name, sta
       timeStyle: 'short',
     });
 
-    const result = await emailjs.send(
+    await emailjs.send(
       EMAILJS_SERVICE_ID,
       APPLICANT_TEMPLATE_ID,
       {
@@ -171,7 +171,7 @@ export const sendAdminOrderNotification = async ({ orderId, customerName, custom
     const itemsList = items.map(i => `- ${i.name} (x${i.qty})`).join('\n');
     const orderSummary = `New order received!\n\nOrder ID: #${orderId}\nCustomer: ${customerName}\nEmail: ${customerEmail}\nPhone: ${customerPhone}\nAddress: ${address}\nTotal: UGX ${total.toLocaleString()}\n\nItems:\n${itemsList}`;
 
-    const result = await emailjs.send(
+    await emailjs.send(
       EMAILJS_SERVICE_ID,
       ADMIN_CONTACT_TEMPLATE_ID,
       {
@@ -216,7 +216,7 @@ export const sendAdminEnrollmentNotification = async ({ name, email, phone, cour
 
     const enrollSummary = `New academy enrollment request received!\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nCourse: ${course}\nMode: ${mode}`;
 
-    const result = await emailjs.send(
+    await emailjs.send(
       EMAILJS_SERVICE_ID,
       ADMIN_CONTACT_TEMPLATE_ID,
       {
