@@ -398,14 +398,18 @@ const styles = `
   .t-role {
     font-family: 'Inter', sans-serif; font-size: 12px; color: var(--text-muted);
     font-weight: 500; margin-top: 2px;
+    white-space: nowrap; 
   }
   .t-tag {
-    margin-left: auto; flex-shrink: 0;
+    position: absolute;
+    top: 48px;
+    right: 36px;
     background: var(--accent-orange-glow); color: var(--accent-orange);
     border: 1px solid rgba(255,165,0,0.2); border-radius: 20px;
     font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700;
     text-transform: uppercase; letter-spacing: 0.06em;
-    padding: 4px 10px;
+    padding: 6px 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   }
   .t-tag.green { background: var(--accent-green-glow); color: var(--accent-green); border-color: rgba(0,200,120,0.2); }
   .t-tag.blue { background: rgba(74,144,226,0.1); color: #4a90e2; border-color: rgba(74,144,226,0.2); }
