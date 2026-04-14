@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useAuth } from "./AuthContext";
 import { supabase, COURSE_UNITS } from "../supabaseClient";
 import { sendNotificationEmail } from "../utils/sendEmail";
@@ -286,7 +286,6 @@ export default function AdminDashboard() {
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [notif, setNotif] = useState(null); // { msg, type }
   const [confirmObj, setConfirmObj] = useState(null);
-  const [txnInput, setTxnInput] = useState({ id: null, val: '' });
 
   const [selectedCourse, setSelectedCourse] = useState("");
   const [checkedUnits, setCheckedUnits] = useState([]);
@@ -357,7 +356,6 @@ export default function AdminDashboard() {
         fetchData();
       })
       .subscribe();
-
     return () => {
       supabase.removeChannel(orderSub);
       supabase.removeChannel(msgSub);
@@ -365,9 +363,9 @@ export default function AdminDashboard() {
       supabase.removeChannel(internSub);
       supabase.removeChannel(academySub);
     };
-  }, []);
+  }, [fetchData]);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setLoading(true);
     const [usersRes, imsRes, companiesRes, academyRes, onlineRes, shopRes, msgRes, productsRes, talentedRes, siteVideosRes] = await Promise.all([
       supabase.from('users').select('*').order('created_at', { ascending: false }),
@@ -393,7 +391,7 @@ export default function AdminDashboard() {
     if (talentedRes.data) setTalentedPool(talentedRes.data);
     if (siteVideosRes.data) setSiteVideos(siteVideosRes.data);
     setLoading(false);
-  };
+  }, [dismissedIds]);
 
   const dismissItemLocally = (id) => {
     const updated = [...dismissedIds, id];
@@ -986,7 +984,7 @@ export default function AdminDashboard() {
           </>
         );
 
-      case 'shop':
+      case 'shop': {
         const filteredOrders = shopOrders.filter(o => {
           if (o.status === 'Deleted') return false; // Never show deleted orders
           if (shopFilter === 'pending') return o.status === 'pending';
@@ -1162,7 +1160,7 @@ export default function AdminDashboard() {
             )}
           </>
         );
-
+      }
       case 'talented':
         return (
           <>

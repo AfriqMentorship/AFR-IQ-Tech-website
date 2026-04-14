@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { supabase } from "../supabaseClient";
 import { useAuth } from "./AuthContext";
@@ -699,7 +699,7 @@ const physicalCourses = [
 // Keep self-paced as empty — all courses are on-campus at AFR-IQ
 const selfPacedCourses = [];
 
-const physCategories = ["All", "Computer Fundamentals", "Accounting Software", "Computer Repair and Maintenance", "Graphics Design", "Marketing", "Video Editing and Photography", "Programming", "Web Development", "Mobile Development", "Networking", "Cybersecurity", "Cloud Computing", "Data"];
+
 const levels = ["All Levels", "Beginner", "Intermediate", "Advanced"];
 
 function StarRating({ rating }) {
@@ -1256,7 +1256,7 @@ function WatchModal({ course, onClose }) {
 }
 
 
-export default function Academy({ navigate }) {
+export default function Academy() {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState("physical");
   const [activeCategory, setActiveCategory] = useState("All");
@@ -1267,9 +1267,18 @@ export default function Academy({ navigate }) {
   const [watchCourse, setWatchCourse] = useState(null);
   const [showIntakeForm, setShowIntakeForm] = useState(false);
 
-  const [dbPhysicalCourses, setDbPhysicalCourses] = useState([]);
+  const [dbPhysicalCourses] = useState([]);
   const [dbSelfPacedCourses, setDbSelfPacedCourses] = useState([]);
   const [approvedCourses, setApprovedCourses] = useState([]);
+
+  const fetchCourses = async () => {
+    try {
+      const { data } = await supabase.from('academy_videos').select('*').order('created_at', { ascending: false });
+      if (data) setDbSelfPacedCourses(data);
+    } catch (err) {
+      console.error("Error fetching online courses:", err);
+    }
+  };
 
   useEffect(() => {
     fetchCourses();
@@ -1295,20 +1304,11 @@ export default function Academy({ navigate }) {
     }
   }, [user]);
 
-  const fetchCourses = async () => {
-    try {
-      const { data, error } = await supabase.from('academy_videos').select('*').order('created_at', { ascending: false });
-      if (data) setDbSelfPacedCourses(data);
-    } catch (err) {
-      console.error("Error fetching online courses:", err);
-    }
-  };
-
   const courses = activeTab === "physical" ? (dbPhysicalCourses.length ? dbPhysicalCourses : physicalCourses) : (dbSelfPacedCourses.length ? dbSelfPacedCourses : selfPacedCourses);
   
   // Dynamic categories based on current tab's courses
-  const currentTabCategories = ["All", ...new Set(courses.map(c => c.category))];
-  const categories = activeTab === "physical" ? (physCategories.length > 1 ? physCategories : currentTabCategories) : currentTabCategories;
+  // const currentTabCategories = ["All", ...new Set(courses.map(c => c.category))];
+  // const categories = activeTab === "physical" ? (currentTabCategories) : currentTabCategories;
 
   const filtered = courses.filter(c => {
     const matchCat = activeCategory === "All" || c.category === activeCategory;
