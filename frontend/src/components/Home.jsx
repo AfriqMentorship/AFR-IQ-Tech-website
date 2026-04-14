@@ -470,6 +470,7 @@ const styles = `
     .hero-ctas { flex-direction: column; width: 100%; gap: 12px; }
     .hero-btn-primary, .hero-btn-outline { width: 100%; text-align: center; }
     .hero-stats { flex-direction: column; align-items: flex-start; gap: 24px; margin-top: 30px; }
+    .testimonial-card { padding: 24px 20px; }
   }
   @media (max-width: 700px) {
     .stats-grid { grid-template-columns: 1fr 1fr; }

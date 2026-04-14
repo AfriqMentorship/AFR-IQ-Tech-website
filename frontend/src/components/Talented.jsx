@@ -448,10 +448,18 @@ const talentedStyles = `
   }
 
   @media (max-width: 768px) {
-    .talented-container { padding: 80px 24px 60px; }
+    .talented-container { padding: 80px 16px 60px; }
+    .talented-header {
+      padding: 60px 16px 40px;
+      margin-left: -16px;
+      margin-right: -16px;
+      margin-top: -80px;
+      margin-bottom: 40px;
+    }
     .talented-title { font-size: clamp(32px, 8vw, 48px); }
+    .talented-subtitle { font-size: 16px; line-height: 1.6; max-width: 100%; }
     .graduates-grid { gap: 24px; }
-    .graduate-card { padding: 32px 24px; }
+    .graduate-card { padding: 24px 16px; }
   }
 
   @keyframes pulse-glow {
