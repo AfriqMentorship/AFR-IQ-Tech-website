@@ -844,7 +844,7 @@ function EnrollModal({ course, mode, onClose, user }) {
     let { error } = await supabase.from('academy_enrollments').insert([enrollmentData]);
 
     // Fallback if full_name/email/phone columns don't exist yet
-    if (error && error.message?.includes('column')) {
+    if (error && (error.message?.includes('column') || error.code === 'PGRST204')) {
         console.warn("Table missing extra columns, using basic payload");
         const { error: fallbackErr } = await supabase.from('academy_enrollments').insert([{
             user_id: currentUserId,
@@ -1055,7 +1055,7 @@ function IntakeModal({ defaultMode, onClose }) {
     let { error } = await supabase.from('academy_enrollments').insert([enrollmentData]);
 
     // Fallback
-    if (error && error.message?.includes('column')) {
+    if (error && (error.message?.includes('column') || error.code === 'PGRST204')) {
         const { error: fallbackErr } = await supabase.from('academy_enrollments').insert([{
             user_id: currentUserId,
             program_name: `${form.course_title} (${studyMode})`,
@@ -1284,7 +1284,9 @@ export default function Academy({ navigate }) {
         .then(({ data }) => {
           if (data) {
             // Store just the course titles (stripping the " (Mode)" part if needed for comparison)
-            const approved = data.map(d => d.program_name.split(' (')[0]);
+            const approved = data
+              .filter(d => d.program_name)
+              .map(d => d.program_name.split(' (')[0]);
             setApprovedCourses(approved);
           }
         });
@@ -1359,7 +1361,7 @@ export default function Academy({ navigate }) {
           <div className="ac-hero-inner">
             <div className="ac-hero-content">
               <div className="ac-eyebrow">Academy</div>
-              <h1 className="ac-hero-title" style={{ marginLeft: '20px' }}>Learn. <span className="hl">Think.</span> <span style={{ color: '#fff' }}>Innovate.</span></h1>
+              <h1 className="ac-hero-title" style={{ paddingLeft: '44px' }}>Learn. <span className="hl">Think.</span> <span style={{ color: '#fff' }}>Innovate.</span></h1>
               <p className="ac-hero-desc">
                 Professional IT training for East Africa's digital workforce. Choose between instructor-led physical classes in Kampala or flexible self-paced online courses.
               </p>
