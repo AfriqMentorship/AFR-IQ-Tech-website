@@ -69,13 +69,12 @@ const styles = `
   .ac-hero-title {
     font-family: 'Poppins', sans-serif;
     font-size: clamp(40px, 6.5vw, 84px);
-    line-height: 1.1; color: var(--text); margin-bottom: 20px;
-    padding-left: 44px;
+    line-height: 1.1; color: var(--text-primary); margin-bottom: 20px;
+    padding-left: 24px;
     overflow: visible;
   }
   .ac-hero-title .hl { color: var(--orange); text-shadow: 0 0 30px var(--accent-orange-glow); }
   .ac-hero-title .hl-alt { color: var(--text-primary); transition: color 0.3s ease; }
-  [data-theme="light"] .ac-hero-title .hl-alt { color: var(--accent-green); }
 
 
   .ac-hero-desc { font-size: 17px; color: var(--muted); line-height: 1.6; margin-bottom: 36px; max-width: 700px; }
