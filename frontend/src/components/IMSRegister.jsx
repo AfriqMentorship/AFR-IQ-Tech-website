@@ -232,7 +232,7 @@ export default function IMSRegister({ user, onComplete }) {
                     font-size: 14px;
                     border: 1px solid rgba(255,80,80,0.2);
                 }
-                {/* Preferred Company and New Company logic removed */}
+              
 
                 .registration-success {
                     background: var(--bg-level1);
