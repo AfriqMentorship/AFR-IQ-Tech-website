@@ -400,7 +400,7 @@ const styles = `
       border-right: none; 
       border-bottom: 1px solid var(--border-subtle); 
       padding: 16px; 
-      margin: 16px;
+      margin: 16px; 
       border-radius: 12px;
       background: var(--bg-level1);
     }
@@ -416,6 +416,7 @@ const styles = `
     .course-card { margin: 0 auto; width: 100%; max-width: 400px; }
     .course-meta { flex-direction: column; gap: 8px; align-items: flex-start; }
   }
+
   @media (max-width: 450px) {
     .ac-hero { padding: 40px 20px; }
     .ac-hero-title { font-size: 38px; margin-bottom: 16px; line-height: 1.1; }
@@ -429,10 +430,11 @@ const styles = `
     .ac-search-input { padding: 12px 16px; font-size: 13px; }
     .ac-search-btn { padding: 0 20px; font-size: 13px; }
   }
+
   @media (max-width: 380px) {
+    .ac-hero { padding: 32px 16px; }
     .ac-hero-title { font-size: 32px; }
     .ac-stat-n { font-size: 24px; }
-    .ac-hero { padding: 32px 16px; }
   }
 
 
