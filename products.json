@@ -1,0 +1,90 @@
+[
+  {
+    "id": "44a8fce8-f38c-46f4-b20e-742c72af3390",
+    "name": "Logitech MX Master 3S",
+    "category": "Accessories",
+    "price": 99.99,
+    "icon": "🖱️",
+    "description": null,
+    "stock": 100,
+    "badge": "Essential",
+    "specs": [
+      "Wireless",
+      "Ergonomic",
+      "USB-C"
+    ]
+  },
+  {
+    "id": "cc7abfad-356c-4118-80c2-9bc0c2ae0316",
+    "name": "MacBook Pro 14\" M3",
+    "category": "Laptops",
+    "price": 1999,
+    "icon": "🍎",
+    "description": null,
+    "stock": 100,
+    "badge": null,
+    "specs": [
+      "M3 Chip",
+      "18GB RAM",
+      "1TB SSD"
+    ]
+  },
+  {
+    "id": "20f4bfe8-1d0b-4706-863c-354b1cd7085f",
+    "name": "Cisco Meraki Go WiFi 6",
+    "category": "Networking",
+    "price": 229,
+    "icon": "📡",
+    "description": null,
+    "stock": 100,
+    "badge": null,
+    "specs": [
+      "WiFi 6",
+      "Cloud Managed"
+    ]
+  },
+  {
+    "id": "e2f90b21-aeb5-4a83-8639-700dc1fd7b92",
+    "name": "APC Back-UPS Pro 1500VA",
+    "category": "Power",
+    "price": 195,
+    "icon": "🔋",
+    "description": null,
+    "stock": 100,
+    "badge": "Sale",
+    "specs": [
+      "1500VA/900W",
+      "LCD Display"
+    ]
+  },
+  {
+    "id": "dc5f65bf-ebbf-4751-b894-8dcf5aa5b26a",
+    "name": "ThinkPad X1 Carbon Gen 11",
+    "category": "Laptops",
+    "price": 1699,
+    "icon": "💻",
+    "description": null,
+    "stock": 99,
+    "badge": "Bestseller",
+    "specs": [
+      "Core i7",
+      "16GB RAM",
+      "512GB SSD"
+    ]
+  },
+  {
+    "id": "5cc7fd84-34b7-4921-8a89-5b2e0f7fc4db",
+    "name": "Dell UltraSharp 27\" 4K",
+    "category": "Monitors",
+    "price": 549.99,
+    "icon": "🖥️",
+    "description": null,
+    "stock": 98,
+    "badge": null,
+    "specs": [
+      "4K UHD",
+      "USB-C",
+      "IPS Panel"
+    ]
+  }
+]

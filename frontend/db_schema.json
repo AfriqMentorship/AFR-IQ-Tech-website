@@ -1,0 +1,139 @@
+{
+  "discount_codes": [
+    "id",
+    "code",
+    "discount_percentage",
+    "active"
+  ],
+  "orders": [
+    "id",
+    "user_id",
+    "total_price",
+    "status",
+    "created_at"
+  ],
+  "academy_enrollments": [
+    "id",
+    "user_id",
+    "program_name",
+    "status",
+    "created_at"
+  ],
+  "contact_messages": [
+    "id",
+    "name",
+    "email",
+    "phone",
+    "subject",
+    "message",
+    "status",
+    "created_at"
+  ],
+  "shop_orders": [
+    "id",
+    "user_id",
+    "item_name",
+    "total_price",
+    "status",
+    "created_at"
+  ],
+  "companies": [
+    "id",
+    "name",
+    "description",
+    "address",
+    "website",
+    "status",
+    "created_at"
+  ],
+  "internships": [
+    "id",
+    "student_id",
+    "company_id",
+    "supervisor_id",
+    "package_name",
+    "title",
+    "cv_url",
+    "application_url",
+    "final_report_url",
+    "start_date",
+    "end_date",
+    "status",
+    "created_at",
+    "university",
+    "location",
+    "first_name",
+    "last_name",
+    "email",
+    "registration_number"
+  ],
+  "evaluations": [
+    "id",
+    "internship_id",
+    "supervisor_id",
+    "week_number",
+    "eval_text",
+    "score",
+    "created_at"
+  ],
+  "products": [
+    "id",
+    "name",
+    "category",
+    "price",
+    "icon",
+    "description",
+    "stock",
+    "badge",
+    "specs"
+  ],
+  "app_user_roles": [
+    "auth_uid",
+    "email",
+    "role",
+    "created_at",
+    "updated_at"
+  ],
+  "weekly_reports": [
+    "id",
+    "internship_id",
+    "student_id",
+    "week_number",
+    "report_text",
+    "file_url",
+    "status",
+    "supervisor_comment",
+    "created_at"
+  ],
+  "order_items": [
+    "id",
+    "order_id",
+    "product_id",
+    "quantity",
+    "price_at_purchase"
+  ],
+  "ims_applications": [
+    "id",
+    "user_id",
+    "package_name",
+    "status",
+    "created_at"
+  ],
+  "users": [
+    "id",
+    "full_name",
+    "email",
+    "phone",
+    "role",
+    "status",
+    "created_at",
+    "company_id"
+  ],
+  "courses": [
+    "id",
+    "title",
+    "duration",
+    "price",
+    "created_at"
+  ]
+}
