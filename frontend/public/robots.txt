@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://afriqtechnologies.qikv7137dv.afriqmentorships.projects.vercel.app/sitemap.xml
+Sitemap: https://afriqtechnologies.com/sitemap.xml
