@@ -366,7 +366,7 @@ const styles = `
   .testimonial-card.featured .t-quote-icon { opacity: 0.4; }
 
   .t-header-row {
-    display: flex; justify-content: flex-start; align-items: center; gap: 12px; margin-bottom: 16px;
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;
   }
   .t-stars {
     display: flex; gap: 4px;
@@ -610,12 +610,12 @@ function TestimonialCard({ t, index }) {
     >
       <span className="t-quote-icon">"</span>
       <div className="t-header-row">
+        <span className={`t-tag ${t.tagColor}`}>{t.tag}</span>
         <div className="t-stars">
           {Array.from({ length: t.stars }).map((_, i) => (
             <span key={i} className="t-star">⭐</span>
           ))}
         </div>
-        <span className={`t-tag ${t.tagColor}`}>{t.tag}</span>
       </div>
       <p className="t-text">"{t.text}"</p>
       <div className="t-author">
