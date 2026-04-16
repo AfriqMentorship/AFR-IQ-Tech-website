@@ -365,8 +365,11 @@ const styles = `
   }
   .testimonial-card.featured .t-quote-icon { opacity: 0.4; }
 
+  .t-header-row {
+    display: flex; justify-content: flex-start; align-items: center; gap: 12px; margin-bottom: 16px;
+  }
   .t-stars {
-    display: flex; gap: 4px; margin-bottom: 16px;
+    display: flex; gap: 4px;
   }
   .t-star { font-size: 16px; }
 
@@ -401,9 +404,6 @@ const styles = `
     white-space: nowrap; 
   }
   .t-tag {
-    position: absolute;
-    top: 48px;
-    right: 36px;
     background: var(--accent-orange-glow); color: var(--accent-orange);
     border: 1px solid rgba(255,165,0,0.2); border-radius: 20px;
     font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700;
@@ -609,10 +609,13 @@ function TestimonialCard({ t, index }) {
       style={{ transitionDelay: `${index * 0.12}s`, transition: `opacity 0.6s ease ${index * 0.12}s, transform 0.6s ease ${index * 0.12}s, border-color 0.4s, box-shadow 0.4s, background 0.4s` }}
     >
       <span className="t-quote-icon">"</span>
-      <div className="t-stars">
-        {Array.from({ length: t.stars }).map((_, i) => (
-          <span key={i} className="t-star">⭐</span>
-        ))}
+      <div className="t-header-row">
+        <div className="t-stars">
+          {Array.from({ length: t.stars }).map((_, i) => (
+            <span key={i} className="t-star">⭐</span>
+          ))}
+        </div>
+        <span className={`t-tag ${t.tagColor}`}>{t.tag}</span>
       </div>
       <p className="t-text">"{t.text}"</p>
       <div className="t-author">
@@ -625,7 +628,6 @@ function TestimonialCard({ t, index }) {
           <div className="t-name">{t.name}</div>
           <div className="t-role">{t.role}</div>
         </div>
-        <span className={`t-tag ${t.tagColor}`}>{t.tag}</span>
       </div>
     </div>
   );
