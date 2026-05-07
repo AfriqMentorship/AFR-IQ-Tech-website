@@ -355,7 +355,7 @@ export default function Navbar({ currentPage, navigate }) {
     setDrawerOpen(false);
   };
 
-  const isAdmin = user?.profile?.role === 'admin' || user?.email === 'iamsifu.dev@gmail.com';
+  const isAdmin = user?.profile?.role === 'admin' || user?.email === 'iamsifu.dev@gmail.com' || user?.email === 'afriqtechnologies@gmail.com' || user?.email === 'kuteesamoses@gmail.com';
   const visibleLinks = navLinks.filter(l => l.key !== 'Admin' || isAdmin);
 
   // Filter drawer links by search
@@ -379,7 +379,7 @@ export default function Navbar({ currentPage, navigate }) {
             <img src={logo} alt="AFR-IQ Logo" />
           </div>
           <div>
-            <div className="nav-brand-text">AFR-IQ</div>
+            <div className="nav-brand-text">AFRIQ</div>
             <div className="nav-brand-sub">Technologies Ltd</div>
           </div>
         </div>

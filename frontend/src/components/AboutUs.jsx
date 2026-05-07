@@ -390,9 +390,9 @@ export default function AboutUs() {
         <div className="page-hero">
           <div className="page-grid-bg" />
           <div className="page-eyebrow">Our Story</div>
-          <h1 className="page-title">Innovating for <span className="hl">Africa</span></h1>
+          <h1 className="page-title">Innovating for <span className="hl">AFRIQ</span></h1>
           <p className="page-desc">
-            Helping Africa attain technology independence by instilling creative thinking, fostering innovation, and delivering comprehensive IT services.
+            Helping AFRIQ attain technology independence by instilling creative thinking, fostering innovation, and delivering comprehensive IT services.
           </p>
           <div style={{ marginTop: '32px', display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
             <div style={{ background: 'rgba(0,200,120,0.1)', border: '1px solid rgba(0,200,120,0.3)', borderRadius: '12px', padding: '10px 20px', fontFamily: "'Inter', sans-serif", fontSize: '13px', color: '#00c878', fontWeight: 700, letterSpacing: '0.08em' }}>🎯 Learn. Think. Innovate</div>
@@ -408,7 +408,7 @@ export default function AboutUs() {
               <div className="page-eyebrow" style={{ color: 'var(--accent-green)', justifyContent: 'center' }}>Our Purpose</div>
               <h2>Our <span className="hl" style={{ color: 'var(--accent-orange)' }}>Mission</span></h2>
               <p>
-                To empower African talent through inventive-driven technology training and the delivery of cutting-edge IT services that solve real-world problems, inspire innovation, and strengthen the continent's digital resilience against emerging technological threats.
+                To empower AFRIQ talent through inventive-driven technology training and the delivery of cutting-edge IT services that solve real-world problems, inspire innovation, and strengthen the continent's digital resilience against emerging technological threats.
               </p>
               <div className="stats-container" style={{ justifyContent: 'center' }}>
                 <div className="stat-item">
@@ -433,10 +433,10 @@ export default function AboutUs() {
               <div className="page-eyebrow" style={{ color: 'var(--accent-green)', justifyContent: 'center' }}>Where We're Going</div>
               <h2>Our <span className="hl" style={{ color: 'var(--accent-orange)' }}>Vision</span></h2>
               <p>
-                Helping Africa attain technology independence by instilling creative thinking, fostering innovation, and delivering comprehensive IT services, thereby making a lasting impact on the continent's technological landscape.
+                Helping AFRIQ attain technology independence by instilling creative thinking, fostering innovation, and delivering comprehensive IT services, thereby making a lasting impact on the continent's technological landscape.
               </p>
               <p style={{ fontStyle: 'italic', opacity: 0.7, borderLeft: '3px solid var(--accent-green)', paddingLeft: '20px', marginTop: '24px', display: 'inline-block', textAlign: 'left' }}>
-                "Driving Africa to Technology Independence"
+                "Driving AFRIQ to Technology Independence"
               </p>
             </div>
           </div>
@@ -451,7 +451,7 @@ export default function AboutUs() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '20px', marginTop: '32px' }}>
               {[
                 { icon: '💡', title: 'Creativity', desc: 'Encouraging original thinking and innovative problem-solving.' },
-                { icon: '🇺🇬', title: 'Patriotism', desc: "Committed to positively contributing to Africa's tech growth." },
+                { icon: '🇺🇬', title: 'Patriotism', desc: "Committed to positively contributing to AFRIQ's tech growth." },
                 { icon: '⚖️', title: 'Gender Inclusion', desc: 'Promoting diversity and equal opportunity for all.' },
                 { icon: '🤝', title: 'Honesty', desc: 'Ensuring transparency, trust, and ethical conduct.' },
                 { icon: '🔗', title: 'Collaboration', desc: 'Embracing teamwork for stronger and more effective solutions.' },
@@ -538,7 +538,7 @@ export default function AboutUs() {
               <div className="value-icon">🎯</div>
               <div className="value-title" style={{ marginBottom: '20px' }}>Target Market</div>
               <p style={{ fontSize: '14px', color: 'var(--text-secondary)', marginBottom: '20px', lineHeight: 1.7 }}>
-                AFR-IQ Technologies serves a broad spectrum of clients and learners:
+                AFRIQ Technologies serves a broad spectrum of clients and learners:
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {[
@@ -573,7 +573,7 @@ export default function AboutUs() {
                   name: "Obuyinza Bwamukama (Sifu)",
                   role: "C.E.O & Instructor",
                   img: "/team/byamukama.jpg",
-                  desc: "Visionary leader and tech expert. Dedicated to driving Afriq's mission of driving Africa to technology independence through Research & Innovation, Quality I.T solutions and Industry Relevant Tech Training.",
+                  desc: "Visionary leader and tech expert. Dedicated to driving AFRIQ's mission of driving AFRIQ to technology independence through Research & Innovation, Quality I.T solutions and Industry Relevant Tech Training.",
                   skills: ["Leadership", "Strategy", "Cyber Sec & Networking", "Website Dev & Mobile App Dev"],
                   social: { linkedin: "https://linkedin.com", twitter: "https://x.com" }
                 },
@@ -700,7 +700,7 @@ export default function AboutUs() {
             <div className="about-text-content" style={{ textAlign: 'center', marginBottom: '40px' }}>
               <h2>Our <span className="hl" style={{ color: 'var(--accent-orange)' }}>Gallery</span></h2>
               <p style={{ maxWidth: '600px', margin: '0 auto' }}>
-                A glimpse into our world, events, and the people behind AFR-IQ Technologies.
+                A glimpse into our world, events, and the people behind AFRIQ Technologies.
               </p>
             </div>
 

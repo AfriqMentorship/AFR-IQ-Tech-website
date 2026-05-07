@@ -51,8 +51,15 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState("Home");
 
   const navigate = (page) => {
-    setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: "smooth" }); // scroll to top on page change
+    // page can be "Dashboard?student_id=123"
+    const [basePage, queryString] = page.split('?');
+    setCurrentPage(basePage);
+    
+    // Update browser URL without reload so window.location.search is available to components
+    const newUrl = queryString ? `?${queryString}` : '';
+    window.history.pushState({}, '', window.location.pathname + newUrl);
+    
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const { user, isRecovering, setIsRecovering } = useAuth();
@@ -75,7 +82,7 @@ export default function App() {
       case "Dashboard": return <IMSDashboard navigate={navigate} />;
       case "Videos": return <Videos navigate={navigate} />;
       case "Admin":
-        if (user?.profile?.role === 'admin' || user?.email === 'iamsifu.dev@gmail.com') {
+        if (user?.profile?.role === 'admin' || user?.email === 'iamsifu.dev@gmail.com' || user?.email === 'afriqtechnologies@gmail.com' || user?.email === 'kuteesamoses@gmail.com') {
           return <AdminDashboard navigate={navigate} />;
         }
         return (

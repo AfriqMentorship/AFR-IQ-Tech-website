@@ -622,7 +622,7 @@ const physicalCourses = [
   {
     image: "/courses/course_7.jpg",
     category: "Web Development", title: "Website Development",
-    instructor: "AFR-IQ Instructor", rating: 4.8, reviews: 560,
+    instructor: "AFRIQ Instructor", rating: 4.8, reviews: 560,
     duration: "8 Weeks", sessions: "Mon-Fri", level: "beg", levelLabel: "Beginner",
     price: "UGX 450,000", badge: "bestseller", enrolled: "2,100",
     location: "Makerere Kikoni, Sr. Apollo Kagwa Rd", schedule: "Mon – Fri",
@@ -631,7 +631,7 @@ const physicalCourses = [
   {
     image: "/courses/course_8.jpg",
     category: "Web Development", title: "Advanced Website Development",
-    instructor: "AFR-IQ Instructor", rating: 4.9, reviews: 430,
+    instructor: "AFRIQ Instructor", rating: 4.9, reviews: 430,
     duration: "12 Weeks", sessions: "Mon-Fri", level: "adv", levelLabel: "Advanced",
     price: "UGX 1,500,000", badge: "hot", enrolled: "680",
     location: "Makerere Kikoni, Sr. Apollo Kagwa Rd", schedule: "Mon – Fri",
@@ -640,7 +640,7 @@ const physicalCourses = [
   {
     image: "/courses/course_9.jpg",
     category: "Networking", title: "Networking (CCNA Prep)",
-    instructor: "AFR-IQ Instructor", rating: 4.8, reviews: 290,
+    instructor: "AFRIQ Instructor", rating: 4.8, reviews: 290,
     duration: "16 Weeks", sessions: "Mon-Fri", level: "int", levelLabel: "Intermediate",
     price: "UGX 700,000", badge: null, enrolled: "360",
     location: "Makerere Kikoni, Sr. Apollo Kagwa Rd", schedule: "Mon – Fri",
@@ -649,7 +649,7 @@ const physicalCourses = [
   {
     image: "/courses/course_10.jpg",
     category: "Networking", title: "Linux Systems Adminstration",
-    instructor: "AFR-IQ Instructor", rating: 4.7, reviews: 215,
+    instructor: "AFRIQ Instructor", rating: 4.7, reviews: 215,
     duration: "8 Weeks", sessions: "Mon-Fri", level: "int", levelLabel: "Intermediate",
     price: "UGX 450,000", badge: null, enrolled: "750",
     location: "Makerere Kikoni, Sr. Apollo Kagwa Rd", schedule: "Mon – Fri",
@@ -658,7 +658,7 @@ const physicalCourses = [
   {
     image: "/courses/cybersecurity.jpg",
     category: "Cybersecurity", title: "Cyber Security (Comptia Security+ Prep)",
-    instructor: "AFR-IQ Instructor", rating: 4.9, reviews: 380,
+    instructor: "AFRIQ Instructor", rating: 4.9, reviews: 380,
     duration: "12 Weeks", sessions: "Mon-Fri", level: "adv", levelLabel: "Advanced",
     price: "UGX 1,200,000", badge: "bestseller", enrolled: "490",
     location: "Makerere Kikoni, Sr. Apollo Kagwa Rd", schedule: "Mon – Fri",
@@ -667,7 +667,7 @@ const physicalCourses = [
   {
     image: "/courses/ethical_hacking.jpg",
     category: "Cybersecurity", title: "Ethical Hacking (CEH Prep)",
-    instructor: "AFR-IQ Instructor", rating: 4.9, reviews: 510,
+    instructor: "AFRIQ Instructor", rating: 4.9, reviews: 510,
     duration: "16 Weeks", sessions: "Mon-Fri", level: "adv", levelLabel: "Advanced",
     price: "UGX 2,500,000", badge: "hot", enrolled: "320",
     location: "Makarere Kikoni, Sr. Apollo Kagwa Rd", schedule: "Mon – Fri",
@@ -676,7 +676,7 @@ const physicalCourses = [
   {
     image: "/courses/cloud_computing.jpg",
     category: "Cloud Computing", title: "Cloud Computing (Comptia Cloud+ Prep)",
-    instructor: "AFR-IQ Instructor", rating: 4.8, reviews: 210,
+    instructor: "AFRIQ Instructor", rating: 4.8, reviews: 210,
     duration: "8 Weeks", sessions: "Mon-Fri", level: "int", levelLabel: "Intermediate",
     price: "UGX 650,000", badge: "new", enrolled: "410",
     location: "Makerere Kikoni, Sr. Apollo Kagwa Rd", schedule: "Mon – Fri",
@@ -685,7 +685,7 @@ const physicalCourses = [
   {
     image: "/courses/course_14.jpg",
     category: "Mobile Development", title: "Mobile App Development",
-    instructor: "AFR-IQ Instructor", rating: 4.8, reviews: 290,
+    instructor: "AFRIQ Instructor", rating: 4.8, reviews: 290,
     duration: "12 Weeks", sessions: "Mon-Fri", level: "adv", levelLabel: "Advanced",
     price: "UGX 1,200,000", badge: "new", enrolled: "360",
     location: "Makerere Kikoni, Sr. Apollo Kagwa Rd", schedule: "Mon – Fri",
@@ -694,7 +694,7 @@ const physicalCourses = [
   {
     image: "/courses/course_15.jpg",
     category: "Data", title: "Data Analysis",
-    instructor: "AFR-IQ Instructor", rating: 4.8, reviews: 290,
+    instructor: "AFRIQ Instructor", rating: 4.8, reviews: 290,
     duration: "8 Weeks", sessions: "Mon-Fri", level: "int", levelLabel: "Intermediate",
     price: "UGX 450,000", badge: "new", enrolled: "360",
     location: "Makerere Kikoni, Sr. Apollo Kagwa Rd", schedule: "Mon – Fri",
@@ -703,7 +703,7 @@ const physicalCourses = [
   {
     image: "/courses/video_editing.jpg",
     category: "Video Editing and Photography", title: "Video Editing and Photography",
-    instructor: "AFR-IQ Instructor", rating: 4.9, reviews: 195,
+    instructor: "AFRIQ Instructor", rating: 4.9, reviews: 195,
     duration: "8 Weeks", sessions: "Mon-Fri", level: "beg", levelLabel: "Beginner",
     price: "UGX 600,000", badge: "new", enrolled: "410",
     location: "Makerere Kikoni, Sr. Apollo Kagwa Rd", schedule: "Mon – Fri",
@@ -1405,11 +1405,16 @@ export default function Academy() {
           <div className="ac-hero-inner">
             <div className="ac-hero-content">
               <div className="ac-eyebrow">Academy</div>
+<<<<<<< Updated upstream
               <h1 className="ac-hero-title">Learn. <span className="hl">Think.</span> <span className="hl-alt">Innovate.</span></h1>
               <script dangerouslySetInnerHTML={{ __html: `console.log("🚀 AFRIQ_UPDATE_SUCCESS_V4");` }} />
 
+=======
+              <h1 className="ac-hero-title">Learn. <span className="hl">Think.</span> <span style={{ color: '#fff' }}>Innovate.</span></h1>
+>>>>>>> Stashed changes
               <p className="ac-hero-desc">
-                Professional IT training for East Africa's digital workforce. Choose between instructor-led physical classes in Kampala or flexible self-paced online courses.
+                Professional IT training for AFRIQ's digital workforce. 
+                Choose between instructor-led physical classes in Kampala or flexible self-paced online courses.
               </p>
               <div className="ac-hero-stats">
                 <div><div className="ac-stat-n">18</div><div className="ac-stat-l">Courses</div></div>

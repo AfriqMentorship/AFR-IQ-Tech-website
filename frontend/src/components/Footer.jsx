@@ -338,12 +338,12 @@ export default function Footer({ navigate }) {
                 <img src={logo} alt="AFR-IQ Logo" />
               </div>
               <div>
-                <div className="footer-brand-text">AFR-IQ</div>
+                <div className="footer-brand-text">AFRIQ</div>
                 <div className="footer-brand-sub">Technologies Ltd</div>
               </div>
             </div>
             <p className="footer-desc">
-              Empowering  Africa through innovative IT solutions, professional training, and premium smart devices. We bridge the gap between ambition and technology.
+              Empowering  AFRIQ through innovative IT solutions, professional training, and premium smart devices. We bridge the gap between ambition and technology.
             </p>
             <div className="footer-socials">
               <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="social-icon">𝕏</a>
@@ -410,7 +410,7 @@ export default function Footer({ navigate }) {
 
         {/* Bottom Bar */}
         <div className="footer-bottom">
-          <div>&copy; {new Date().getFullYear()} AFR-IQ Technologies Ltd. All rights reserved.</div>
+          <div>&copy; {new Date().getFullYear()} AFRIQ Technologies Ltd. All rights reserved.</div>
           <div className="footer-bottom-links">
             <span>Sitemap</span>
             <span>Accessibility</span>

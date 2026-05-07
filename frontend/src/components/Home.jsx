@@ -193,92 +193,7 @@ const styles = `
 
   @keyframes fadeUp { from { transform:translateY(30px); opacity:0; } to { transform:translateY(0); opacity:1; } }
 
-  /* ─── STATS COUNTER SECTION ─── */
-  .stats-section {
-    padding: 100px 48px;
-    background: var(--bg-base);
-    position: relative;
-    overflow: hidden;
-  }
-  .stats-section::before {
-    content: '';
-    position: absolute; inset: 0; z-index: 0;
-    background: radial-gradient(ellipse 80% 60% at 50% 50%, var(--accent-orange-glow) 0%, transparent 70%);
-    opacity: 0.4;
-  }
-  .stats-inner {
-    position: relative; z-index: 1;
-    max-width: 1100px; margin: 0 auto;
-  }
-  .stats-label {
-    font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.15em;
-    color: var(--accent-orange); text-align: center; margin-bottom: 16px;
-  }
-  .stats-heading {
-    font-family: 'Poppins', sans-serif; font-size: clamp(32px, 4vw, 52px);
-    font-weight: 800; color: var(--text-primary); text-align: center;
-    margin-bottom: 72px; letter-spacing: -0.02em; line-height: 1.1;
-  }
-  .stats-heading span { color: var(--accent-orange); }
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2px;
-  }
-  .stats-card {
-    background: var(--bg-level1);
-    border: 1px solid var(--border-subtle);
-    padding: 48px 32px;
-    text-align: center;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-  }
-  .stats-card::after {
-    content: '';
-    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-    width: 0; height: 3px;
-    background: var(--accent-gradient);
-    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .stats-card:hover { background: var(--bg-level2); transform: translateY(-8px); border-color: var(--accent-orange); box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
-  .stats-card:hover::after { width: 100%; }
-  .stats-card:first-child { border-radius: 20px 0 0 20px; }
-  .stats-card:last-child { border-radius: 0 20px 20px 0; }
 
-  .stats-card-icon {
-    font-size: 36px; margin-bottom: 20px;
-    display: inline-flex; width: 72px; height: 72px;
-    background: var(--bg-level2); border: 1px solid var(--border-subtle);
-    border-radius: 20px; align-items: center; justify-content: center;
-    transition: all 0.3s ease;
-  }
-  .stats-card:hover .stats-card-icon {
-    background: var(--accent-orange-glow);
-    border-color: var(--accent-orange);
-    transform: scale(1.1) rotate(-5deg);
-  }
-  .stats-count {
-    font-family: 'Poppins', sans-serif;
-    font-size: clamp(40px, 4vw, 64px);
-    font-weight: 800; line-height: 1;
-    color: var(--accent-orange);
-    letter-spacing: -0.02em;
-    margin-bottom: 8px;
-    transition: all 0.3s;
-  }
-  .stats-card:nth-child(2) .stats-count { color: var(--accent-green); }
-  .stats-card:nth-child(3) .stats-count { color: #4a90e2; }
-  .stats-card:nth-child(4) .stats-count { color: #9b59b6; }
-  .stats-card-title {
-    font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 700;
-    color: var(--text-primary); margin-bottom: 6px;
-  }
-  .stats-card-desc {
-    font-family: 'Inter', sans-serif; font-size: 12px; color: var(--text-muted);
-    font-weight: 500; line-height: 1.5;
-  }
 
   /* ─── TESTIMONIALS SECTION ─── */
   .testimonials-section {
@@ -660,11 +575,11 @@ export default function Home({ navigate }) {
             <div className="hero-tag"><div className="hero-tag-dot" />Learn. Think. Innovate</div>
             <h1 className="hero-title">
               Driving
-              <span className="accent">Africa To Technology</span>
+              <span className="accent">AFRIQ To Technology</span>
               <span className="accent2">Independence.</span>
             </h1>
             <p className="hero-subtitle">
-              Innovative IT infrastructure, professional technology training, and cutting-edge smart device sales — empowering businesses across East Africa.
+              Innovative IT infrastructure, professional technology training, and cutting-edge smart device sales — empowering businesses across East AFRIQ.
             </p>
             <div className="hero-ctas">
               <button className="hero-btn-primary" onClick={() => navigate("Services")}>Explore Services</button>

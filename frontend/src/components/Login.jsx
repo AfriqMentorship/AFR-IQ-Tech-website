@@ -370,7 +370,7 @@ export default function Login({ navigate }) {
     if (studentInt) {
       const studentName = studentInt.full_name || `${studentInt.first_name} ${studentInt.last_name}`;
       setSuccess(`Linked to student: ${studentName}. Redirecting to dashboard...`);
-      setTimeout(() => navigate(`IMS?student_id=${studentInt.student_id}`), 1500);
+      setTimeout(() => navigate(`Dashboard?student_id=${studentInt.student_id}`), 1500);
     } else {
       setSuccess("Account verified! However, no student was found with that Registration Number.");
       setError("Please ensure the student has already submitted their IMS application with the correct Reg No.");
