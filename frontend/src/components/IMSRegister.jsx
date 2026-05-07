@@ -128,7 +128,6 @@ export default function IMSRegister({ user, onComplete }) {
 
             <form onSubmit={handleSubmit}>
 
-<<<<<<< Updated upstream
                 <div className="form-group">
                     <label className="form-label">Full Name *</label>
                     <input 
@@ -150,29 +149,6 @@ export default function IMSRegister({ user, onComplete }) {
                         required 
                     />
                 </div>
-=======
-                    <div className="form-group">
-                        <label className="form-label">Full Name *</label>
-                        <input 
-                            type="text" 
-                            name="full_name" 
-                            className="form-input" 
-                            placeholder="Full Name"
-                            value={formData.full_name || `${formData.first_name || ""} ${formData.last_name || ""}`.trim()} 
-                            onChange={(e) => {
-                                const val = e.target.value;
-                                const parts = val.trim().split(" ");
-                                setFormData({
-                                    ...formData,
-                                    full_name: val,
-                                    first_name: parts[0] || "",
-                                    last_name: parts.slice(1).join(" ") || ""
-                                });
-                            }} 
-                            required 
-                        />
-                    </div>
->>>>>>> Stashed changes
 
                 <div className="form-group">
                     <label className="form-label">Email Address *</label>

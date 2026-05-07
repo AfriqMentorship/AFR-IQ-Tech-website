@@ -1405,13 +1405,8 @@ export default function Academy() {
           <div className="ac-hero-inner">
             <div className="ac-hero-content">
               <div className="ac-eyebrow">Academy</div>
-<<<<<<< Updated upstream
               <h1 className="ac-hero-title">Learn. <span className="hl">Think.</span> <span className="hl-alt">Innovate.</span></h1>
               <script dangerouslySetInnerHTML={{ __html: `console.log("🚀 AFRIQ_UPDATE_SUCCESS_V4");` }} />
-
-=======
-              <h1 className="ac-hero-title">Learn. <span className="hl">Think.</span> <span style={{ color: '#fff' }}>Innovate.</span></h1>
->>>>>>> Stashed changes
               <p className="ac-hero-desc">
                 Professional IT training for AFRIQ's digital workforce. 
                 Choose between instructor-led physical classes in Kampala or flexible self-paced online courses.
