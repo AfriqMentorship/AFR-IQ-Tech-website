@@ -82,7 +82,7 @@ export default function App() {
       case "Dashboard": return <IMSDashboard navigate={navigate} />;
       case "Videos": return <Videos navigate={navigate} />;
       case "Admin":
-        if (user?.profile?.role === 'admin' || user?.email === 'iamsifu.dev@gmail.com' || user?.email === 'afriqtechnologies@gmail.com' || user?.email === 'kuteesamoses@gmail.com') {
+        if (user?.profile?.role === 'admin' || user?.email === 'iamsifu.dev@gmail.com') {
           return <AdminDashboard navigate={navigate} />;
         }
         return (

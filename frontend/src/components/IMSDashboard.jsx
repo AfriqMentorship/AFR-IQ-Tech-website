@@ -702,7 +702,7 @@ export default function IMSDashboard({ navigate }) {
     }
 
     // Determine user role
-    const role = (user.profile?.role === 'admin' || user.email === 'iamsifu.dev@gmail.com' || user.email === 'afriqtechnologies@gmail.com' || user.email === 'kuteesamoses@gmail.com') ? 'admin' : (user.profile?.role || "student");
+    const role = (user.profile?.role === 'admin' || user.email === 'iamsifu.dev@gmail.com') ? 'admin' : (user.profile?.role || "student");
 
     return (
         <>

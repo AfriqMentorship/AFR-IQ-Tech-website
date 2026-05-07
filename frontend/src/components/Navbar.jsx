@@ -355,7 +355,7 @@ export default function Navbar({ currentPage, navigate }) {
     setDrawerOpen(false);
   };
 
-  const isAdmin = user?.profile?.role === 'admin' || user?.email === 'iamsifu.dev@gmail.com' || user?.email === 'afriqtechnologies@gmail.com' || user?.email === 'kuteesamoses@gmail.com';
+  const isAdmin = user?.profile?.role === 'admin' || user?.email === 'iamsifu.dev@gmail.com';
   const visibleLinks = navLinks.filter(l => l.key !== 'Admin' || isAdmin);
 
   // Filter drawer links by search
