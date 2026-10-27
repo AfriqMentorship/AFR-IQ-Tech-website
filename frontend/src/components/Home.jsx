@@ -575,7 +575,7 @@ export default function Home({ navigate }) {
             <div className="hero-tag"><div className="hero-tag-dot" />Learn. Think. Innovate</div>
             <h1 className="hero-title">
               Driving
-              <span className="accent">AFRIQ To Technology</span>
+              <span className="accent">Africa To Technology</span>
               <span className="accent2">Independence.</span>
             </h1>
             <p className="hero-subtitle">

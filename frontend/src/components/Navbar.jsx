@@ -457,6 +457,7 @@ export default function Navbar({ currentPage, navigate }) {
                   <span style={{ fontSize: "11px", fontWeight: "600", color: "var(--text)", fontFamily: "'Poppins', sans-serif", lineHeight: 1 }}>
                     {user.user_metadata?.full_name?.split(" ")[0] || "User"}
                   </span>
+                  <span style={{ fontSize: "9px", color: "var(--accent-orange)" }}>{user.email}</span>
                   <button onClick={logout} style={{ fontSize: "9px", color: "rgba(var(--text-rgb), 0.5)", background: "none", border: "none", cursor: "pointer", padding: 0, fontFamily: "'Inter', sans-serif" }}>
                     Sign Out
                   </button>
