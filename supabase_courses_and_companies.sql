@@ -17,22 +17,22 @@ CREATE POLICY "Allow all public courses" ON public.courses USING (true) WITH CHE
 
 -- Insert the short courses
 INSERT INTO public.courses (title, duration, price) VALUES
-('Computer Fundamentals', '10 weeks', 'UGX. 500,000'),
-('Business Computing (Quick Books And Tally)', '4 weeks', 'UGX. 400,000'),
-('Graphics Design (Photoshop, Illustrator, Canva, Design Principles, Color theory etc)', '8 weeks', 'UGX. 450,000'),
+('Computer Fundamentals', '10 weeks', 'UGX. 600,000'),
+('Business Computing (Quick Books And Tally)', '4 weeks', 'UGX. 600,000'),
+('Graphics Design (Photoshop, Illustrator, Canva, Design Principles, Color theory etc)', '8 weeks', 'UGX. 500,000'),
 ('Digital Marketing', '6 weeks', 'UGX. 500,000'),
-('Computer Repair And Maintenance', '8 weeks', 'UGX. 600,000'),
-('Introduction to Programming | Coding', '4 weeks', 'UGX. 450,000'),
-('Website Development (HTML, CSS and JavaScript Mastery)', '8 weeks', 'UGX. 450,000'),
+('Computer Repair And Maintenance', '8 weeks', 'UGX. 800,000'),
+('Introduction to Programming | Coding', '4 weeks', 'UGX. 600,000'),
+('Website Development (HTML, CSS and JavaScript Mastery)', '8 weeks', 'UGX. 600,000'),
 ('Advanced Website Development (Django, React, Next Js - Become a Professional Web Dev)', '12 weeks', 'UGX. 1.5M'),
-('Networking (CCNA Prep)', '16 weeks', 'UGX. 700,000'),
-('Linux Systems Adminstration', '8 weeks', 'UGX. 450,000'),
-('Cyber Security (Comptia Security+ Prep)', '12 weeks', 'UGX. 1.2M'),
-('Ethical Hacking (CEH Prep)', '16 weeks', 'UGX. 2.5M'),
-('Cloud Computing (Comptia Cloud+ Prep)', '8 weeks', 'UGX. 650,000'),
-('Mobile App Development', '12 weeks', 'UGX. 1.2M'),
-('Data Analysis', '6 weeks', 'UGX. 400,000'),
-('Video Editing and Photography', '8 weeks', 'UGX. 600,000');
+('Networking (CCNA Prep)', '16 weeks', 'UGX. 800,000'),
+('Linux Systems Adminstration', '8 weeks', 'UGX. 600,000'),
+('Cyber Security (Comptia Security+ Prep)', '12 weeks', 'UGX. 2,500,000'),
+('Ethical Hacking (CEH Prep)', '16 weeks', 'UGX. 3,500,000'),
+('Cloud Computing (Comptia Cloud+ Prep)', '8 weeks', 'UGX. 800,000'),
+('Mobile App Development', '12 weeks', 'UGX. 2,000,000'),
+('Data Analysis', '6 weeks', 'UGX. 600,000'),
+('Video Editing and Photography', '8 weeks', 'UGX. 800,000');
 
 
 -- =============================================
