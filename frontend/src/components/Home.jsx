@@ -579,7 +579,7 @@ export default function Home({ navigate }) {
               <span className="accent2">Independence.</span>
             </h1>
             <p className="hero-subtitle">
-              Innovative IT infrastructure, professional technology training, and cutting-edge smart device sales — empowering businesses across East AFRIQ.
+              Innovative IT infrastructure, professional technology training, and cutting-edge smart device sales — empowering businesses across East Africa.
             </p>
             <div className="hero-ctas">
               <button className="hero-btn-primary" onClick={() => navigate("Services")}>Explore Services</button>
